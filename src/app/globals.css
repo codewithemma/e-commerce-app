@@ -1,6 +1,8 @@
 :root {
+  --bg: white;
   --secondaryColor: #d9d9d9;
   --tertiaryColor: #db4444;
+  --softBg: #000;
 }
 
 * {
@@ -20,17 +22,17 @@ a {
 }
 
 .dark {
-  --bg: #0f172a;
+  --bg: #20262a;
   --textColor: #ddd;
-  --softBg: #1f273a;
-  --softTextColor: #a6a6a6;
+  --softBg: #20262a;
+  /* --softTextColor: #a6a6a6; */
 }
 
 .light {
   --bg: white;
   --textColor: black;
-  --softBg: #f0f0f0;
-  --softTextColor: #626262;
+  --softBg: black;
+  /* --softTextColor: #626262; */
 }
 
 .container {

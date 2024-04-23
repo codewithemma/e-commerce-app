@@ -1,6 +1,6 @@
 import Wrapper from "../wrapper/Wrapper";
 import styles from "./Footer.module.css";
-
+import Link from "next/link";
 const Footer = () => {
   return (
     <div className={styles.footer}>
@@ -10,24 +10,28 @@ const Footer = () => {
             <h2>Exclusive</h2>
             <p>Subscribe</p>
             <p>Get 10% off your first order</p>
-            <input type="text" placeholder="Enter your Email" />
+            <input
+              className={styles.input}
+              type="text"
+              placeholder="Enter your Email"
+            />
           </div>
           <div>
             <p>Support</p>
-            <a href="#">http://aga.ga/nap</a>
-            <a>+234 80 2324 8214</a>
+            <Link href="/">http://aga.ga/nap</Link>
+            <Link href="/">2324 8214</Link>
           </div>
           <div>
-            <a href="#">My Account</a>
-            <a href="#">Login / Register</a>
-            <a href="#">Cart</a>
-            <a href="#">Shop</a>
+            <Link href="#">My Account</Link>
+            <Link href="/login">Login / Register</Link>
+            <Link href="/cart">Cart</Link>
+            <Link href="#">Shop</Link>
           </div>
           <div>
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms of Use</a>
-            <a href="#">FAQ</a>
-            <a href="#">Contact</a>
+            <Link href="/">Privacy Policy</Link>
+            <Link href="/">Terms of Use</Link>
+            <Link href="/">FAQ</Link>
+            <Link href="/">Contact</Link>
           </div>
         </div>
       </Wrapper>
