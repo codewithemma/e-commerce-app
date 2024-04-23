@@ -1,0 +1,55 @@
+.hero {
+  margin-top: 25px;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  justify-content: center;
+  align-items: center;
+}
+
+.form {
+  padding: 0 20px;
+}
+
+.form h2 {
+  font-size: 36px;
+  margin-bottom: 17px;
+}
+.form p {
+  font-size: 16px;
+  font-weight: 400;
+  margin-bottom: 15px;
+}
+
+.input_group {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.input_group input {
+  outline: none;
+  border: none;
+  border-bottom: 1px solid var(--secondaryColor);
+  padding-bottom: 10px;
+}
+.hero_child {
+  position: relative;
+  width: 100%;
+  height: 700px;
+}
+
+.button_group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  margin-top: 20px;
+}
+.button_group a:nth-of-type(1) {
+  background-color: var(--tertiaryColor);
+  color: #fff;
+  padding: 10px 30px;
+  border-radius: 5px;
+}
+.button_group a:nth-of-type(2) {
+  color: var(--tertiaryColor);
+}
