@@ -1,6 +1,15 @@
-import React from "react";
 import styles from "./Category.module.css";
-import Image from "next/image";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faMobile,
+  faComputer,
+  faSwatchbook,
+  faCamera,
+  faGamepad,
+  faHeadphones,
+  faArrowLeft,
+  faArrowRight,
+} from "@fortawesome/free-solid-svg-icons";
 const Category = () => {
   return (
     <div className={styles.container}>
@@ -12,85 +21,37 @@ const Category = () => {
         <p>Browse By Category</p>
         <div className={styles.btn_group}>
           <button>
-            <Image
-              src="/assets/arrow-left.svg"
-              alt="arrow"
-              width={20}
-              height={20}
-              priority
-            />
+            <FontAwesomeIcon icon={faArrowLeft} size="2x" />
           </button>
           <button>
-            <Image
-              src="/assets/arrow-right.svg"
-              alt="arrow"
-              width={20}
-              height={20}
-              priority
-            />
+            <FontAwesomeIcon icon={faArrowRight} size="2x" />
           </button>
         </div>
       </div>
       <div className={styles.grid}>
         <div className={styles.cat_box}>
-          <Image
-            src={"/assets/phone.svg"}
-            alt="dd"
-            width={56}
-            height={56}
-            priority
-          />
-          <p>Phones</p>
+          <FontAwesomeIcon icon={faComputer} size="2x" />
+          <p>Computers</p>
         </div>
         <div className={styles.cat_box}>
-          <Image
-            src={"/assets/phone.svg"}
-            alt="dd"
-            width={56}
-            height={56}
-            priority
-          />
+          <FontAwesomeIcon icon={faMobile} size="2x" />
           <p>Phones</p>
         </div>{" "}
         <div className={styles.cat_box}>
-          <Image
-            src={"/assets/phone.svg"}
-            alt="dd"
-            width={56}
-            height={56}
-            priority
-          />
-          <p>Phones</p>
+          <FontAwesomeIcon icon={faSwatchbook} size="2x" />
+          <p>SmartWatch</p>
         </div>{" "}
         <div className={styles.cat_box}>
-          <Image
-            src={"/assets/phone.svg"}
-            alt="dd"
-            width={56}
-            height={56}
-            priority
-          />
-          <p>Phones</p>
+          <FontAwesomeIcon icon={faHeadphones} size="2x" />
+          <p>Headphone</p>
         </div>{" "}
         <div className={styles.cat_box}>
-          <Image
-            src={"/assets/phone.svg"}
-            alt="dd"
-            width={56}
-            height={56}
-            priority
-          />
-          <p>Phones</p>
+          <FontAwesomeIcon icon={faCamera} size="2x" />
+          <p>Camera</p>
         </div>{" "}
         <div className={styles.cat_box}>
-          <Image
-            src={"/assets/phone.svg"}
-            alt="dd"
-            width={56}
-            height={56}
-            priority
-          />
-          <p>Phones</p>
+          <FontAwesomeIcon icon={faGamepad} size="2x" />
+          <p>Gaming</p>
         </div>
       </div>
     </div>
