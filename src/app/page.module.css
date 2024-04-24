@@ -1,5 +1,8 @@
 .container_flex {
-  /* display: grid;
-  grid-row: 1fr 3fr; */
   display: flex;
+}
+.img_container {
+  position: relative;
+  height: 500px;
+  width: 100vw;
 }

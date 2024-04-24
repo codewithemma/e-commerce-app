@@ -4,6 +4,7 @@ import EmblaCarousel from "@/components/carousel/EmblaCarousel";
 import ProductList from "@/components/productList/ProductList";
 import Border from "@/components/border/Border";
 import Category from "@/components/category/Category";
+import Image from "next/image";
 export default function Home() {
   return (
     <>
@@ -13,6 +14,16 @@ export default function Home() {
       </div>
       <Border />
       <Category />
+      <Border />
+      <div className={styles.img_container}>
+        <Image
+          src="/assets/test1.svg"
+          alt="cat img"
+          priority
+          fill
+          style={{ objectFit: "cover" }}
+        />
+      </div>
     </>
   );
 }
