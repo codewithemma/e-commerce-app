@@ -29,8 +29,10 @@ const Login = () => {
             <input type="password" placeholder="Password" />
           </div>
           <div className={styles.button_group}>
-            <Link href="/">Log in</Link>
-            <Link href="#" onClick={handleClick}>
+            <Link className={styles.link} href="/">
+              Log in
+            </Link>
+            <Link className={styles.link} href="#" onClick={handleClick}>
               Sign Up
             </Link>
           </div>
@@ -48,7 +50,10 @@ const Login = () => {
             <Link className={styles.link} href="/">
               Create Account
             </Link>
-            <Link className={styles.link} href="/">
+            <Link
+              className={`${styles.link} ${styles.google_button} `}
+              href="/"
+            >
               <span>
                 <Image
                   src="/assets/google.svg"
@@ -68,7 +73,7 @@ const Login = () => {
           <div className={styles.end}>
             <p>Already have an account?</p>
             <p onClick={handleClick} style={{ cursor: "pointer" }}>
-              Log in{" "}
+              Log in
             </p>
           </div>
         </div>

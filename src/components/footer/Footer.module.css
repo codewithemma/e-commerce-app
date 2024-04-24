@@ -38,3 +38,34 @@
   width: 200px;
   height: 50px;
 }
+@media screen and (max-width: 768px) {
+  .footer_link {
+    font-size: 11px;
+  }
+  .footer_grid h2 {
+    font-size: 13px;
+  }
+  .footer_grid p {
+    font-size: 10px;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .footer_link {
+    font-size: 9px;
+  }
+  .footer_grid h2 {
+    font-size: 11px;
+  }
+  .footer_grid p {
+    font-size: 9px;
+  }
+  .input {
+    border: 1px solid white;
+    width: 80px;
+    height: 20px;
+  }
+  .input::placeholder {
+    font-size: 7px;
+  }
+}

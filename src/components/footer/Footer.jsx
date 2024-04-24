@@ -18,20 +18,40 @@ const Footer = () => {
           </div>
           <div>
             <p>Support</p>
-            <Link href="/">http://aga.ga/nap</Link>
-            <Link href="/">2324 8214</Link>
+            <Link className={styles.footer_link} href="/">
+              http://aga.ga/nap
+            </Link>
+            <Link className={styles.footer_link} href="/">
+              2324 8214
+            </Link>
           </div>
           <div>
-            <Link href="#">My Account</Link>
-            <Link href="/login">Login / Register</Link>
-            <Link href="/cart">Cart</Link>
-            <Link href="#">Shop</Link>
+            <Link className={styles.footer_link} href="#">
+              My Account
+            </Link>
+            <Link className={styles.footer_link} href="/login">
+              Login / Register
+            </Link>
+            <Link className={styles.footer_link} href="/cart">
+              Cart
+            </Link>
+            <Link className={styles.footer_link} href="#">
+              Shop
+            </Link>
           </div>
           <div>
-            <Link href="/">Privacy Policy</Link>
-            <Link href="/">Terms of Use</Link>
-            <Link href="/">FAQ</Link>
-            <Link href="/">Contact</Link>
+            <Link className={styles.footer_link} href="/">
+              Privacy Policy
+            </Link>
+            <Link className={styles.footer_link} href="/">
+              Terms of Use
+            </Link>
+            <Link className={styles.footer_link} href="/">
+              FAQ
+            </Link>
+            <Link className={styles.footer_link} href="/">
+              Contact
+            </Link>
           </div>
         </div>
       </Wrapper>

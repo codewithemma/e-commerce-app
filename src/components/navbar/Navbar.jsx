@@ -1,9 +1,13 @@
+"use client";
 import Wrapper from "../wrapper/Wrapper";
 import styles from "./Navbar.module.css";
 import Link from "next/link";
 import Image from "next/image";
 import ThemeToggle from "../themeToggle/ThemeToggle";
+import { useState } from "react";
 const Navbar = () => {
+  const [open, setOpen] = useState(false);
+  const status = "notauthenticated";
   return (
     <>
       <Wrapper>
@@ -11,10 +15,18 @@ const Navbar = () => {
           <h2>Exclusive</h2>
           <ul>
             <li className={styles.nav_flex}>
-              <Link href="/">Home</Link>
-              <Link href="/">Contact</Link>
-              <Link href="/">About</Link>
-              <Link href="/login">Sign Up</Link>
+              <Link className={styles.nav_link} href="/">
+                Home
+              </Link>
+              <Link className={styles.nav_link} href="/">
+                Contact
+              </Link>
+              <Link className={styles.nav_link} href="/">
+                About
+              </Link>
+              <Link className={styles.nav_link} href="/login">
+                Sign Up
+              </Link>
             </li>
           </ul>
           <div className={styles.input_group}>
@@ -26,6 +38,7 @@ const Navbar = () => {
             <span>
               <Image
                 src="/assets/magnify.svg"
+                className={styles.input_image}
                 width={25}
                 height={25}
                 alt="search icon"
@@ -39,6 +52,38 @@ const Navbar = () => {
           </div>
           <div>
             <ThemeToggle />
+          </div>
+          <div>
+            <div className={styles.burger} onClick={() => setOpen(!open)}>
+              <div className={styles.line}></div>
+              <div className={styles.line}></div>
+              <div className={styles.line}></div>
+            </div>
+            {open && (
+              <div className={styles.responsiveMenu}>
+                <Link className={styles.responsive_link} href="/">
+                  Home
+                </Link>
+                <Link className={styles.responsive_link} href="/">
+                  Contact
+                </Link>
+                <Link className={styles.responsive_link} href="/">
+                  About
+                </Link>
+                {status === "notauthenticated" ? (
+                  <Link className={styles.responsive_link} href="/login">
+                    Login
+                  </Link>
+                ) : (
+                  <>
+                    <Link className={styles.responsive_link} href="/write">
+                      Cart
+                    </Link>
+                    <span className={styles.link}>Logout</span>
+                  </>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </Wrapper>
