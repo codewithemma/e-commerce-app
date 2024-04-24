@@ -1,0 +1,5 @@
+.container_flex {
+  /* display: grid;
+  grid-row: 1fr 3fr; */
+  display: flex;
+}

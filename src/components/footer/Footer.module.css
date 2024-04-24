@@ -68,4 +68,9 @@
   .input::placeholder {
     font-size: 7px;
   }
+  .footer .footer_grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 13px;
+  }
 }

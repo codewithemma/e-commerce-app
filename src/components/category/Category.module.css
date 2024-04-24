@@ -1,0 +1,51 @@
+.upper {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 5px;
+}
+.box {
+  width: 20px;
+  height: 40px;
+  border-radius: 3px;
+  background-color: var(--tertiaryColor);
+}
+.p {
+  font-weight: 500;
+  color: var(--tertiaryColor);
+}
+.flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.flex p {
+  font-size: 36px;
+  font-weight: 500;
+}
+.btn_group button {
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  background-color: var(--productBg);
+  border: none;
+  cursor: pointer;
+}
+.cat_box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--secondaryColor);
+}
+.cat_box:hover {
+  background-color: var(--tertiaryColor);
+  transition: background 0.5s ease-in;
+  color: white;
+}
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  gap: 15px;
+  margin: 30px 0;
+}

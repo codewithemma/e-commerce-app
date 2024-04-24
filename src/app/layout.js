@@ -1,4 +1,4 @@
-import { Inter } from "next/font/google";
+import { Roboto } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navbar/Navbar";
 import Footer from "@/components/footer/Footer";
@@ -6,7 +6,10 @@ import Wrapper from "@/components/wrapper/Wrapper";
 import { ThemeContextProvider } from "@/context/ThemeContext";
 import ThemeProvider from "@/providers/ThemeProvider";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Roboto({
+  subsets: ["latin"],
+  weight: ["400"],
+});
 
 export const metadata = {
   title: "Exclusive",
@@ -21,7 +24,7 @@ export default function RootLayout({ children }) {
           <ThemeProvider>
             <div className="container">
               <Navbar />
-              <Wrapper> {children}</Wrapper>
+              <Wrapper>{children}</Wrapper>
               <Footer />
             </div>
           </ThemeProvider>
