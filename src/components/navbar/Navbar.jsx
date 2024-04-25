@@ -5,9 +5,9 @@ import Link from "next/link";
 import Image from "next/image";
 import ThemeToggle from "../themeToggle/ThemeToggle";
 import { useState } from "react";
-import { useSession, signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCartShopping, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import Dropdown from "../dropdown/Dropdown";
 const Navbar = () => {
   const { status } = useSession();
@@ -68,7 +68,7 @@ const Navbar = () => {
           <div className={styles.auth_icons}>
             <FontAwesomeIcon icon={faCartShopping} size="lg" />
             <Dropdown />
-          </div>{" "}
+          </div>
           <div>
             <div className={styles.burger} onClick={() => setOpen(!open)}>
               <div className={styles.line}></div>
