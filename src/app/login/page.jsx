@@ -3,7 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import styles from "./Login.module.css";
 import { useState } from "react";
+import { useSession, signIn, signOut } from "next-auth/react";
 const Login = () => {
+  const { data, status } = useSession();
+  // console.log(data, status);
   const [toggle, setToggle] = useState(false);
 
   const handleClick = () => {
@@ -51,6 +54,7 @@ const Login = () => {
               Create Account
             </Link>
             <Link
+              onClick={() => signIn("google")}
               className={`${styles.link} ${styles.google_button} `}
               href="/"
             >

@@ -29,26 +29,29 @@ const Navbar = () => {
               </Link>
             </li>
           </ul>
-          <div className={styles.input_group}>
-            <input
-              className={styles.input}
-              type="text"
-              placeholder="what are you looking for....?"
-            />
-            <span>
-              <Image
-                src="/assets/magnify.svg"
-                className={styles.input_image}
-                width={25}
-                height={25}
-                alt="search icon"
-                style={{
-                  position: "absolute",
-                  top: 15,
-                  right: 10,
-                }}
+          <div>
+            {/* <div>Authlinks</div>{" "} */}
+            <div className={styles.input_group}>
+              <input
+                className={styles.input}
+                type="text"
+                placeholder="what are you looking for....?"
               />
-            </span>
+              <span>
+                <Image
+                  src="/assets/magnify.svg"
+                  className={styles.input_image}
+                  width={25}
+                  height={25}
+                  alt="search icon"
+                  style={{
+                    position: "absolute",
+                    top: 15,
+                    right: 10,
+                  }}
+                />
+              </span>
+            </div>
           </div>
           <div>
             <ThemeToggle />

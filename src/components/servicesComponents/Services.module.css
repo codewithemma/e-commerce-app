@@ -1,0 +1,19 @@
+.container {
+  margin: 70px 0;
+}
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  /* padding: 0 30px; */
+}
+.flex {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+}
+.flex p:nth-of-type(1) {
+  font-size: 20px;
+  font-weight: 600;
+}

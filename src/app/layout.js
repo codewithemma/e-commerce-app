@@ -3,10 +3,11 @@ import "./globals.css";
 import Navbar from "@/components/navbar/Navbar";
 import Footer from "@/components/footer/Footer";
 import Wrapper from "@/components/wrapper/Wrapper";
-import { ThemeContextProvider } from "@/context/ThemeContext";
+import ThemeContextProvider from "@/context/ThemeContext";
 import ThemeProvider from "@/providers/ThemeProvider";
+import AuthProvider from "@/providers/AuthProvider";
 
-const inter = Roboto({
+const roboto = Roboto({
   subsets: ["latin"],
   weight: ["400"],
 });
@@ -19,16 +20,18 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <ThemeContextProvider>
-          <ThemeProvider>
-            <div className="container">
-              <Navbar />
-              <Wrapper>{children}</Wrapper>
-              <Footer />
-            </div>
-          </ThemeProvider>
-        </ThemeContextProvider>
+      <body className={roboto.className}>
+        <AuthProvider>
+          <ThemeContextProvider>
+            <ThemeProvider>
+              <div className="container">
+                <Navbar />
+                <Wrapper>{children}</Wrapper>
+                <Footer />
+              </div>
+            </ThemeProvider>
+          </ThemeContextProvider>
+        </AuthProvider>
       </body>
     </html>
   );

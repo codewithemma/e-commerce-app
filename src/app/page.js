@@ -5,6 +5,7 @@ import ProductList from "@/components/productList/ProductList";
 import Border from "@/components/border/Border";
 import Category from "@/components/category/Category";
 import Image from "next/image";
+import Services from "@/components/servicesComponents/Services";
 export default function Home() {
   return (
     <>
@@ -24,6 +25,7 @@ export default function Home() {
           style={{ objectFit: "cover" }}
         />
       </div>
+      <Services />
     </>
   );
 }
