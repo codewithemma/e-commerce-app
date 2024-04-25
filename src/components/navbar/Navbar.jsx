@@ -5,9 +5,13 @@ import Link from "next/link";
 import Image from "next/image";
 import ThemeToggle from "../themeToggle/ThemeToggle";
 import { useState } from "react";
+import { useSession, signOut } from "next-auth/react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCartShopping, faUser } from "@fortawesome/free-solid-svg-icons";
+import Dropdown from "../dropdown/Dropdown";
 const Navbar = () => {
+  const { status } = useSession();
   const [open, setOpen] = useState(false);
-  const status = "notauthenticated";
   return (
     <>
       <Wrapper>
@@ -24,13 +28,18 @@ const Navbar = () => {
               <Link className={styles.nav_link} href="/">
                 About
               </Link>
-              <Link className={styles.nav_link} href="/login">
-                Sign Up
-              </Link>
+              {status === "authenticated" ? (
+                <Link className={styles.nav_link} href="/">
+                  Wishlist
+                </Link>
+              ) : (
+                <Link className={styles.nav_link} href="/login">
+                  Sign Up
+                </Link>
+              )}
             </li>
           </ul>
           <div>
-            {/* <div>Authlinks</div>{" "} */}
             <div className={styles.input_group}>
               <input
                 className={styles.input}
@@ -56,6 +65,10 @@ const Navbar = () => {
           <div>
             <ThemeToggle />
           </div>
+          <div className={styles.auth_icons}>
+            <FontAwesomeIcon icon={faCartShopping} size="lg" />
+            <Dropdown />
+          </div>{" "}
           <div>
             <div className={styles.burger} onClick={() => setOpen(!open)}>
               <div className={styles.line}></div>
@@ -73,7 +86,7 @@ const Navbar = () => {
                 <Link className={styles.responsive_link} href="/">
                   About
                 </Link>
-                {status === "notauthenticated" ? (
+                {status === "unauthenticated" ? (
                   <Link className={styles.responsive_link} href="/login">
                     Login
                   </Link>

@@ -55,6 +55,11 @@
   font-size: 36px;
   z-index: 999;
 }
+.auth_icons {
+  display: flex;
+  gap: 10px;
+  cursor: pointer;
+}
 @media screen and (max-width: 1024px) {
   .nav_flex .nav_link {
     font-size: 14px;

@@ -4,14 +4,20 @@ import Link from "next/link";
 import styles from "./Login.module.css";
 import { useState } from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
 const Login = () => {
   const { data, status } = useSession();
-  // console.log(data, status);
+  console.log(data, status);
+  const router = useRouter();
   const [toggle, setToggle] = useState(false);
 
   const handleClick = () => {
     setToggle(!toggle);
   };
+  if (status === "authenticated") {
+    router.push("/");
+    return;
+  }
   return (
     <div className={styles.hero}>
       <div className={styles.hero_child}>
