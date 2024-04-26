@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-const Dropdown = () => {
+const Dropdown = ({ className, disabled }) => {
   const [selectedOption, setSelectedOption] = useState("option 1");
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
@@ -45,6 +45,8 @@ const Dropdown = () => {
           onClick={() => setIsOpen(!isOpen)}
           icon={faUser}
           size="lg"
+          className={className}
+          disabled={disabled}
         />
       </div>
       {isOpen && (

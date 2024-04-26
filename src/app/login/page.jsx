@@ -18,20 +18,23 @@ const Login = () => {
   const handleChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
-  const handleCreateAccount = (event) => {
+  const handleCreateAccount = async (event) => {
     event.preventDefault;
     if (formData.username || formData.email || formData.password) {
       setError("Must provide all credentials");
     }
     try {
       setPending(true);
-      const res = await fetch('api/register', {
-        method:'POST',
-        headers:{
-          'Content-Type':"application/json"
+      const res = await fetch("api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-        body:JSON.stringify(formData)
-      })
+        body: JSON.stringify(formData),
+      });
+      if (res.ok) {
+        setPending(false);
+      }
     } catch (error) {}
   };
   const handleClick = () => {

@@ -67,7 +67,11 @@ const Navbar = () => {
           </div>
           <div className={styles.auth_icons}>
             <FontAwesomeIcon icon={faCartShopping} size="lg" />
-            <Dropdown />
+            {status === "authenticated" ? (
+              <Dropdown />
+            ) : (
+              <Dropdown className={styles.disabled} />
+            )}
           </div>
           <div>
             <div className={styles.burger} onClick={() => setOpen(!open)}>
