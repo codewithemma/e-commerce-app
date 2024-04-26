@@ -20,7 +20,7 @@ const Login = () => {
   };
   const handleCreateAccount = async (event) => {
     event.preventDefault;
-    if (formData.username || formData.email || formData.password) {
+    if (!formData.username || !formData.email || !formData.password) {
       setError("Must provide all credentials");
     }
     try {
@@ -34,8 +34,18 @@ const Login = () => {
       });
       if (res.ok) {
         setPending(false);
+        const form = event.target;
+        form.reset();
+        console.log("User Registered");
+      } else {
+        const errorData = await res.json();
+        setError(errorData.message);
+        setPending(false);
       }
-    } catch (error) {}
+    } catch (error) {
+      setPending(false);
+      setError("Something went wrong");
+    }
   };
   const handleClick = () => {
     setToggle(!toggle);
