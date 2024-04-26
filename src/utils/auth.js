@@ -29,6 +29,7 @@ export const authOptions = {
   callbacks: {
     async session({ session }) {
       const sessionUser = await User.findOne({ email: session.user.email });
+      session.user.id = sessionUser._id;
       return session;
     },
     async signIn({ profile }) {
@@ -45,6 +46,7 @@ export const authOptions = {
             name: profile.name,
             image: profile.picture,
           });
+          await user.save();
         }
         return true;
       } catch (error) {
