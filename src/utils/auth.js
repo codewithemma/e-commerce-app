@@ -34,7 +34,6 @@ export const authOptions = {
     },
     async signIn({ profile }) {
       console.log(profile);
-
       try {
         await connectDB();
         const userExist = await User.findOne({

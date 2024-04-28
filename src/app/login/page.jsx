@@ -133,25 +133,6 @@ const Login = () => {
             <button onClick={handleCreateAccount} className={styles.link}>
               Create Account
             </button>
-            <button
-              onClick={() => signIn("google")}
-              className={`${styles.link} ${styles.google_button} `}
-            >
-              <span>
-                <Image
-                  src="/assets/google.svg"
-                  alt="google icon"
-                  width={20}
-                  height={20}
-                  priority
-                  style={{
-                    marginRight: "10px",
-                    marginTop: "8px",
-                  }}
-                />
-              </span>
-              Sign up with Google
-            </button>
             {error && <p>{error}</p>}
           </div>
           <div className={styles.end}>
