@@ -8,10 +8,7 @@ export async function connectDB() {
     return;
   }
   try {
-    await mongoose.connect(localUrl, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    await mongoose.connect(localUrl);
     isConnected = true;
     console.log("MongoDB Connected");
   } catch (error) {

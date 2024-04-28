@@ -4,24 +4,43 @@ import styles from "./Login.module.css";
 import { useState } from "react";
 import { useSession, signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import Loader from "@/components/loader/Loader";
 const Login = () => {
   const { status } = useSession();
   const router = useRouter();
   const [toggle, setToggle] = useState(false);
   const [formData, setFormData] = useState({
-    username: "",
+    fullName: "",
     email: "",
     password: "",
   });
   const [error, setError] = useState("");
   const [pending, setPending] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
+  function validateEmail(email) {
+    const re =
+      /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+  }
+  function validatePassword(password) {
+    return password.length >= 8;
+  }
   const handleChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
   const handleCreateAccount = async (event) => {
-    event.preventDefault;
-    if (!formData.username || !formData.email || !formData.password) {
+    event.preventDefault();
+    if (!formData.fullName || !formData.email || !formData.password) {
       setError("Must provide all credentials");
+      return;
+    }
+    if (!validateEmail(formData.email)) {
+      setError("Invalid email address");
+      return;
+    }
+    if (!validatePassword(formData.password)) {
+      setError("Password must be at least 8 characters long");
+      return;
     }
     try {
       setPending(true);
@@ -36,7 +55,7 @@ const Login = () => {
         setPending(false);
         const form = event.target;
         form.reset();
-        console.log("User Registered");
+        setSuccessMessage("User Registered Successfully");
       } else {
         const errorData = await res.json();
         setError(errorData.message);
@@ -44,7 +63,7 @@ const Login = () => {
       }
     } catch (error) {
       setPending(false);
-      setError("Something went wrong");
+      setError("Something went wrong!");
     }
   };
   const handleClick = () => {
@@ -110,7 +129,7 @@ const Login = () => {
             <input
               type="text"
               placeholder="Full name"
-              name="username"
+              name="fullName"
               required
               onChange={handleChange}
             />
@@ -133,12 +152,21 @@ const Login = () => {
             <button onClick={handleCreateAccount} className={styles.link}>
               Create Account
             </button>
-            {error && <p>{error}</p>}
+            {successMessage && <p>{successMessage}</p>}
+            {error ? <p>{error}</p> : <p>{successMessage}</p>}
           </div>
           <div className={styles.end}>
             <p>Already have an account?</p>
-            <p onClick={handleClick} style={{ cursor: "pointer" }}>
-              Log in
+            <p
+              onClick={handleClick}
+              style={{
+                cursor: "pointer",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              {pending ? <Loader /> : "Create an account "}
             </p>
           </div>
         </div>

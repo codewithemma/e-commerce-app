@@ -9,22 +9,26 @@ export const authOptions = {
       clientId: process.env.GOOGLE_ID,
       clientSecret: process.env.GOOGLE_SECRET,
     }),
-    // CredentialsProvider({
-    //   name: "Credentials",
-    //   credentials: {
-    //     username: { label: "Username", type: "text", placeholder: "Username" },
-    //     email: { label: "Email", type: "email", placeholder: "Email" },
-    //     password: { label: "Password", type: "password" },
-    //   },
-    //   async authorize(credentials, req) {
-    //     const user = { id: "1", name: "J Smith", email: "jsmith@example.com" };
-    //     if (user) {
-    //       return user;
-    //     } else {
-    //       return null;
-    //     }
-    //   },
-    // }),
+    CredentialsProvider({
+      name: "Credentials",
+      credentials: {
+        fullName: {
+          label: "Full name",
+          type: "text",
+          placeholder: "Full name",
+        },
+        email: { label: "Email", type: "email", placeholder: "Email" },
+        password: { label: "Password", type: "password" },
+      },
+      async authorize(credentials, req) {
+        const user = { id: "1", name: "J Smith", email: "jsmith@example.com" };
+        if (user) {
+          return user;
+        } else {
+          return null;
+        }
+      },
+    }),
   ],
   callbacks: {
     async session({ session }) {
