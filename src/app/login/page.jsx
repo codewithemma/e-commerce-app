@@ -5,6 +5,8 @@ import { useState } from "react";
 import { useSession, signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Loader from "@/components/loader/Loader";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleNotch } from "@fortawesome/free-solid-svg-icons";
 const Login = () => {
   const { status } = useSession();
   const router = useRouter();
@@ -150,23 +152,15 @@ const Login = () => {
           </div>
           <div className={styles.button_group1}>
             <button onClick={handleCreateAccount} className={styles.link}>
-              Create Account
+              {pending ? <Loader /> : "Create Account"}
             </button>
             {successMessage && <p>{successMessage}</p>}
             {error ? <p>{error}</p> : <p>{successMessage}</p>}
           </div>
           <div className={styles.end}>
             <p>Already have an account?</p>
-            <p
-              onClick={handleClick}
-              style={{
-                cursor: "pointer",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              {pending ? <Loader /> : "Create an account "}
+            <p onClick={handleClick} disabled={pending}>
+              Create an account{" "}
             </p>
           </div>
         </div>
