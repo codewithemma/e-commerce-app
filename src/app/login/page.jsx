@@ -30,7 +30,11 @@ const Login = () => {
   };
   const handleCreateAccount = async (event) => {
     event.preventDefault();
-    if (!formData.fullName || !formData.email || !formData.password) {
+    if (
+      formData.fullName.trim() === "" ||
+      formData.email.trim() === "" ||
+      formData.password.trim() === ""
+    ) {
       setError("Must provide all credentials");
       return;
     }

@@ -8,7 +8,7 @@ const Loader = () => {
       icon={faCircleNotch}
       spin
       size="lg"
-      style={{ color: "#fff", paddingLeft: "10px" }}
+      style={{ color: "#fff" }}
     />
   );
 };
