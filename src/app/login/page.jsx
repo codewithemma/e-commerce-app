@@ -59,7 +59,11 @@ const Login = () => {
       if (res.ok) {
         setPending(false);
         setSuccessMessage("User Registered Successfully");
-        console.log(res.message);
+        setFormData({
+          fullName: "",
+          email: "",
+          password: "",
+        });
       } else {
         setPending(false);
         const errorData = await res.json();
@@ -134,6 +138,7 @@ const Login = () => {
               type="text"
               placeholder="Full name"
               name="fullName"
+              value={formData.fullName}
               required
               onChange={handleChange}
             />
@@ -141,12 +146,14 @@ const Login = () => {
               type="text"
               placeholder="Email"
               name="email"
+              value={formData.email}
               required
               onChange={handleChange}
             />
             <input
               type="password"
               placeholder="Password"
+              value={formData.password}
               name="password"
               required
               onChange={handleChange}
