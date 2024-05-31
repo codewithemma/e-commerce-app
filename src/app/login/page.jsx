@@ -30,6 +30,7 @@ const Login = () => {
   };
   const handleCreateAccount = async (event) => {
     event.preventDefault();
+    setError("");
     if (
       formData.fullName.trim() === "" ||
       formData.email.trim() === "" ||
@@ -57,17 +58,16 @@ const Login = () => {
       });
       if (res.ok) {
         setPending(false);
-        const form = event.target;
-        form.reset();
         setSuccessMessage("User Registered Successfully");
+        console.log(res.message);
       } else {
+        setPending(false);
         const errorData = await res.json();
         setError(errorData.message);
-        setPending(false);
       }
     } catch (error) {
       setPending(false);
-      setError("Something went wrong!");
+      setError(error);
     }
   };
   const handleClick = () => {
@@ -156,8 +156,10 @@ const Login = () => {
             <button onClick={handleCreateAccount} className={styles.link}>
               {pending ? <Loader /> : "Create an Account"}
             </button>
-            {successMessage && <p>{successMessage}</p>}
-            {error ? <p>{error}</p> : <p>{successMessage}</p>}
+            {successMessage && (
+              <p style={{ color: "green" }}>{successMessage}</p>
+            )}
+            {error && <p style={{ color: "red" }}>{error}</p>}
           </div>
           <div className={styles.end}>
             <p>Already have an account?</p>

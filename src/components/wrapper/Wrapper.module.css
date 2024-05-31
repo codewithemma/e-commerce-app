@@ -1,12 +1,12 @@
 .wrapper {
-  max-width: 1536px;
+  /* max-width: 1200px;
   margin-left: auto;
-  margin-right: auto;
-  padding-left: 80px;
-  padding-right: 80px;
+  margin-right: auto; */
+  /* padding-left: 80px;
+  padding-right: 80px; */
 }
 
-@media screen and (max-width: 1536px) {
+/* @media screen and (max-width: 1536px) {
   .wrapper {
     max-width: 1366px;
   }
@@ -32,4 +32,4 @@
   .wrapper {
     max-width: 475px;
   }
-}
+} */
