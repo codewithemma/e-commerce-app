@@ -21,9 +21,6 @@ export async function POST(req) {
       { status: 201 }
     );
   } catch (error) {
-    return NextResponse.json(
-      { message: "Error registering user!" },
-      { status: 400 }
-    );
+    return NextResponse.json({ message: error.message }, { status: 400 });
   }
 }
