@@ -7,9 +7,9 @@ const Footer = () => {
       <Wrapper>
         <div className={styles.footer_grid}>
           <div>
-            <h2>Exclusive</h2>
-            <p>Subscribe</p>
-            <p>Get 10% off your first order</p>
+            <p className={styles.brand}>Exclusive</p>
+            <p className={styles.p}>Subscribe</p>
+            <p className={styles.p}>Get 10% off your first order</p>
             <input
               className={styles.input}
               type="text"
@@ -17,7 +17,7 @@ const Footer = () => {
             />
           </div>
           <div>
-            <p>Support</p>
+            <p className={styles.p}>Support</p>
             <Link className={styles.footer_link} href="/">
               http://aga.ga/nap
             </Link>

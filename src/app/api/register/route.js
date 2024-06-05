@@ -2,6 +2,7 @@ import User from "@/models/User";
 import { connectDB } from "@/utils/connect";
 import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
+import { StatusCodes } from "http-status-codes";
 //POST A USER TO DB
 export async function POST(req) {
   try {
@@ -11,16 +12,19 @@ export async function POST(req) {
     if (exists) {
       return NextResponse.json(
         { message: "Email already exists" },
-        { status: 400 }
+        { status: StatusCodes.BAD_REQUEST }
       );
     }
     const hashedPassword = await bcrypt.hash(password, 10);
     await User.create({ fullName, email, password: hashedPassword });
     return NextResponse.json(
       { message: "User registered successfully" },
-      { status: 201 }
+      { status: StatusCodes.CREATED }
     );
   } catch (error) {
-    return NextResponse.json({ message: error.message }, { status: 400 });
+    return NextResponse.json(
+      { message: "Error registering user!" },
+      { status: StatusCodes.INTERNAL_SERVER_ERROR }
+    );
   }
 }

@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import styles from "./Dropdown.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { CiUser } from "react-icons/ci";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 const Dropdown = ({ className, disabled }) => {
@@ -41,13 +41,7 @@ const Dropdown = ({ className, disabled }) => {
     <div className={styles.dropdown}>
       <div onClick={toggleDropdown}>
         <span style={{ display: "none" }}>{selectedOption}</span>
-        <FontAwesomeIcon
-          onClick={() => setIsOpen(!isOpen)}
-          icon={faUser}
-          size="lg"
-          className={className}
-          disabled={disabled}
-        />
+        <CiUser size={"20px"} />
       </div>
       {isOpen && (
         <ul className={styles.dropdown_menu}>

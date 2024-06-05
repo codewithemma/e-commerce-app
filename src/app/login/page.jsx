@@ -4,6 +4,7 @@ import styles from "./Login.module.css";
 import { useState } from "react";
 import { useSession, signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 import Loader from "@/components/loader/Loader";
 const Login = () => {
   const { status } = useSession();
@@ -14,9 +15,7 @@ const Login = () => {
     email: "",
     password: "",
   });
-  const [error, setError] = useState("");
   const [pending, setPending] = useState(false);
-  const [successMessage, setSuccessMessage] = useState("");
   function validateEmail(email) {
     const re =
       /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -30,21 +29,20 @@ const Login = () => {
   };
   const handleCreateAccount = async (event) => {
     event.preventDefault();
-    setError("");
     if (
       formData.fullName.trim() === "" ||
       formData.email.trim() === "" ||
       formData.password.trim() === ""
     ) {
-      setError("Must provide all credentials");
+      toast.error("Must provide all credentials");
       return;
     }
     if (!validateEmail(formData.email)) {
-      setError("Invalid email address");
+      toast("Invalid email address");
       return;
     }
     if (!validatePassword(formData.password)) {
-      setError("Password must be at least 8 characters long");
+      toast.error("Password must be at least 8 characters long");
       return;
     }
     try {
@@ -58,7 +56,7 @@ const Login = () => {
       });
       if (res.ok) {
         setPending(false);
-        setSuccessMessage("User Registered Successfully");
+        toast.success("User Registered Successfully");
         setFormData({
           fullName: "",
           email: "",
@@ -67,7 +65,7 @@ const Login = () => {
       } else {
         setPending(false);
         const errorData = await res.json();
-        setError(errorData.message);
+        toast.error(errorData.message);
       }
     } catch (error) {
       setPending(false);
@@ -83,7 +81,7 @@ const Login = () => {
   }
   return (
     <div className={styles.hero}>
-      <div className={styles.hero_child}>
+      <div className={styles.img_container}>
         <Image
           style={{ objectFit: "cover" }}
           src="/assets/loginphoto.svg"
@@ -94,8 +92,10 @@ const Login = () => {
       </div>
       {toggle ? (
         <div className={styles.form}>
-          <h2>Log in to Exclusive</h2>
-          <p>Enter your details below</p>
+          <div className={styles.content}>
+            <p>Log in to Exclusive</p>
+            <p>Enter your details below</p>
+          </div>
           <div className={styles.input_group}>
             <input type="text" placeholder="Email" />
             <input type="password" placeholder="Password" />
@@ -104,7 +104,7 @@ const Login = () => {
             <button>Log in</button>
             <button
               onClick={() => signIn("google")}
-              className={`${styles.link} ${styles.google_button} `}
+              className={`${styles.link} ${styles.google_flex} `}
             >
               <span>
                 <Image
@@ -113,13 +113,13 @@ const Login = () => {
                   width={20}
                   height={20}
                   priority
-                  style={{
-                    marginRight: "10px",
-                    marginTop: "8px",
-                  }}
+                  // style={{
+                  //   marginRight: "10px",
+                  //   marginTop: "8px",
+                  // }}
                 />
               </span>
-              Sign in with Google
+              <span>Sign in with Google</span>
             </button>
           </div>
           <div className={styles.end}>
@@ -131,8 +131,11 @@ const Login = () => {
         </div>
       ) : (
         <div className={styles.form}>
-          <h2>Create an account</h2>
-          <p>Enter your details below</p>
+          <div className={styles.content}>
+            <p>Create an account</p>
+            <p>Enter your details below</p>
+          </div>
+
           <div className={styles.input_group}>
             <input
               type="text"
@@ -163,15 +166,11 @@ const Login = () => {
             <button onClick={handleCreateAccount} className={styles.link}>
               {pending ? <Loader /> : "Create an Account"}
             </button>
-            {successMessage && (
-              <p style={{ color: "green" }}>{successMessage}</p>
-            )}
-            {error && <p style={{ color: "red" }}>{error}</p>}
           </div>
           <div className={styles.end}>
             <p>Already have an account?</p>
             <p onClick={handleClick} disabled={pending}>
-              Create an account{" "}
+              Login
             </p>
           </div>
         </div>

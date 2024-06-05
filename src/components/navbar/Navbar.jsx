@@ -2,21 +2,19 @@
 import Wrapper from "../wrapper/Wrapper";
 import styles from "./Navbar.module.css";
 import Link from "next/link";
-import Image from "next/image";
-import ThemeToggle from "../themeToggle/ThemeToggle";
 import { useState } from "react";
 import { useSession } from "next-auth/react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
-import Dropdown from "../dropdown/Dropdown";
+import { HiMagnifyingGlass } from "react-icons/hi2";
+import AuthLinks from "../authLinks/AuthLinks";
 const Navbar = () => {
-  const { status } = useSession();
+  // const { status } = useSession();
+  const status = "authenticated";
   const [open, setOpen] = useState(false);
   return (
     <>
       <Wrapper>
         <div className={styles.container}>
-          <h2>Exclusive</h2>
+          <p className={styles.brand}>Exclusive</p>
           <ul>
             <li className={styles.nav_flex}>
               <Link className={styles.nav_link} href="/">
@@ -47,64 +45,53 @@ const Navbar = () => {
                 placeholder="what are you looking for....?"
               />
               <span>
-                <Image
-                  src="/assets/magnify.svg"
-                  className={styles.input_image}
-                  width={25}
-                  height={25}
-                  alt="search icon"
+                <HiMagnifyingGlass
+                  size={"20px"}
                   style={{
                     position: "absolute",
-                    top: 15,
+                    top: 12,
                     right: 10,
                   }}
                 />
               </span>
             </div>
           </div>
-          <div>
+          {/* <div>
             <ThemeToggle />
+          </div> */}
+          <div>{status === "authenticated" && <AuthLinks />}</div>
+        </div>{" "}
+        <div>
+          <div className={styles.burger} onClick={() => setOpen(!open)}>
+            <div className={styles.line}></div>
+            <div className={styles.line}></div>
+            <div className={styles.line}></div>
           </div>
-          <div className={styles.auth_icons}>
-            <FontAwesomeIcon icon={faCartShopping} size="lg" />
-            {status === "authenticated" ? (
-              <Dropdown />
-            ) : (
-              <Dropdown className={styles.disabled} />
-            )}
-          </div>
-          <div>
-            <div className={styles.burger} onClick={() => setOpen(!open)}>
-              <div className={styles.line}></div>
-              <div className={styles.line}></div>
-              <div className={styles.line}></div>
-            </div>
-            {open && (
-              <div className={styles.responsiveMenu}>
-                <Link className={styles.responsive_link} href="/">
-                  Home
+          {open && (
+            <div className={styles.responsiveMenu}>
+              <Link className={styles.responsive_link} href="/">
+                Home
+              </Link>
+              <Link className={styles.responsive_link} href="/">
+                Contact
+              </Link>
+              <Link className={styles.responsive_link} href="/">
+                About
+              </Link>
+              {status === "unauthenticated" ? (
+                <Link className={styles.responsive_link} href="/login">
+                  Login
                 </Link>
-                <Link className={styles.responsive_link} href="/">
-                  Contact
-                </Link>
-                <Link className={styles.responsive_link} href="/">
-                  About
-                </Link>
-                {status === "unauthenticated" ? (
-                  <Link className={styles.responsive_link} href="/login">
-                    Login
+              ) : (
+                <>
+                  <Link className={styles.responsive_link} href="/write">
+                    Cart
                   </Link>
-                ) : (
-                  <>
-                    <Link className={styles.responsive_link} href="/write">
-                      Cart
-                    </Link>
-                    <span className={styles.link}>Logout</span>
-                  </>
-                )}
-              </div>
-            )}
-          </div>
+                  <span className={styles.link}>Logout</span>
+                </>
+              )}
+            </div>
+          )}
         </div>
       </Wrapper>
       <div className={styles.nav_border}></div>

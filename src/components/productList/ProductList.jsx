@@ -31,7 +31,9 @@ const ProductList = () => {
         {product?.map((item) => {
           return (
             <ul className={styles.container_child} key={item.id}>
-              <Link href="/slug">{item.name}</Link>
+              <Link href="/slug" className={styles.product}>
+                {item.name}
+              </Link>
             </ul>
           );
         })}

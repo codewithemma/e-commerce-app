@@ -23,7 +23,11 @@ a {
   color: inherit;
   text-decoration: none;
 }
-
+#fixMeDetectBox {
+  margin: 0;
+  padding: 0;
+  display: none;
+}
 .dark {
   --bg: #20262a;
   --textColor: #ddd;
