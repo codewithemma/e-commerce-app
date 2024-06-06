@@ -6,6 +6,8 @@ import { useSession, signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import Loader from "@/components/loader/Loader";
+import Swal from "sweetalert2";
+
 const Login = () => {
   const { status } = useSession();
   const router = useRouter();
@@ -56,7 +58,12 @@ const Login = () => {
       });
       if (res.ok) {
         setPending(false);
-        toast.success("User Registered Successfully");
+        Swal.fire({
+          title: "Success!",
+          text: "User Registered Successfully",
+          icon: "success",
+        });
+        // Swal.success("User Registered Successfully");
         setFormData({
           fullName: "",
           email: "",

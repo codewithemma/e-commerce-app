@@ -16,7 +16,7 @@ const EmblaCarousel = () => {
           <Image
             alt="sjjd"
             priority
-            src="/assets/test.svg"
+            src="/assets/test.jpg"
             style={{ objectFit: "cover" }}
             fill
           />

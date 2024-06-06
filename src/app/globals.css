@@ -29,7 +29,7 @@ a {
   display: none;
 }
 .dark {
-  --bg: #20262a;
+  --bg: #121212;
   --textColor: #ddd;
   --softBg: #20262a;
   /* --softTextColor: #a6a6a6; */
