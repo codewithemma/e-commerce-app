@@ -100,49 +100,9 @@ const Login = () => {
       {toggle ? (
         <div className={styles.form}>
           <div className={styles.content}>
-            <p>Log in to Exclusive</p>
-            <p>Enter your details below</p>
-          </div>
-          <div className={styles.input_group}>
-            <input type="text" placeholder="Email" />
-            <input type="password" placeholder="Password" />
-          </div>
-          <div className={styles.button_group}>
-            <button>Log in</button>
-            <button
-              onClick={() => signIn("google")}
-              className={`${styles.link} ${styles.google_flex} `}
-            >
-              <span>
-                <Image
-                  src="/assets/google.svg"
-                  alt="google icon"
-                  width={20}
-                  height={20}
-                  priority
-                  // style={{
-                  //   marginRight: "10px",
-                  //   marginTop: "8px",
-                  // }}
-                />
-              </span>
-              <span>Sign in with Google</span>
-            </button>
-          </div>
-          <div className={styles.end}>
-            <p>{"Don't"} have an account?</p>
-            <p onClick={handleClick} style={{ cursor: "pointer" }}>
-              Sign up
-            </p>
-          </div>
-        </div>
-      ) : (
-        <div className={styles.form}>
-          <div className={styles.content}>
             <p>Create an account</p>
             <p>Enter your details below</p>
           </div>
-
           <div className={styles.input_group}>
             <input
               type="text"
@@ -178,6 +138,41 @@ const Login = () => {
             <p>Already have an account?</p>
             <p onClick={handleClick} disabled={pending}>
               Login
+            </p>
+          </div>
+        </div>
+      ) : (
+        <div className={styles.form}>
+          <div className={styles.content}>
+            <p>Log in to Exclusive</p>
+            <p>Enter your details below</p>
+          </div>
+          <div className={styles.input_group}>
+            <input type="text" placeholder="Email" />
+            <input type="password" placeholder="Password" />
+          </div>
+          <div className={styles.button_group}>
+            <button>Log in</button>
+            <button
+              onClick={() => signIn("google")}
+              className={`${styles.link} ${styles.google_flex} `}
+            >
+              <span>
+                <Image
+                  src="/assets/google.svg"
+                  alt="google icon"
+                  width={20}
+                  height={20}
+                  priority
+                />
+              </span>
+              <span>Sign in with Google</span>
+            </button>
+          </div>
+          <div className={styles.end}>
+            <p>{"Don't"} have an account?</p>
+            <p onClick={handleClick} style={{ cursor: "pointer" }}>
+              Register
             </p>
           </div>
         </div>
