@@ -1,31 +1,26 @@
 "use client";
 import React, { useState } from "react";
 import styles from "./Dropdown.module.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CiUser } from "react-icons/ci";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-const Dropdown = ({ className, disabled }) => {
+const Dropdown = () => {
+  const router = useRouter();
   const [selectedOption, setSelectedOption] = useState("option 1");
   const [isOpen, setIsOpen] = useState(false);
-  const router = useRouter();
-  const { data, status } = useSession();
-  //   if (status === "unauthenticated") {
-  //     router.push("/");
-  //     return;
-  //   }
+  const { data } = useSession();
   const options = [
     {
       label: "Option 1",
       title: `${data?.user.name}`,
       onClick: () => setSelectedOption("Option 1"),
-      onAdd: () => alert("ejffruf"),
+      onAdd: router.push("/dashboard"),
     },
     {
       label: "Option 2",
       title: "My Order",
       onClick: () => setSelectedOption("Option 2"),
-      onAdd: () => alert("ejffruf"),
+      // onAdd: () => alert("ejffruf"),
     },
     {
       label: "Option 3",

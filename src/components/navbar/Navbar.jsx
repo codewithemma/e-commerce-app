@@ -8,7 +8,6 @@ import { HiMagnifyingGlass } from "react-icons/hi2";
 import AuthLinks from "../authLinks/AuthLinks";
 const Navbar = () => {
   const { status } = useSession();
-  // const status = "unauthenticated";
   const [open, setOpen] = useState(false);
   return (
     <>

@@ -2,62 +2,50 @@ import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import User from "@/models/User";
 import { connectDB } from "./connect";
-import { MongoClient } from "mongodb";
+import bcrypt from "bcrypt";
 
 export const authOptions = {
-  // adapter: MongoClient(User),
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_ID,
       clientSecret: process.env.GOOGLE_SECRET,
     }),
     CredentialsProvider({
-      name: "Credentials",
-      credentials: {
-        fullName: {
-          label: "Full name",
-          type: "text",
-          placeholder: "Full name",
-        },
-        email: { label: "Email", type: "email", placeholder: "Email" },
-        password: { label: "Password", type: "password" },
-      },
-      async authorize(credentials, req) {
-        const user = { id: "1", name: "J Smith", email: "jsmith@example.com" };
-        if (user) {
-          return user;
-        } else {
-          return null;
+      name: "credentials",
+      async authorize(credentials) {
+        await connectDB();
+        const { email, password } = credentials;
+        const user = await User.findOne({ email });
+        if (!user) {
+          throw new Error("No user found with provided email");
         }
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+        if (!isPasswordValid) {
+          throw new Error("Username or password not correct");
+        }
+        return { _id: user._id, name: user.fullName, email: user.email };
       },
     }),
   ],
+  session: {
+    strategy: "jwt",
+  },
+  secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
-    async session({ session }) {
-      const sessionUser = await User.findOne({ email: session.user.email });
-      session.user.id = sessionUser._id;
+    async jwt({ token, user }) {
+      if (user) {
+        token._id = user._id;
+        token.email = user.email;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      session.user._id = token._id;
+      session.user.email = token.email;
       return session;
     },
-    async signIn({ profile }) {
-      console.log(profile);
-      try {
-        await connectDB();
-        const userExist = await User.findOne({
-          email: profile.email,
-        });
-        if (!userExist) {
-          const user = await User.create({
-            email: profile.email,
-            name: profile.name,
-            image: profile.picture,
-          });
-          await user.save();
-        }
-        return true;
-      } catch (error) {
-        console.log(error);
-        return false;
-      }
-    },
+  },
+  pages: {
+    signIn: "/login",
   },
 };

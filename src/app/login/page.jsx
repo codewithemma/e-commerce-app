@@ -7,9 +7,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import Loader from "@/components/loader/Loader";
 import Swal from "sweetalert2";
-
 const Login = () => {
-  const { status } = useSession();
   const router = useRouter();
   const [toggle, setToggle] = useState(false);
   const [formData, setFormData] = useState({
@@ -58,12 +56,12 @@ const Login = () => {
       });
       if (res.ok) {
         setPending(false);
+        setToggle(!toggle);
         Swal.fire({
           title: "Success!",
           text: "User Registered Successfully",
           icon: "success",
         });
-        // Swal.success("User Registered Successfully");
         setFormData({
           fullName: "",
           email: "",
@@ -79,13 +77,27 @@ const Login = () => {
       setError(error);
     }
   };
+
+  const handleLogin = async (event) => {
+    event.preventDefault();
+    if (formData.email.trim() === "" || formData.password.trim() === "") {
+      toast.error("Must provide all credentials");
+      return;
+    }
+    const res = await signIn("credentials", {
+      redirect: false,
+      email: formData.email,
+      password: formData.password,
+    });
+    if (res.ok) {
+      router.push("/");
+    } else {
+      toast.error(res.error);
+    }
+  };
   const handleClick = () => {
     setToggle(!toggle);
   };
-  if (status === "authenticated") {
-    router.push("/");
-    return;
-  }
   return (
     <div className={styles.hero}>
       <div className={styles.img_container}>
@@ -148,11 +160,21 @@ const Login = () => {
             <p>Enter your details below</p>
           </div>
           <div className={styles.input_group}>
-            <input type="text" placeholder="Email" />
-            <input type="password" placeholder="Password" />
+            <input
+              type="text"
+              name="email"
+              placeholder="Email"
+              onChange={handleChange}
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              name="password"
+              onChange={handleChange}
+            />
           </div>
           <div className={styles.button_group}>
-            <button>Log in</button>
+            <button onClick={handleLogin}>Log in</button>
             <button
               onClick={() => signIn("google")}
               className={`${styles.link} ${styles.google_flex} `}
