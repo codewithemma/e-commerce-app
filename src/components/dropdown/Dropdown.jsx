@@ -20,7 +20,6 @@ const Dropdown = () => {
       label: "Option 2",
       title: "My Order",
       onClick: () => setSelectedOption("Option 2"),
-      // onAdd: () => alert("ejffruf"),
     },
     {
       label: "Option 3",

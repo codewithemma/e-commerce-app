@@ -74,7 +74,7 @@ const Login = () => {
       }
     } catch (error) {
       setPending(false);
-      setError(error);
+      toast.error(error);
     }
   };
 
