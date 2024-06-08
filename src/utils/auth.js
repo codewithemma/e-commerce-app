@@ -1,5 +1,6 @@
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { MongooseAdapter } from "@next-auth/mongoose-adapter";
 import User from "@/models/User";
 import { connectDB } from "./connect";
 import bcrypt from "bcrypt";
@@ -27,6 +28,7 @@ export const authOptions = {
       },
     }),
   ],
+  adapter: MongooseAdapter(connectDB),
   session: {
     strategy: "jwt",
   },
