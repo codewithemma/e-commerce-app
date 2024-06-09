@@ -7,7 +7,7 @@ const User = () => {
   console.log(data);
   return (
     <div>
-      <p>hello {data.user.name}</p>
+      <p>hello {data?.user?.role}</p>
     </div>
   );
 };

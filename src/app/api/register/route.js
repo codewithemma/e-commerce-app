@@ -7,7 +7,7 @@ import { StatusCodes } from "http-status-codes";
 export async function POST(req) {
   try {
     await connectDB();
-    const { fullName, email, password } = await req.json();
+    const { fullName, email, password, role } = await req.json();
     const exists = await User.findOne({ $or: [{ email }] });
     if (exists) {
       return NextResponse.json(
@@ -16,7 +16,12 @@ export async function POST(req) {
       );
     }
     const hashedPassword = await bcrypt.hash(password, 10);
-    await User.create({ fullName, email, password: hashedPassword });
+    await User.create({
+      fullName,
+      email,
+      role,
+      password: hashedPassword,
+    });
     return NextResponse.json(
       { message: "User registered successfully" },
       { status: StatusCodes.CREATED }

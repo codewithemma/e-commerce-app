@@ -1,6 +1,5 @@
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { MongooseAdapter } from "@next-auth/mongoose-adapter";
 import User from "@/models/User";
 import { connectDB } from "./connect";
 import bcrypt from "bcrypt";
@@ -24,11 +23,15 @@ export const authOptions = {
         if (!isPasswordValid) {
           throw new Error("Username or password not correct");
         }
-        return { _id: user._id, name: user.fullName, email: user.email };
+        return {
+          _id: user._id,
+          name: user.fullName,
+          email: user.email,
+          role: user.role[0],
+        };
       },
     }),
   ],
-  adapter: MongooseAdapter(connectDB),
   session: {
     strategy: "jwt",
   },
@@ -38,16 +41,18 @@ export const authOptions = {
       if (user) {
         token._id = user._id;
         token.email = user.email;
+        token.role = user.role;
       }
       return token;
     },
     async session({ session, token }) {
       session.user._id = token._id;
       session.user.email = token.email;
+      session.user.role = token.role;
       return session;
     },
   },
   pages: {
-    signIn: "/login",
+    signIn: "/auth/login",
   },
 };

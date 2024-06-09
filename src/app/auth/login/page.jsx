@@ -91,10 +91,12 @@ const Login = () => {
     });
     if (res.ok) {
       router.push("/");
+      toast.success("Login Successful 🎉");
     } else {
       toast.error(res.error);
     }
   };
+
   const handleClick = () => {
     setToggle(!toggle);
   };

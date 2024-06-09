@@ -12,9 +12,9 @@ const Dropdown = () => {
   const options = [
     {
       label: "Option 1",
-      title: `${data?.user.name}`,
+      title: `Hi, ${data?.user.name}`,
       onClick: () => setSelectedOption("Option 1"),
-      onAdd: router.push("/dashboard"),
+      // onAdd: router.push("/dashboard"),
     },
     {
       label: "Option 2",
