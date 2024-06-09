@@ -2,7 +2,7 @@
 import { useSession } from "next-auth/react";
 import React from "react";
 
-const User = () => {
+const UserProfile = () => {
   const { data } = useSession();
   console.log(data);
   return (
@@ -12,4 +12,4 @@ const User = () => {
   );
 };
 
-export default User;
+export default UserProfile;

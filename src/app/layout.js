@@ -11,11 +11,47 @@ const poppins = Poppins({
   subsets: ["latin"],
   weight: ["200", "400", "500", "700"],
 });
-
 export const metadata = {
-  title: "Exclusive",
+  title: "Exclusive - Your One-Stop Shop for Over 1 Million Products",
   description:
-    "Exclusive has more than 1 Million products to offer, growing at a very fast. Exclusive offers a diverse assotment in categories ranging  from consumer.",
+    "Discover over 1 million products at Exclusive, your ultimate destination for a diverse assortment of categories including consumer electronics, fashion, home goods, and more. Shop now and enjoy a seamless shopping experience with fast growth and excellent service.",
+  openGraph: {
+    title: "Exclusive - Your One-Stop Shop for Over 1 Million Products",
+    description:
+      "Discover over 1 million products at Exclusive, your ultimate destination for a diverse assortment of categories including consumer electronics, fashion, home goods, and more. Shop now and enjoy a seamless shopping experience with fast growth and excellent service.",
+    url: "https://exclusivee-commerce-app.vercel.app",
+    type: "website",
+    images: [
+      {
+        url: "https://images.pexels.com/photos/25036898/pexels-photo-25036898/free-photo-of-holding-bubble-waffle-ice-cream-with-toppings.jpeg?auto=compress&cs=tinysrgb&w=600",
+        width: 1200,
+        height: 630,
+        alt: "Exclusive - Your One-Stop Shop",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Exclusive - Your One-Stop Shop for Over 1 Million Products",
+    description:
+      "Discover over 1 million products at Exclusive, your ultimate destination for a diverse assortment of categories including consumer electronics, fashion, home goods, and more. Shop now and enjoy a seamless shopping experience with fast growth and excellent service.",
+    image:
+      "https://images.pexels.com/photos/25036898/pexels-photo-25036898/free-photo-of-holding-bubble-waffle-ice-cream-with-toppings.jpeg?auto=compress&cs=tinysrgb&w=600",
+  },
+  jsonLd: {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Exclusive",
+    url: "https://exclusivee-commerce-app.vercel.app",
+    potentialAction: {
+      "@type": "SearchAction",
+      target:
+        "https://exclusivee-commerce-app.vercel.app/search?q={search_term_string}",
+      "query-input": "required name=search_term_string",
+    },
+    description:
+      "Discover over 1 million products at Exclusive, your ultimate destination for a diverse assortment of categories including consumer electronics, fashion, home goods, and more. Shop now and enjoy a seamless shopping experience with fast growth and excellent service.",
+  },
 };
 
 export default function RootLayout({ children }) {

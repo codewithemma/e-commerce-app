@@ -7,7 +7,9 @@ import { StatusCodes } from "http-status-codes";
 export async function POST(req) {
   try {
     await connectDB();
-    const { fullName, email, password, role } = await req.json();
+    const { fullName, email, password } = await req.json();
+    const isFirstUser = (await User.countDocuments()) === 0;
+    const newRole = isFirstUser ? "admin" : "user";
     const exists = await User.findOne({ $or: [{ email }] });
     if (exists) {
       return NextResponse.json(
@@ -19,7 +21,7 @@ export async function POST(req) {
     await User.create({
       fullName,
       email,
-      role,
+      role: newRole,
       password: hashedPassword,
     });
     return NextResponse.json(
