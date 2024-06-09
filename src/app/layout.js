@@ -38,6 +38,19 @@ export const metadata = {
     image:
       "https://images.pexels.com/photos/25036898/pexels-photo-25036898/free-photo-of-holding-bubble-waffle-ice-cream-with-toppings.jpeg?auto=compress&cs=tinysrgb&w=600",
   },
+  additionalMetaTags: [
+    {
+      property: "description",
+      content:
+        "Discover over 1 million products at Exclusive E-commerce App, your ultimate destination for a diverse assortment of categories including consumer electronics, fashion, home goods, and more. Shop now and enjoy a seamless shopping experience with fast growth and excellent service.",
+    },
+  ],
+  additionalLinkTags: [
+    {
+      rel: "icon",
+      href: "https://exclusivee-commerce-app.vercel.app/favicon.ico",
+    },
+  ],
   jsonLd: {
     "@context": "https://schema.org",
     "@type": "WebSite",
