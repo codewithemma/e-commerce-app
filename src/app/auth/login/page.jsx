@@ -2,12 +2,13 @@
 import Image from "next/image";
 import styles from "./Login.module.css";
 import { useState } from "react";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import Loader from "@/components/loader/Loader";
 import Swal from "sweetalert2";
 const Login = () => {
+  const { status } = useSession();
   const router = useRouter();
   const [toggle, setToggle] = useState(false);
   const [formData, setFormData] = useState({
@@ -100,6 +101,9 @@ const Login = () => {
   const handleClick = () => {
     setToggle(!toggle);
   };
+
+  if (status === "authenticated") router.push("/");
+
   return (
     <div className={styles.hero}>
       <div className={styles.img_container}>

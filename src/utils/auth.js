@@ -3,12 +3,26 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import User from "@/models/User";
 import { connectDB } from "./connect";
 import bcrypt from "bcrypt";
+import { MongoDBAdapter } from "@auth/mongodb-adapter";
+import clientPromise from "./db";
 
 export const authOptions = {
+  adapter: MongoDBAdapter(clientPromise),
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_ID,
       clientSecret: process.env.GOOGLE_SECRET,
+      authorizationUrl:
+        "https://accounts.google.com/o/oauth2/auth?response_type=code&prompt=consent&access_type=offline",
+      profile(profile) {
+        return {
+          id: profile.id,
+          fullName: profile.fullName,
+          email: profile.email,
+          image: profile.picture,
+          role: profile.role ?? "user",
+        };
+      },
     }),
     CredentialsProvider({
       name: "credentials",
@@ -56,3 +70,5 @@ export const authOptions = {
     signIn: "/auth/login",
   },
 };
+
+export const getAuthSession = () => getServerSession(authOptions);
