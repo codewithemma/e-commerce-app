@@ -5,7 +5,7 @@ import { connectDB } from "./connect";
 import bcrypt from "bcrypt";
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
 import clientPromise from "./db";
-import { getServerSession } from "next-auth";
+// import { getServerSession } from "next-auth";
 
 export const authOptions = {
   adapter: MongoDBAdapter(clientPromise),
@@ -72,4 +72,4 @@ export const authOptions = {
   },
 };
 
-export const getAuthSession = () => getServerSession(authOptions);
+// export const getAuthSession = () => getServerSession(authOptions);
