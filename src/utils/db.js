@@ -1,7 +1,7 @@
 import { MongoClient } from "mongodb";
 
 const localUrl = "mongodb://localhost:27017/exclusive_db";
-const uri = process.env.MONG0_URI;
+const uri = process.env.MONGO_URI;
 const url = process.env.NODE_ENV === "production" ? uri : localUrl;
 const options = {};
 
