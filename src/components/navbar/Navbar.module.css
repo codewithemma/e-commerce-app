@@ -5,10 +5,6 @@
   margin-bottom: 10px;
   padding-top: 20px;
 }
-.brand {
-  font-size: 24px;
-  font-weight: 700;
-}
 .nav_flex {
   display: flex;
   justify-content: space-evenly;

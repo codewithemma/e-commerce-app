@@ -13,7 +13,7 @@ const Dropdown = () => {
   //   required: true,
   // });
   const handleProfileClick = () => {
-    router.push("/profile");
+    router.push("/protected/profile");
     setSelectedOption("Option 1");
     setIsOpen(false);
   };

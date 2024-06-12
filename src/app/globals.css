@@ -31,7 +31,8 @@ a {
 .dark {
   --bg: #121212;
   --textColor: #ddd;
-  --softBg: #20262a;
+  --softBg: #e0e0e0;
+  --productBg: #2c2727c8;
   /* --softTextColor: #a6a6a6; */
 }
 

@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { HiMagnifyingGlass } from "react-icons/hi2";
 import AuthLinks from "../authLinks/AuthLinks";
+import Image from "next/image";
 const Navbar = () => {
   const { status } = useSession();
   const [open, setOpen] = useState(false);
@@ -13,7 +14,15 @@ const Navbar = () => {
     <>
       <Wrapper>
         <div className={styles.container}>
-          <p className={styles.brand}>Exclusive</p>
+          <Link href="/">
+            <Image
+              src="/assets/logo-no-background.svg"
+              alt="logo"
+              width={50}
+              height={50}
+              priority
+            />
+          </Link>
           <ul>
             <li className={styles.nav_flex}>
               <Link className={styles.nav_link} href="/">
@@ -78,7 +87,7 @@ const Navbar = () => {
                 About
               </Link>
               {status === "unauthenticated" ? (
-                <Link className={styles.responsive_link} href="/login">
+                <Link className={styles.responsive_link} href="/auth/login">
                   Login
                 </Link>
               ) : (
