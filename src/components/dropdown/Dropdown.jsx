@@ -3,18 +3,22 @@ import React, { useEffect, useRef, useState } from "react";
 import styles from "./Dropdown.module.css";
 import { CiLogout, CiUser, CiShoppingBasket, CiSettings } from "react-icons/ci";
 import { signOut, useSession } from "next-auth/react";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 const Dropdown = () => {
+  const { data: session } = useSession();
   const dropdownRef = useRef(null);
   const router = useRouter();
   const [selectedOption, setSelectedOption] = useState("option 1");
   const [isOpen, setIsOpen] = useState(false);
-  // const { data } = useSession({
-  //   required: true,
-  // });
+
   const handleProfileClick = () => {
     router.push("/protected/profile");
     setSelectedOption("Option 1");
+    setIsOpen(false);
+  };
+
+  const handleAdminClick = () => {
+    router.push("/protected/admin");
     setIsOpen(false);
   };
 
@@ -27,7 +31,6 @@ const Dropdown = () => {
           <span>Manage your account</span>
         </span>
       ),
-      // title: `Hi, ${data?.user.name}`,
       onClick: () => setSelectedOption("Option 1"),
       onAdd: handleProfileClick,
     },
@@ -42,6 +45,20 @@ const Dropdown = () => {
       onClick: () => setSelectedOption("Option 2"),
     },
     {
+      label: "Option 4",
+      title: (
+        <span className={styles.flex}>
+          <CiLogout size={"30px"} />
+          <span>Logout</span>
+        </span>
+      ),
+      onClick: () => setSelectedOption("Option 4"),
+      onAdd: signOut,
+    },
+  ];
+
+  if (session.user.role === "admin" || session.user.role === "superadmin") {
+    options.splice(2, 0, {
       label: "Option 3",
       title: (
         <span className={styles.flex}>
@@ -50,21 +67,9 @@ const Dropdown = () => {
         </span>
       ),
       onClick: () => setSelectedOption("Option 3"),
-      // onAdd: router.push("/protected/admin"),
-    },
-    {
-      label: "Option 4",
-      title: (
-        <span className={styles.flex}>
-          <CiLogout size={"30px"} />
-          <span>Logout</span>
-        </span>
-      ),
-      onClick: () => setSelectedOption("Option 3"),
-      onAdd: signOut,
-    },
-  ];
-
+      onAdd: handleAdminClick,
+    });
+  }
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {

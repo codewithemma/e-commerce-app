@@ -1,0 +1,13 @@
+.container {
+  margin-top: 20px;
+}
+.container_child {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+}
+.link {
+  color: rgb(0, 94, 255);
+  text-decoration: underline;
+}

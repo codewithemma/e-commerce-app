@@ -16,6 +16,7 @@ const Navbar = () => {
         <div className={styles.container}>
           <Link href="/">
             <Image
+              style={{ objectFit: "contain" }}
               src="/assets/logo-no-background.svg"
               alt="logo"
               width={50}

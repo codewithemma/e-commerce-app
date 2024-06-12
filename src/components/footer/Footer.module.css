@@ -1,5 +1,6 @@
 .footer {
   background-color: var(--softBg);
+  width: 100%;
   color: white;
 }
 .footer .footer_grid {
