@@ -16,6 +16,12 @@ export async function POST(req) {
     await connectDB();
     const { fullName, email, password } = await req.json();
     const exists = await User.findOne({ $or: [{ email }] });
+    if (fullName.length === 0 || email.length === 0) {
+      return NextResponse.json(
+        { message: "Please provide all credentials" },
+        { status: StatusCodes.BAD_REQUEST }
+      );
+    }
     if (exists) {
       return NextResponse.json(
         { message: "Email already exists" },

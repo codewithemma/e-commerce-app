@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import styles from "./Login.module.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { signIn, useSession } from "next-auth/react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { toast } from "react-toastify";
@@ -23,16 +23,9 @@ const Login = () => {
   const handleChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
+
   const handleCreateAccount = async (event) => {
     event.preventDefault();
-    if (
-      formData.fullName.trim() === "" ||
-      formData.email.trim() === "" ||
-      formData.password.trim() === ""
-    ) {
-      toast.error("Must provide all credentials");
-      return;
-    }
     try {
       setPending(true);
       const res = await fetch("/api/register", {
@@ -62,27 +55,31 @@ const Login = () => {
       }
     } catch (error) {
       setPending(false);
-      toast.error(error);
+      toast.error("Something went wrong");
     }
   };
 
   const handleLogin = async (event) => {
     event.preventDefault();
-    if (formData.email.trim() === "" || formData.password.trim() === "") {
-      toast.error("Must provide all credentials");
-      return;
-    }
-    const res = await signIn("credentials", {
-      redirect: false,
-      email: formData.email,
-      password: formData.password,
-      callbackUrl,
-    });
-    if (res.ok) {
-      router.push(callbackUrl);
-      toast.success("Login Successful 🎉");
-    } else {
-      toast.error(res.error);
+    try {
+      setPending(true);
+      const res = await signIn("credentials", {
+        redirect: false,
+        email: formData.email,
+        password: formData.password,
+        callbackUrl,
+      });
+      if (res.ok) {
+        setPending(false);
+        router.push(callbackUrl);
+        toast.success("Login Successful 🎉");
+      } else {
+        setPending(false);
+        toast.error(res.error);
+      }
+    } catch (error) {
+      setPending(false);
+      toast.error("Something went wrong on our end");
     }
   };
 
@@ -166,7 +163,9 @@ const Login = () => {
             />
           </div>
           <div className={styles.button_group}>
-            <button onClick={handleLogin}>Log in</button>
+            <button onClick={handleLogin}>
+              {pending ? <Loader /> : "Log in"}
+            </button>
             <button
               onClick={() => signIn("google")}
               className={`${styles.link} ${styles.google_flex} `}

@@ -28,6 +28,9 @@ export const authOptions = {
       async authorize(credentials) {
         await connectDB();
         const { email, password } = credentials;
+        if (email.length === 0 || password.length === 0) {
+          throw new Error("Please provide all credentials");
+        }
         const user = await User.findOne({ email });
         if (!user) {
           throw new Error("No user found with provided email");
