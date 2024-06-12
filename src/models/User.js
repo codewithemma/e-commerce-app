@@ -17,12 +17,12 @@ const user = mongoose.Schema(
     image: String,
     role: {
       type: String,
-      enum: ["user", "admin"],
+      enum: ["superadmin", "admin", "user"],
       default: "user",
     },
   },
   { timestamps: true }
 );
-const User = mongoose.models.User || mongoose.model("User", user);
+const User = mongoose.models?.User || mongoose?.model("User", user);
 
 export default User;

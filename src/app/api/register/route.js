@@ -3,13 +3,18 @@ import { connectDB } from "@/utils/connect";
 import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 import { StatusCodes } from "http-status-codes";
+
+const validateEmail = (email) => {
+  const re =
+    /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(email);
+};
+
 //POST A USER TO DB
 export async function POST(req) {
   try {
     await connectDB();
     const { fullName, email, password } = await req.json();
-    const isFirstUser = (await User.countDocuments()) === 0;
-    const newRole = isFirstUser ? "admin" : "user";
     const exists = await User.findOne({ $or: [{ email }] });
     if (exists) {
       return NextResponse.json(
@@ -17,11 +22,22 @@ export async function POST(req) {
         { status: StatusCodes.BAD_REQUEST }
       );
     }
+    if (password.length < 8) {
+      return NextResponse.json(
+        { message: "Password should be at least 8 characters long" },
+        { status: StatusCodes.BAD_REQUEST }
+      );
+    }
+    if (!validateEmail(email)) {
+      return NextResponse.json(
+        { message: "Invalid email format" },
+        { status: StatusCodes.BAD_REQUEST }
+      );
+    }
     const hashedPassword = await bcrypt.hash(password, 10);
     await User.create({
       fullName,
       email,
-      role: newRole,
       password: hashedPassword,
     });
     return NextResponse.json(

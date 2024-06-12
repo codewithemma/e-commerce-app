@@ -3,13 +3,15 @@ import React, { useEffect, useRef, useState } from "react";
 import styles from "./Dropdown.module.css";
 import { CiLogout, CiUser, CiShoppingBasket, CiSettings } from "react-icons/ci";
 import { signOut, useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 const Dropdown = () => {
   const dropdownRef = useRef(null);
   const router = useRouter();
   const [selectedOption, setSelectedOption] = useState("option 1");
   const [isOpen, setIsOpen] = useState(false);
-  const { data } = useSession();
+  // const { data } = useSession({
+  //   required: true,
+  // });
   const handleProfileClick = () => {
     router.push("/profile");
     setSelectedOption("Option 1");
@@ -21,7 +23,7 @@ const Dropdown = () => {
       label: "Option 1",
       title: (
         <span className={styles.flex}>
-          <CiUser size={"30px"} />
+          <CiSettings size={"30px"} />
           <span>Manage your account</span>
         </span>
       ),
@@ -43,12 +45,12 @@ const Dropdown = () => {
       label: "Option 3",
       title: (
         <span className={styles.flex}>
-          <CiSettings size={"30px"} />
+          <CiUser size={"30px"} />
           <span>Admin</span>
         </span>
       ),
       onClick: () => setSelectedOption("Option 3"),
-      // onAdd: router.push("/auth/admin"),
+      // onAdd: router.push("/protected/admin"),
     },
     {
       label: "Option 4",

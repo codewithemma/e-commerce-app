@@ -1,30 +1,25 @@
 "use client";
 import Image from "next/image";
 import styles from "./Login.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { signIn, useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import Loader from "@/components/loader/Loader";
 import Swal from "sweetalert2";
 const Login = () => {
-  const { status } = useSession();
+  const { status, data: session } = useSession();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [toggle, setToggle] = useState(false);
+  const [pending, setPending] = useState(false);
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
     password: "",
   });
-  const [pending, setPending] = useState(false);
-  function validateEmail(email) {
-    const re =
-      /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email);
-  }
-  function validatePassword(password) {
-    return password.length >= 8;
-  }
+  let callbackUrl = searchParams.get("callbackUrl") || "/";
+
   const handleChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
@@ -36,14 +31,6 @@ const Login = () => {
       formData.password.trim() === ""
     ) {
       toast.error("Must provide all credentials");
-      return;
-    }
-    if (!validateEmail(formData.email)) {
-      toast("Invalid email address");
-      return;
-    }
-    if (!validatePassword(formData.password)) {
-      toast.error("Password must be at least 8 characters long");
       return;
     }
     try {
@@ -89,9 +76,10 @@ const Login = () => {
       redirect: false,
       email: formData.email,
       password: formData.password,
+      callbackUrl,
     });
     if (res.ok) {
-      router.push("/");
+      router.push(callbackUrl);
       toast.success("Login Successful 🎉");
     } else {
       toast.error(res.error);
@@ -101,8 +89,6 @@ const Login = () => {
   const handleClick = () => {
     setToggle(!toggle);
   };
-
-  if (status === "authenticated") router.push("/");
 
   return (
     <div className={styles.hero}>

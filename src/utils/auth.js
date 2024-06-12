@@ -4,8 +4,8 @@ import User from "@/models/User";
 import { connectDB } from "./connect";
 import bcrypt from "bcrypt";
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
-import clientPromise from "./db";
 import { getServerSession } from "next-auth";
+import clientPromise from "./db";
 
 export const authOptions = {
   adapter: MongoDBAdapter(clientPromise),
@@ -13,12 +13,10 @@ export const authOptions = {
     GoogleProvider({
       clientId: process.env.GOOGLE_ID,
       clientSecret: process.env.GOOGLE_SECRET,
-      authorizationUrl:
-        "https://accounts.google.com/o/oauth2/auth?response_type=code&prompt=consent&access_type=offline",
       profile(profile) {
         return {
-          id: profile.id,
-          fullName: profile.fullName,
+          id: profile.sub,
+          name: profile.fullName,
           email: profile.email,
           image: profile.picture,
           role: profile.role ?? "user",
@@ -42,7 +40,7 @@ export const authOptions = {
           _id: user._id,
           name: user.fullName,
           email: user.email,
-          role: user.role[0],
+          role: user.role,
         };
       },
     }),
@@ -54,22 +52,26 @@ export const authOptions = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token._id = user._id;
+        token.id = user._id;
         token.email = user.email;
         token.role = user.role;
       }
       return token;
     },
     async session({ session, token }) {
-      session.user._id = token._id;
-      session.user.email = token.email;
-      session.user.role = token.role;
+      if (session.user) {
+        session.user._id = token.id;
+        session.user.email = token.email;
+        session.user.role = token.role;
+        session.user.image = token.picture;
+      }
       return session;
     },
   },
   pages: {
     signIn: "/auth/login",
   },
+  debug: true,
 };
 
 export const getAuthSession = () => getServerSession(authOptions);

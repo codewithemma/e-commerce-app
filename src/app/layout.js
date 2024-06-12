@@ -7,6 +7,7 @@ import ThemeProvider from "@/providers/ThemeProvider";
 import AuthProvider from "@/providers/AuthProvider";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import NextTopLoader from "nextjs-toploader";
 const poppins = Poppins({
   subsets: ["latin"],
   weight: ["200", "400", "500", "700"],
@@ -71,6 +72,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={poppins.className}>
+        <NextTopLoader />
         <AuthProvider>
           <ThemeContextProvider>
             <ThemeProvider>
