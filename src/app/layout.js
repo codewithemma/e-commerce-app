@@ -24,7 +24,7 @@ export const metadata = {
     type: "website",
     images: [
       {
-        url: "/assets/logo-white.svg",
+        url: "/assets/logo-white.png",
         width: 1200,
         height: 630,
         alt: "Exclusive - Your One-Stop Shop",
@@ -36,7 +36,7 @@ export const metadata = {
     title: "Exclusive - Your One-Stop Shop for Over 1 Million Products",
     description:
       "Discover over 1 million products at Exclusive, your ultimate destination for a diverse assortment of categories including consumer electronics, fashion, home goods, and more. Shop now and enjoy a seamless shopping experience with fast growth and excellent service.",
-    image: "/assets/logo-color.svg",
+    image: "/assets/logo-white.png",
   },
   additionalMetaTags: [
     {
@@ -48,7 +48,7 @@ export const metadata = {
   additionalLinkTags: [
     {
       rel: "icon",
-      href: "/assets/logo-no-background.svg",
+      href: "/assets/logo-white.png",
     },
   ],
   jsonLd: {

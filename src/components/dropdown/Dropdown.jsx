@@ -12,13 +12,13 @@ const Dropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleProfileClick = () => {
-    router.push("/protected/profile");
+    router.push("/user/profile");
     setSelectedOption("Option 1");
     setIsOpen(false);
   };
 
   const handleAdminClick = () => {
-    router.push("/protected/admin");
+    router.push("/user/admin");
     setIsOpen(false);
   };
 

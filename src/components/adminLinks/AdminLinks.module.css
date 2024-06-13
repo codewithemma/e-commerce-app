@@ -1,7 +1,5 @@
 .container {
   margin-top: 20px;
-}
-.container_child {
   display: flex;
   justify-content: center;
   align-items: center;
