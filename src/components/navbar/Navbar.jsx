@@ -40,7 +40,7 @@ const Navbar = () => {
                   Wishlist
                 </Link>
               ) : (
-                <Link className={styles.nav_link} href="/auth/login">
+                <Link className={styles.nav_link} href="/auth/register">
                   Sign Up
                 </Link>
               )}
@@ -88,7 +88,7 @@ const Navbar = () => {
                 About
               </Link>
               {status === "unauthenticated" ? (
-                <Link className={styles.responsive_link} href="/auth/login">
+                <Link className={styles.responsive_link} href="/auth/register">
                   Login
                 </Link>
               ) : (

@@ -19,7 +19,7 @@ const Footer = () => {
           <div>
             <p className={styles.p}>Support</p>
             <Link className={styles.footer_link} href="/">
-              http://aga.ga/nap
+              http://exclusivee=commerce-app.vercel.app
             </Link>
             <Link className={styles.footer_link} href="/">
               2324 8214
@@ -29,7 +29,7 @@ const Footer = () => {
             <Link className={styles.footer_link} href="#">
               My Account
             </Link>
-            <Link className={styles.footer_link} href="/login">
+            <Link className={styles.footer_link} href="/register">
               Login / Register
             </Link>
             <Link className={styles.footer_link} href="/cart">

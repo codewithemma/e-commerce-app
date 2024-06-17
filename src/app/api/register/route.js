@@ -8,7 +8,7 @@ import { StatusCodes } from "http-status-codes";
 export async function GET(req) {
   try {
     await connectDB();
-    const users = await User.find();
+    const users = await User.find({});
     return new NextResponse(JSON.stringify(users, { status: StatusCodes.OK }));
   } catch (error) {
     return new NextResponse(

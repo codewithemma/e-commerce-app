@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 const uri = process.env.MONGO_URI;
-const localUrl = "mongodb://localhost:27017/exclusive_db";
+const localUrl = "mongodb://localhost:27017/exclusive-db";
 const url = process.env.NODE_ENV === "production" ? uri : localUrl;
 let isConnected = false;
 export async function connectDB() {

@@ -3,11 +3,17 @@ import OtherLinks from "@/components/otherLinks/OtherLinks";
 import UserForm from "./userForm/UserForm";
 import { url } from "@/utils/api";
 const getData = async () => {
-  const res = await fetch(`${url}/api/register`);
-  return res.json();
+  try {
+    const res = await fetch(`${url}/api/register`);
+    return res.json();
+  } catch (error) {
+    const errorMessage = await res.json();
+    console.log(errorMessage.message);
+  }
 };
 const CreateUser = async () => {
   const userData = await getData();
+  console.log(userData);
   return (
     <div>
       <AdminLinks />

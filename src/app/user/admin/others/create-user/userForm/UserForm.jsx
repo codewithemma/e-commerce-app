@@ -1,20 +1,10 @@
 "use client";
 import { useState } from "react";
 import styles from "./UserForm.module.css";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  TextField,
-  TablePagination,
-  TableSortLabel,
-} from "@mui/material";
 import { toast } from "react-toastify";
+import { DataGrid } from "@mui/x-data-grid";
 const UserForm = ({ userInfo }) => {
+  const [pageSize, setPageSize] = useState(5);
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -50,57 +40,11 @@ const UserForm = ({ userInfo }) => {
     }
   };
 
-  const [rows, setRows] = useState(formData);
-  const [filter, setFilter] = useState("");
-  const [order, setOrder] = useState("asc");
-  const [orderBy, setOrderBy] = useState("name");
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
-
-  const handleFilterChange = (event) => {
-    setFilter(event.target.value);
-  };
-
-  const handleRequestSort = (property) => {
-    const isAsc = orderBy === property && order === "asc";
-    setOrder(isAsc ? "desc" : "asc");
-    setOrderBy(property);
-  };
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-
-  const filteredRows = rows.filter(
-    (row) =>
-      row.name.toLowerCase().includes(filter.toLowerCase()) ||
-      row.address.toLowerCase().includes(filter.toLowerCase())
-  );
-
-  const sortedRows = filteredRows.sort((a, b) => {
-    if (orderBy === "name") {
-      return order === "asc"
-        ? a.name.localeCompare(b.name)
-        : b.name.localeCompare(a.name);
-    } else if (orderBy === "age") {
-      return order === "asc" ? a.name - b.name : b.name - a.name;
-    } else if (orderBy === "address") {
-      return order === "asc"
-        ? a.address.localeCompare(b.address)
-        : b.address.localeCompare(a.address);
-    }
-    return 0;
-  });
-
-  const paginatedRows = sortedRows.slice(
-    page * rowsPerPage,
-    page * rowsPerPage + rowsPerPage
-  );
+  const columns = [
+    { field: "_id", headerName: "ID", width: 150 },
+    { field: "fullName", headerName: "Full Name", width: 200 },
+    { field: "email", headerName: "Email", width: 250 },
+  ];
 
   return (
     <>
@@ -153,72 +97,18 @@ const UserForm = ({ userInfo }) => {
           <button className={styles.submit_btn} onClick={handleSubmit}>
             submit
           </button>
-        </div>{" "}
-        <Paper>
-          <TextField
-            label="Filter"
-            variant="outlined"
-            fullWidth
-            margin="normal"
-            value={filter}
-            onChange={handleFilterChange}
-          />
-          <TableContainer>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell sortDirection={orderBy === "name" ? order : false}>
-                    <TableSortLabel
-                      active={orderBy === "name"}
-                      direction={orderBy === "name" ? order : "asc"}
-                      onClick={() => handleRequestSort("name")}
-                    >
-                      Name
-                    </TableSortLabel>
-                  </TableCell>
-                  <TableCell sortDirection={orderBy === "age" ? order : false}>
-                    <TableSortLabel
-                      active={orderBy === "age"}
-                      direction={orderBy === "age" ? order : "asc"}
-                      onClick={() => handleRequestSort("age")}
-                    >
-                      Age
-                    </TableSortLabel>
-                  </TableCell>
-                  <TableCell
-                    sortDirection={orderBy === "address" ? order : false}
-                  >
-                    <TableSortLabel
-                      active={orderBy === "address"}
-                      direction={orderBy === "address" ? order : "asc"}
-                      onClick={() => handleRequestSort("address")}
-                    >
-                      Address
-                    </TableSortLabel>
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {userInfo.map((row, index) => (
-                  <TableRow key={index}>
-                    <TableCell>{row.name}</TableCell>
-                    <TableCell>{row.age}</TableCell>
-                    <TableCell>{row.address}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <TablePagination
-            rowsPerPageOptions={[5, 10, 25]}
-            component="div"
-            count={sortedRows.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
-        </Paper>
+        </div>
+        <DataGrid
+          rows={userInfo}
+          columns={columns}
+          pageSize={pageSize}
+          onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+          rowsPerPageOptions={[5, 10, 25]}
+          pagination
+          checkboxSelection
+          disableRowSelectionOnClick
+          getRowId={(row) => row._id}
+        />
       </div>
     </>
   );
