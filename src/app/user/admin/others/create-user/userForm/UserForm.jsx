@@ -3,7 +3,7 @@ import { useState } from "react";
 import styles from "./UserForm.module.css";
 import { toast } from "react-toastify";
 import { DataGrid } from "@mui/x-data-grid";
-const UserForm = ({ userInfo }) => {
+const UserForm = () => {
   const [pageSize, setPageSize] = useState(5);
   const [formData, setFormData] = useState({
     fullName: "",
@@ -99,7 +99,7 @@ const UserForm = ({ userInfo }) => {
           </button>
         </div>
         <DataGrid
-          rows={userInfo}
+          // rows={userInfo}
           columns={columns}
           pageSize={pageSize}
           onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}

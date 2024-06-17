@@ -9,7 +9,7 @@ export default withAuth({
       return Boolean(token);
     },
     async redirect({ req, res, url }) {
-      if (url.pathname.startsWith("/user/admin")) {
+      if (url.pathname.startsWith("/user/:path*")) {
         const session = await req.session();
         if (
           !session ||
