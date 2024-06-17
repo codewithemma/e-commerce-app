@@ -4,6 +4,22 @@ import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 import { StatusCodes } from "http-status-codes";
 
+//GET ALL USERS
+export async function GET(req) {
+  try {
+    await connectDB();
+    const users = await User.find();
+    return new NextResponse(JSON.stringify(users, { status: StatusCodes.OK }));
+  } catch (error) {
+    return new NextResponse(
+      JSON.stringify(
+        { message: error },
+        { status: StatusCodes.INTERNAL_SERVER_ERROR }
+      )
+    );
+  }
+}
+
 const validateEmail = (email) => {
   const re =
     /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -14,7 +30,7 @@ const validateEmail = (email) => {
 export async function POST(req) {
   try {
     await connectDB();
-    const { fullName, email, password } = await req.json();
+    const { fullName, email, role, password } = await req.json();
     const exists = await User.findOne({ $or: [{ email }] });
     if (fullName.length === 0 || email.length === 0) {
       return NextResponse.json(
@@ -45,6 +61,7 @@ export async function POST(req) {
       fullName,
       email,
       password: hashedPassword,
+      role,
     });
     return NextResponse.json(
       { message: "User registered successfully" },

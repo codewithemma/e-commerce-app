@@ -1,6 +1,5 @@
 .container {
   max-width: 500px;
-  /* border: 1px solid black; */
   margin: 40px auto;
 }
 .input {
@@ -27,13 +26,15 @@
   border: none;
   padding: 10px;
 }
-.input_group textarea {
-  background-color: var(--productBg);
-  width: 100%;
-  height: 150px;
+.select {
   outline: none;
-  border: none;
-  padding: 10px;
+  height: 50px;
+  padding: 10px 0px;
+  background-color: var(--productBg);
+  border: 1px solid var(--tertiaryColor);
+}
+.select option {
+  color: #505050;
 }
 .submit_btn {
   background-color: var(--tertiaryColor);
