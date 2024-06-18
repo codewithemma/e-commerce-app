@@ -3,7 +3,8 @@ import { useState } from "react";
 import styles from "./UserForm.module.css";
 import { toast } from "react-toastify";
 import { DataGrid } from "@mui/x-data-grid";
-const UserForm = () => {
+import Loader from "@/components/loader/Loader";
+const UserForm = ({ userInfo }) => {
   const [pageSize, setPageSize] = useState(5);
   const [formData, setFormData] = useState({
     fullName: "",
@@ -11,6 +12,7 @@ const UserForm = () => {
     password: "",
     role: "",
   });
+  const [pending, setPending] = useState(false);
 
   const handleChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
@@ -18,6 +20,7 @@ const UserForm = () => {
 
   const handleSubmit = async () => {
     try {
+      setPending(true);
       const res = await fetch("/api/register", {
         method: "POST",
         headers: { "content-type": "application/json" },
@@ -25,6 +28,7 @@ const UserForm = () => {
       });
       const errorMessage = await res.json();
       if (res.ok) {
+        setPending(false);
         setFormData({
           fullName: "",
           email: "",
@@ -33,9 +37,11 @@ const UserForm = () => {
         });
         toast.success("Persona created successfully");
       } else {
+        setPending(false);
         toast.error(errorMessage.message);
       }
     } catch (error) {
+      setPending(false);
       toast.error(error);
     }
   };
@@ -95,11 +101,11 @@ const UserForm = () => {
             </option>
           </select>
           <button className={styles.submit_btn} onClick={handleSubmit}>
-            submit
+            {pending ? <Loader /> : "submit"}
           </button>
         </div>
         <DataGrid
-          // rows={userInfo}
+          rows={userInfo}
           columns={columns}
           pageSize={pageSize}
           onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}

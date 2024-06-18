@@ -5,6 +5,7 @@ import styles from "./CreateItem.module.css";
 import { useState } from "react";
 import FileBase from "react-file-base64";
 import { toast } from "react-toastify";
+import Loader from "@/components/loader/Loader";
 
 const CreateItem = () => {
   const [formData, setFormData] = useState({
@@ -15,6 +16,7 @@ const CreateItem = () => {
     stock: "",
     category: "",
   });
+  const [pending, setPending] = useState(false);
 
   const handleChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
@@ -26,6 +28,7 @@ const CreateItem = () => {
 
   const handleSubmit = async () => {
     try {
+      setPending(true);
       const res = await fetch("/api/products", {
         method: "POST",
         headers: { "content-type": "application/json" },
@@ -33,11 +36,14 @@ const CreateItem = () => {
       });
       const errorMessage = await res.json();
       if (res.ok) {
+        setPending(false);
         toast.success("New Product created successfully");
       } else {
+        setPending(false);
         toast.error(errorMessage.message);
       }
     } catch (error) {
+      setPending(false);
       toast.error(error.message);
     }
   };
@@ -107,7 +113,7 @@ const CreateItem = () => {
             />
           </div>
           <button className={styles.submit_btn} onClick={handleSubmit}>
-            submit
+            {pending ? <Loader /> : "submit"}
           </button>
         </div>
       </div>

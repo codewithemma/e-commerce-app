@@ -9,6 +9,7 @@ export async function GET(req) {
   try {
     await connectDB();
     const users = await User.find({});
+    console.log(users);
     return new NextResponse(JSON.stringify(users, { status: StatusCodes.OK }));
   } catch (error) {
     return new NextResponse(
@@ -19,7 +20,7 @@ export async function GET(req) {
     );
   }
 }
-
+// CHECK FOR VALID EMAIL
 const validateEmail = (email) => {
   const re =
     /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
