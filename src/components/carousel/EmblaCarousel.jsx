@@ -19,6 +19,7 @@ const EmblaCarousel = () => {
             src="/assets/test.svg"
             style={{ objectFit: "cover" }}
             fill
+            className={styles.img}
           />
         </div>
         <div className={`${styles.embla__slide} ${styles.img_container}`}>
@@ -28,6 +29,7 @@ const EmblaCarousel = () => {
             src="/assets/test1.jpg"
             style={{ objectFit: "cover" }}
             fill
+            className={styles.img}
           />
         </div>
         <div className={`${styles.embla__slide} ${styles.img_container}`}>
@@ -37,6 +39,7 @@ const EmblaCarousel = () => {
             src="/assets/test2.jpg"
             style={{ objectFit: "cover" }}
             fill
+            className={styles.img}
           />
         </div>
       </div>

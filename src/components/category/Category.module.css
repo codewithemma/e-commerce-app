@@ -1,6 +1,6 @@
 .upper {
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
   gap: 5px;
 }
@@ -105,7 +105,7 @@
 .gaming_1:hover {
   background-color: #6dd58c;
 }
-.gaming:hover .gaming {
+.gaming_1:hover .gaming {
   background-color: #37be5f;
 }
 

@@ -29,7 +29,7 @@ const CreateItem = () => {
   const handleSubmit = async () => {
     try {
       setPending(true);
-      const res = await fetch("/api/products", {
+      const res = await fetch("/api/admin/products", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(formData),
@@ -37,6 +37,14 @@ const CreateItem = () => {
       const errorMessage = await res.json();
       if (res.ok) {
         setPending(false);
+        setFormData({
+          name: "",
+          description: "",
+          price: "",
+          image: "",
+          stock: "",
+          category: "",
+        });
         toast.success("New Product created successfully");
       } else {
         setPending(false);
@@ -94,7 +102,7 @@ const CreateItem = () => {
             />
           </div>
           <div className={styles.input_group}>
-            <label htmlFor="Category">Enter {"Product's"} Category</label>
+            <label htmlFor="Category">Enter {"Product's"}Category</label>
             <input
               type="text"
               name="category"

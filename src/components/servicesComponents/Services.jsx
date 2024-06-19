@@ -14,7 +14,7 @@ const Services = () => {
             priority
           />
           <p>FREE AND FAST DELIVERY</p>
-          <p>Free delivery for all orders over $140</p>
+          <p>Free delivery for all orders over 5,000</p>
         </div>
         <div className={styles.flex}>
           <Image
@@ -30,7 +30,7 @@ const Services = () => {
         <div className={styles.flex}>
           <Image
             alt="service image"
-            src="/assets/services2.svg"
+            src="/assets/services3.svg"
             width={80}
             height={80}
             priority

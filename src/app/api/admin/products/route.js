@@ -39,7 +39,6 @@ export const POST = async (req) => {
       JSON.stringify(products, { status: StatusCodes.CREATED })
     );
   } catch (error) {
-    console.log(error);
     return new NextResponse(
       JSON.stringify(
         { message: "internal server error" },

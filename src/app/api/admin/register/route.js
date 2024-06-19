@@ -3,7 +3,28 @@ import { connectDB } from "@/utils/connect";
 import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 import { StatusCodes } from "http-status-codes";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/utils/auth";
 
+//SESSION VALIDATION
+const session = getServerSession(authOptions);
+console.log(session);
+
+//GET ALL USERS
+export async function GET(req) {
+  try {
+    await connectDB();
+    const users = await User.find({});
+    return new NextResponse(JSON.stringify(users, { status: StatusCodes.OK }));
+  } catch (error) {
+    return new NextResponse(
+      JSON.stringify(
+        { message: error },
+        { status: StatusCodes.INTERNAL_SERVER_ERROR }
+      )
+    );
+  }
+}
 // CHECK FOR VALID EMAIL
 const validateEmail = (email) => {
   const re =
@@ -15,7 +36,7 @@ const validateEmail = (email) => {
 export async function POST(req) {
   try {
     await connectDB();
-    const { fullName, email, password } = await req.json();
+    const { fullName, email, role, password } = await req.json();
     const exists = await User.findOne({ $or: [{ email }] });
     if (fullName.length === 0 || email.length === 0) {
       return NextResponse.json(
@@ -46,6 +67,7 @@ export async function POST(req) {
       fullName,
       email,
       password: hashedPassword,
+      role,
     });
     return NextResponse.json(
       { message: "User registered successfully" },

@@ -3,7 +3,7 @@ import OtherLinks from "@/components/otherLinks/OtherLinks";
 import { url } from "@/utils/api";
 // import styles from "./page";
 const getData = async () => {
-  const res = await fetch(`${url}/api/products`, {
+  const res = await fetch(`${url}/api/admin/products`, {
     cache: "no-store",
   });
   return res.json();
@@ -11,7 +11,6 @@ const getData = async () => {
 
 const AllProducts = async () => {
   const products = await getData();
-  console.log(products);
   return (
     <div>
       <AdminLinks />

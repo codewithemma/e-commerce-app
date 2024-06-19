@@ -4,7 +4,7 @@ import UserForm from "./userForm/UserForm";
 import { url } from "@/utils/api";
 const getData = async () => {
   try {
-    const res = await fetch(`${url}/api/register`, {
+    const res = await fetch(`${url}/api/admin/register`, {
       cache: "no-store",
     });
     return res.json();
@@ -26,4 +26,3 @@ const CreateUser = async () => {
 };
 
 export default CreateUser;
-// userInfo={userData}

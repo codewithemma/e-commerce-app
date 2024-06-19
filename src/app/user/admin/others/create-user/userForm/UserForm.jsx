@@ -21,7 +21,7 @@ const UserForm = ({ userInfo }) => {
   const handleSubmit = async () => {
     try {
       setPending(true);
-      const res = await fetch("/api/register", {
+      const res = await fetch("/api/admin/register", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(formData),
