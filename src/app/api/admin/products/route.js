@@ -4,12 +4,32 @@ import { StatusCodes } from "http-status-codes";
 import { NextResponse } from "next/server";
 
 export const GET = async (req, res) => {
-  await connectDB();
-
-  const products = await Product.find().sort({
-    _id: -1,
-  });
-  return new NextResponse(JSON.stringify(products, { status: StatusCodes.OK }));
+  //SESSION VALIDATION
+  const session = await getServerSession(authOptions);
+  if (session?.user?.role !== "superadmin" && session?.user?.role !== "admin") {
+    return new NextResponse(
+      JSON.stringify(
+        { message: "You are not authorized to view this page" },
+        { status: StatusCodes.FORBIDDEN }
+      )
+    );
+  }
+  try {
+    await connectDB();
+    const products = await Product.find().sort({
+      _id: -1,
+    });
+    return new NextResponse(
+      JSON.stringify(products, { status: StatusCodes.OK })
+    );
+  } catch (error) {
+    return new NextResponse(
+      JSON.stringify(
+        { message: "Something went wrong" },
+        { status: StatusCodes.BAD_REQUEST }
+      )
+    );
+  }
 };
 
 export const POST = async (req) => {

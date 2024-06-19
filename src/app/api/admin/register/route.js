@@ -6,12 +6,18 @@ import { StatusCodes } from "http-status-codes";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/utils/auth";
 
-//SESSION VALIDATION
-const session = getServerSession(authOptions);
-console.log(session);
-
 //GET ALL USERS
 export async function GET(req) {
+  //SESSION VALIDATION
+  const session = await getServerSession(authOptions);
+  if (session?.user?.role !== "superadmin" && session?.user?.role !== "admin") {
+    return new NextResponse(
+      JSON.stringify(
+        { message: "You are not authorized to view this page" },
+        { status: StatusCodes.FORBIDDEN }
+      )
+    );
+  }
   try {
     await connectDB();
     const users = await User.find({});
