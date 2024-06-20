@@ -38,7 +38,7 @@ export const POST = async (req) => {
   if (session?.user?.role !== "superadmin" && session?.user?.role !== "admin") {
     return new NextResponse(
       JSON.stringify(
-        { message: "You are not authorized to view this page" },
+        { message: "You are forbidden to make such request" },
         { status: StatusCodes.FORBIDDEN }
       )
     );

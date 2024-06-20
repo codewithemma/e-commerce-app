@@ -10,8 +10,7 @@ const getData = async () => {
     const data = await res.json();
     return data;
   } catch (error) {
-    const errorMessage = await res.json();
-    console.log(errorMessage.message);
+    console.log(error);
   }
 };
 const CreateUser = async () => {
