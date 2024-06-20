@@ -1,5 +1,6 @@
 import AdminLinks from "@/components/adminLinks/AdminLinks";
 import OtherLinks from "@/components/otherLinks/OtherLinks";
+import { url } from "@/utils/api";
 // import styles from "./page";
 
 const getData = async () => {
