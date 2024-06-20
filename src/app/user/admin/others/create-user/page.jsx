@@ -6,7 +6,8 @@ const getData = async () => {
     const res = await fetch(`/api/admin/register`, {
       cache: "no-store",
     });
-    return res.json();
+    const data = await res.json();
+    return data;
   } catch (error) {
     const errorMessage = await res.json();
     console.log(errorMessage.message);

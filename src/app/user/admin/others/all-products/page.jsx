@@ -7,7 +7,8 @@ const getData = async () => {
     const res = await fetch(`/api/admin/products`, {
       cache: "no-store",
     });
-    return res.json();
+    const data = await res.json();
+    return data;
   } catch (error) {
     console.error("Error fetching data:", error);
     return null;
