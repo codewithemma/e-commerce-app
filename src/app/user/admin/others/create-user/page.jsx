@@ -1,10 +1,9 @@
 import AdminLinks from "@/components/adminLinks/AdminLinks";
 import OtherLinks from "@/components/otherLinks/OtherLinks";
 import UserForm from "./userForm/UserForm";
-import { url } from "@/utils/api";
 const getData = async () => {
   try {
-    const res = await fetch(`${url}/api/admin/register`, {
+    const res = await fetch(`/api/admin/register`, {
       cache: "no-store",
     });
     return res.json();

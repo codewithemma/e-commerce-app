@@ -1,11 +1,10 @@
 import AdminLinks from "@/components/adminLinks/AdminLinks";
 import OtherLinks from "@/components/otherLinks/OtherLinks";
-import { url } from "@/utils/api";
 // import styles from "./page";
 
 const getData = async () => {
   try {
-    const res = await fetch(`${url}/api/admin/products`, {
+    const res = await fetch(`/api/admin/products`, {
       cache: "no-store",
     });
     return res.json();
@@ -16,6 +15,7 @@ const getData = async () => {
 };
 const AllProducts = async () => {
   const products = await getData();
+  console.log(products);
   return (
     <div>
       <AdminLinks />
