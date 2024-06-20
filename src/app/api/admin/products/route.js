@@ -5,15 +5,15 @@ import { NextResponse } from "next/server";
 
 export const GET = async (req, res) => {
   //SESSION VALIDATION
-  const session = await getServerSession(authOptions);
-  if (session?.user?.role !== "superadmin" && session?.user?.role !== "admin") {
-    return new NextResponse(
-      JSON.stringify(
-        { message: "You are not authorized to view this page" },
-        { status: StatusCodes.FORBIDDEN }
-      )
-    );
-  }
+  // const session = await getServerSession(authOptions);
+  // if (session?.user?.role !== "superadmin" && session?.user?.role !== "admin") {
+  //   return new NextResponse(
+  //     JSON.stringify(
+  //       { message: "You are not authorized to view this page" },
+  //       { status: StatusCodes.FORBIDDEN }
+  //     )
+  //   );
+  // }
   try {
     await connectDB();
     const products = await Product.find().sort({
@@ -33,9 +33,18 @@ export const GET = async (req, res) => {
 };
 
 export const POST = async (req) => {
-  await connectDB();
-
+  //SESSION VALIDATION
+  const session = await getServerSession(authOptions);
+  if (session?.user?.role !== "superadmin" && session?.user?.role !== "admin") {
+    return new NextResponse(
+      JSON.stringify(
+        { message: "You are not authorized to view this page" },
+        { status: StatusCodes.FORBIDDEN }
+      )
+    );
+  }
   try {
+    await connectDB();
     const { name, description, price, image, category, stock } =
       await req.json();
     const requiredFields = [name, description, price, image, category, stock];
