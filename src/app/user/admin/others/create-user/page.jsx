@@ -3,7 +3,7 @@ import OtherLinks from "@/components/otherLinks/OtherLinks";
 import UserForm from "./userForm/UserForm";
 const getData = async () => {
   try {
-    const res = await fetch(`/api/admin/register`, {
+    const res = await fetch(`${url}/api/admin/register`, {
       cache: "no-store",
     });
     const data = await res.json();

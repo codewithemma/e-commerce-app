@@ -4,14 +4,13 @@ import OtherLinks from "@/components/otherLinks/OtherLinks";
 
 const getData = async () => {
   try {
-    const res = await fetch(`/api/admin/products`, {
+    const res = await fetch(`${url}/api/admin/products`, {
       cache: "no-store",
     });
     const data = await res.json();
     return data;
   } catch (error) {
     console.error("Error fetching data:", error);
-    return null;
   }
 };
 const AllProducts = async () => {
