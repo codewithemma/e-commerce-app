@@ -2,13 +2,18 @@ import AdminLinks from "@/components/adminLinks/AdminLinks";
 import OtherLinks from "@/components/otherLinks/OtherLinks";
 import { url } from "@/utils/api";
 // import styles from "./page";
-const getData = async () => {
-  const res = await fetch(`${url}/api/admin/products`, {
-    cache: "no-store",
-  });
-  return res.json();
-};
 
+const getData = async () => {
+  try {
+    const res = await fetch(`${url}/api/admin/products`, {
+      cache: "no-store",
+    });
+    return res.json();
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return null;
+  }
+};
 const AllProducts = async () => {
   const products = await getData();
   return (

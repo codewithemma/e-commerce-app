@@ -5,23 +5,19 @@ const ProductList = () => {
   const product = [
     {
       id: 1,
-      name: "Phones",
+      name: "Electronics",
     },
     {
       id: 2,
-      name: "Console Gaming",
+      name: "Fashion",
     },
     {
       id: 3,
-      name: "Electronic",
+      name: "Entertainment",
     },
     {
       id: 4,
-      name: "Smart Watches",
-    },
-    {
-      id: 3,
-      name: "Headphones",
+      name: "Gaming",
     },
   ];
   return (
