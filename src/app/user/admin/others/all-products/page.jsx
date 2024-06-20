@@ -5,7 +5,7 @@ import { url } from "@/utils/api";
 
 const getData = async () => {
   try {
-    const res = await fetch(`${url}/api/admin/products`, {
+    const res = await fetch(`${url}/api/user/products`, {
       cache: "no-store",
     });
     const data = await res.json();

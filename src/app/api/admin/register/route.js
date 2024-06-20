@@ -40,6 +40,16 @@ const validateEmail = (email) => {
 
 //POST A USER TO DB
 export async function POST(req) {
+  //SESSION VALIDATION
+  const session = await getServerSession(authOptions);
+  if (session?.user?.role !== "superadmin" && session?.user?.role !== "admin") {
+    return new NextResponse(
+      JSON.stringify(
+        { message: "You are not authorized to view this page" },
+        { status: StatusCodes.FORBIDDEN }
+      )
+    );
+  }
   try {
     await connectDB();
     const { fullName, email, role, password } = await req.json();
