@@ -1,4 +1,5 @@
 import Product from "@/models/Product";
+import { authOptions } from "@/utils/auth";
 import { connectDB } from "@/utils/connect";
 import { StatusCodes } from "http-status-codes";
 import { getServerSession } from "next-auth";
@@ -7,7 +8,10 @@ import { NextResponse } from "next/server";
 export const POST = async (req) => {
   //SESSION VALIDATION
   const session = await getServerSession(authOptions);
-  if (session?.user?.role !== "superadmin" && session?.user?.role !== "admin") {
+  console.log(session);
+  if (
+    !(session?.user?.role === "superadmin" || session?.user?.role === "admin")
+  ) {
     return new NextResponse(
       JSON.stringify(
         { message: "You are forbidden to make such request" },
@@ -15,6 +19,8 @@ export const POST = async (req) => {
       )
     );
   }
+  //
+
   try {
     await connectDB();
     const { name, description, price, image, category, stock } =

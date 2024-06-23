@@ -2,25 +2,30 @@ import AdminLinks from "@/components/adminLinks/AdminLinks";
 import OtherLinks from "@/components/otherLinks/OtherLinks";
 import UserForm from "./userForm/UserForm";
 import { url } from "@/utils/api";
-const getData = async () => {
-  try {
-    const res = await fetch(`${url}/api/admin/register`, {
-      cache: "no-store",
-    });
-    const data = await res.json();
-    return data;
-  } catch (error) {
-    console.log(error);
-  }
-};
+
+import User from "@/models/User";
+import { connectDB } from "@/utils/connect";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/utils/auth";
+
 const CreateUser = async () => {
-  const data = await getData();
-  console.log(data);
+  await connectDB();
+
+  const session = await getServerSession(authOptions);
+
+  if (
+    !(session?.user?.role === "superadmin" || session?.user?.role === "admin")
+  ) {
+    return null;
+  }
+
+  const users = await User.find({});
+
   return (
     <div>
       <AdminLinks />
       <OtherLinks />
-      <UserForm userInfo={data} />
+      <UserForm userInfo={JSON.parse(JSON.stringify(users))} />
     </div>
   );
 };

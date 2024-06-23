@@ -6,21 +6,23 @@ import { StatusCodes } from "http-status-codes";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/utils/auth";
 
+// CHECK FOR VALID EMAIL
+const validateEmail = (email) => {
+  const re =
+    /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(email);
+};
+
 //GET ALL USERS
-export async function GET(req) {
-  //SESSION VALIDATION
-  const session = await getServerSession(authOptions);
-  if (session?.user?.role !== "superadmin" && session?.user?.role !== "admin") {
-    return new NextResponse(
-      JSON.stringify(
-        { message: "You are not authorized to view this page" },
-        { status: StatusCodes.FORBIDDEN }
-      )
-    );
-  }
+export const GET = async (req, res) => {
   try {
+    //SESSION VALIDATION
+    const session = await getServerSession(authOptions);
+    console.log("uuuuuu", session);
+
     await connectDB();
     const users = await User.find({});
+    console.log("this ran");
     return new NextResponse(JSON.stringify(users, { status: StatusCodes.OK }));
   } catch (error) {
     return new NextResponse(
@@ -30,18 +32,14 @@ export async function GET(req) {
       )
     );
   }
-}
-// CHECK FOR VALID EMAIL
-const validateEmail = (email) => {
-  const re =
-    /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return re.test(email);
 };
 
 //POST A USER TO DB
-export async function POST(req) {
+export async function POST(req, res) {
   //SESSION VALIDATION
   const session = await getServerSession(authOptions);
+
+  console.log("tessst", session);
   if (session?.user?.role !== "superadmin" && session?.user?.role !== "admin") {
     return new NextResponse(
       JSON.stringify(

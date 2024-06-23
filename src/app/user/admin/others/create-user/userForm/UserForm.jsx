@@ -21,7 +21,7 @@ const UserForm = ({ userInfo }) => {
   const handleSubmit = async () => {
     try {
       setPending(true);
-      const res = await fetch("/api/admin/register", {
+      const res = await fetch("/api/admin/user", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(formData),
@@ -111,7 +111,6 @@ const UserForm = ({ userInfo }) => {
           onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
           rowsPerPageOptions={[5, 10, 25]}
           pagination
-          checkboxSelection
           disableRowSelectionOnClick
           getRowId={(row) => row._id}
         />

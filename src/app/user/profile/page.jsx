@@ -5,6 +5,7 @@ import React from "react";
 
 const UserProfile = async () => {
   const session = await getServerSession(authOptions);
+  console.log(session);
   return (
     <div>
       <p>hello {session?.user?.email}</p>

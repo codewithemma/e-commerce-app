@@ -35,6 +35,7 @@ const CreateItem = () => {
         body: JSON.stringify(formData),
       });
       const errorMessage = await res.json();
+      console.log(errorMessage);
       if (res.ok) {
         setPending(false);
         setFormData({
@@ -52,7 +53,7 @@ const CreateItem = () => {
       }
     } catch (error) {
       setPending(false);
-      toast.error(error.message);
+      toast.error(error);
     }
   };
 
@@ -103,13 +104,26 @@ const CreateItem = () => {
           </div>
           <div className={styles.input_group}>
             <label htmlFor="Category">Enter {"Product's"}Category</label>
-            <input
-              type="text"
+            <select
               name="category"
-              value={formData.category}
-              placeholder="Enter product's category"
+              id="Category"
+              className={styles.select}
               onChange={handleChange}
-            />
+            >
+              <option value="">Select a Category</option>
+              <option value="electronics" name="category">
+                Electronics
+              </option>
+              <option value="fashion" name="category">
+                Fashion
+              </option>
+              <option value="entertainment" name="category">
+                Entertainment
+              </option>
+              <option value="gaming" name="category">
+                Gaming
+              </option>
+            </select>
           </div>
           <div className={styles.input_group}>
             <label htmlFor="image">Image</label>
