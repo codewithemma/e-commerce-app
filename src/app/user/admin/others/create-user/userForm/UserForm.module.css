@@ -1,3 +1,23 @@
+.actions_flex {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.actions_flex button:nth-of-type(1) {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  color: rgb(70, 114, 190);
+}
+
+.actions_flex button:nth-of-type(2) {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  color: rgba(211, 85, 85, 0.943);
+}
+
 .container {
   max-width: 500px;
   margin: 40px auto;

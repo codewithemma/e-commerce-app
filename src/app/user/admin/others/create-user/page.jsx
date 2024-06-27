@@ -1,7 +1,6 @@
 import AdminLinks from "@/components/adminLinks/AdminLinks";
 import OtherLinks from "@/components/otherLinks/OtherLinks";
 import UserForm from "./userForm/UserForm";
-import { url } from "@/utils/api";
 
 import User from "@/models/User";
 import { connectDB } from "@/utils/connect";
@@ -19,7 +18,7 @@ const CreateUser = async () => {
     return null;
   }
 
-  const users = await User.find({});
+  const users = await User.find({}).select("-password");
 
   return (
     <div>

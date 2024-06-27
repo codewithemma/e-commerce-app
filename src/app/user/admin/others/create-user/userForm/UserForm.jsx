@@ -1,9 +1,10 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./UserForm.module.css";
 import { toast } from "react-toastify";
 import { DataGrid } from "@mui/x-data-grid";
 import Loader from "@/components/loader/Loader";
+import { FaEdit, FaTrash } from "react-icons/fa";
 const UserForm = ({ userInfo }) => {
   const [pageSize, setPageSize] = useState(5);
   const [formData, setFormData] = useState({
@@ -13,6 +14,16 @@ const UserForm = ({ userInfo }) => {
     role: "",
   });
   const [pending, setPending] = useState(false);
+
+  const [rows, setRows] = useState([]);
+
+  useEffect(() => {
+    const processedData = userInfo.map((user, index) => ({
+      ...user,
+      id: index + 1,
+    }));
+    setRows(processedData);
+  }, [userInfo]);
 
   const handleChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
@@ -46,10 +57,49 @@ const UserForm = ({ userInfo }) => {
     }
   };
 
+  const handleUpdate = (id) => {
+    // Implement update functionality for the row with id
+    toast.info(`Update row with ID ${id}`);
+  };
+
+  const handleDelete = (id) => {
+    // Implement delete functionality for the row with id
+    toast.warn(`Delete row with ID ${id}`);
+  };
+
   const columns = [
-    { field: "_id", headerName: "ID", width: 150 },
+    { field: "id", headerName: "ID", width: 90 },
     { field: "fullName", headerName: "Full Name", width: 200 },
     { field: "email", headerName: "Email", width: 250 },
+    {
+      field: "actions",
+      headerName: "Actions",
+      width: 100,
+      renderCell: (params) => (
+        <div className={styles.actions_flex}>
+          <button>
+            <FaEdit size={20} onClick={() => handleUpdate(params.row.id)} />
+          </button>
+          <button>
+            <FaTrash size={20} onClick={() => handleDelete(params.row.id)} />
+          </button>
+        </div>
+      ),
+    },
+
+    // {
+    //   field: "actions",
+    //   headerName: "Delete",
+    //   width: 150,
+    //   renderCell: (params) => (
+    //     <button
+    //       className={styles.action_btn}
+    //       onClick={() => handleDelete(params.row.id)}
+    //     >
+    //       Delete
+    //     </button>
+    //   ),
+    // },
   ];
 
   return (
@@ -105,14 +155,13 @@ const UserForm = ({ userInfo }) => {
           </button>
         </div>
         <DataGrid
-          rows={userInfo}
+          rows={rows}
           columns={columns}
           pageSize={pageSize}
           onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
           rowsPerPageOptions={[5, 10, 25]}
           pagination
           disableRowSelectionOnClick
-          getRowId={(row) => row._id}
         />
       </div>
     </>

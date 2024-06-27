@@ -19,10 +19,10 @@ const Footer = () => {
           <div>
             <p className={styles.p}>Support</p>
             <Link className={styles.footer_link} href="/">
-              http://exclusivee=commerce-app.vercel.app
+              Home
             </Link>
             <Link className={styles.footer_link} href="/">
-              2324 8214
+              +234 802 324 8214
             </Link>
           </div>
           <div>
