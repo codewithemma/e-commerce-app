@@ -37,7 +37,7 @@ const Navbar = () => {
               </Link>
               {status === "authenticated" ? (
                 <Link className={styles.nav_link} href="/">
-                  Wishlist
+                  Cart
                 </Link>
               ) : (
                 <Link className={styles.nav_link} href="/auth/register">

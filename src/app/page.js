@@ -8,6 +8,7 @@ import Image from "next/image";
 import Services from "@/components/servicesComponents/Services";
 import Wrapper from "@/components/wrapper/Wrapper";
 import Link from "next/link";
+import CategoryItems from "@/components/categoryItems/CategoryItems";
 // import { url } from "@/utils/api";
 // const getData = async () => {
 //   const res = await fetch(`${url}/api/admin/products`, {
@@ -26,6 +27,7 @@ export default async function Home() {
           <ProductList />
           <EmblaCarousel />
         </div>
+        <CategoryItems />
         <Border />
         <Category />
         <Border />
