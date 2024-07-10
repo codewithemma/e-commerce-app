@@ -5,10 +5,6 @@ import { RiShirtFill } from "react-icons/ri";
 const Category = () => {
   return (
     <div className={styles.container}>
-      <div className={styles.upper}>
-        <div className={styles.box}></div>
-        <p className={styles.p}>Categories</p>
-      </div>
       <div className={styles.grid}>
         <Link href="/" className={`${styles.cat_box} ${styles.electronics_1}`}>
           <p>Electronics</p>

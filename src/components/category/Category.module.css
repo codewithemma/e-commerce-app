@@ -1,18 +1,10 @@
-.upper {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 5px;
-}
-.box {
-  width: 20px;
-  height: 40px;
-  border-radius: 3px;
-  background-color: var(--tertiaryColor);
-}
-.p {
-  font-weight: 500;
-  color: var(--tertiaryColor);
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 25px;
+  justify-content: center;
+  justify-items: center;
+  margin: 30px 0;
 }
 .flex {
   display: flex;
@@ -38,11 +30,12 @@
 }
 .cat_box {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
   border-radius: 10px;
   gap: 40px;
+  width: 100%;
 }
 .cat_item {
   display: flex;
@@ -107,13 +100,4 @@
 }
 .gaming_1:hover .gaming {
   background-color: #37be5f;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  gap: 15px;
-  justify-content: center;
-  justify-items: center;
-  margin: 30px 0;
 }

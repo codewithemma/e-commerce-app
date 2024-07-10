@@ -1,49 +1,22 @@
 "use client";
 import { useState } from "react";
 import styles from "./CategoryItems.module.css";
-
-const product = [
-  {
-    name: "phone",
-    price: 5000,
-  },
-  {
-    name: "phone",
-    price: 5000,
-  },
-  {
-    name: "phone",
-    price: 5000,
-  },
-  {
-    name: "phone",
-    price: 5000,
-  },
-  {
-    name: "phone",
-    price: 5000,
-  },
-  {
-    name: "phone",
-    price: 5000,
-  },
-  {
-    name: "phone",
-    price: 5000,
-  },
-];
+import Image from "next/image";
+import { IoEyeOutline } from "react-icons/io5";
+import { CiHeart } from "react-icons/ci";
+import { FaArrowLeft, FaArrowRight, FaCartPlus } from "react-icons/fa";
 
 let ItemsPerPage = 4;
-const CategoryItems = () => {
+const CategoryItems = ({ productData }) => {
   const [currentPage, setCurrentPage] = useState(1);
 
-  const totalItems = product.length;
+  const totalItems = productData.length;
   const totalPages = Math.ceil(totalItems / ItemsPerPage);
 
   const lastIndex = currentPage * ItemsPerPage;
   const firstIndex = lastIndex - ItemsPerPage;
 
-  const currentData = product.slice(firstIndex, lastIndex);
+  const currentData = productData.slice(firstIndex, lastIndex);
 
   const handlePrevPage = () => {
     setCurrentPage(currentPage - 1);
@@ -53,26 +26,64 @@ const CategoryItems = () => {
     setCurrentPage(currentPage + 1);
   };
   return (
-    <div className={styles.card_container}>
-      {currentData.map((item, id) => {
-        return (
-          <div className={styles.card_grisd} key={id}>
-            <p>{item.name}</p>
-            <br />
-            <p> {item.price}</p>
-          </div>
-        );
-      })}
-      <div>
-        <button onClick={handlePrevPage} disabled={currentPage === 1}>
-          prev
-        </button>
-        <button
-          onClick={handleNextPage}
-          disabled={currentData.length < ItemsPerPage}
-        >
-          next
-        </button>
+    <div className={styles.container}>
+      <div className={styles.upper}>
+        <div className={styles.upper1}>
+          <div className={styles.box}></div>
+          <p className={styles.p}>New Arrivals</p>
+        </div>
+        <div className={styles.upper1}>
+          <span className={styles.pagination_container}>
+            <FaArrowLeft
+              onClick={handlePrevPage}
+              disabled={currentPage === 1}
+            />
+          </span>
+          <span className={styles.pagination_container}>
+            <FaArrowRight
+              onClick={handleNextPage}
+              disabled={currentData.length < ItemsPerPage}
+            />
+          </span>
+        </div>
+      </div>
+      <div className={styles.card_grid}>
+        {currentData.map((item) => {
+          return (
+            <div key={item._id} className={styles.productCard}>
+              <div className={styles.img_container}>
+                <Image
+                  alt={item?.alt}
+                  src={item.image}
+                  fill
+                  style={{ objectFit: "contain" }}
+                />
+                <div className={styles.actionButtons}>
+                  <span className={styles.actionButtonContainer}>
+                    <button className={styles.actionButton}>
+                      <CiHeart />
+                    </button>
+                  </span>
+                  <span className={styles.actionButtonContainer}>
+                    <button className={styles.actionButton}>
+                      <IoEyeOutline />
+                    </button>
+                  </span>
+                </div>
+                <button className={styles.addToCart}>
+                  <span>
+                    <FaCartPlus />
+                  </span>
+                  <span>Add To Cart</span>
+                </button>
+              </div>
+              <div className={styles.pricing}>
+                <p className={styles.productName}>{item.name}</p>
+                <p className={styles.originalPrice}>${item.price}</p>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

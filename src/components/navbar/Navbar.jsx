@@ -29,14 +29,14 @@ const Navbar = () => {
               <Link className={styles.nav_link} href="/">
                 Home
               </Link>
-              <Link className={styles.nav_link} href="/">
+              <Link className={styles.nav_link} href="/contact">
                 Contact
               </Link>
-              <Link className={styles.nav_link} href="/">
+              <Link className={styles.nav_link} href="/about">
                 About
               </Link>
               {status === "authenticated" ? (
-                <Link className={styles.nav_link} href="/">
+                <Link className={styles.nav_link} href="/user/cart">
                   Cart
                 </Link>
               ) : (

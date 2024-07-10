@@ -134,7 +134,11 @@ const CreateItem = () => {
               onDone={handleFileDone}
             />
           </div>
-          <button className={styles.submit_btn} onClick={handleSubmit}>
+          <button
+            className={styles.submit_btn}
+            onClick={handleSubmit}
+            disabled={pending}
+          >
             {pending ? <Loader /> : "submit"}
           </button>
         </div>

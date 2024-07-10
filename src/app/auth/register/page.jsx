@@ -8,7 +8,6 @@ import { toast } from "react-toastify";
 import Loader from "@/components/loader/Loader";
 import Swal from "sweetalert2";
 const Login = () => {
-  const { status, data: session } = useSession();
   const router = useRouter();
   const searchParams = useSearchParams();
   const [toggle, setToggle] = useState(false);
@@ -163,7 +162,7 @@ const Login = () => {
             />
           </div>
           <div className={styles.button_group}>
-            <button onClick={handleLogin}>
+            <button onClick={handleLogin} disabled={pending}>
               {pending ? <Loader /> : "Log in"}
             </button>
             <button

@@ -8,27 +8,16 @@ import Image from "next/image";
 import Services from "@/components/servicesComponents/Services";
 import Wrapper from "@/components/wrapper/Wrapper";
 import Link from "next/link";
-import CategoryItems from "@/components/categoryItems/CategoryItems";
-// import { url } from "@/utils/api";
-// const getData = async () => {
-//   const res = await fetch(`${url}/api/admin/products`, {
-//     cache: "no-store",
-//   });
-//   return res.json();
-// };
-
+import CategoryItem from "@/components/categoryItems/CategoryItem";
 export default async function Home() {
-  // const products = await getData();
-  // console.log(products);
   return (
     <>
       <Wrapper>
-        <div className={styles.container_flex}>
+        <div className={styles.container_grid}>
           <ProductList />
           <EmblaCarousel />
         </div>
-        <CategoryItems />
-        <Border />
+        <CategoryItem />
         <Category />
         <Border />
         <div className={styles.container}>
@@ -55,15 +44,6 @@ export default async function Home() {
                 Discover more
               </Link>
             </div>
-            {/* {products?.map((product) => {
-              return (
-                <div key={product._id}>
-                  <h1>{product.name}</h1>
-                  <p>{product.description}</p>
-                  <p>{product.price}</p>
-                </div>
-              );
-            })} */}
           </div>
         </div>
         <Services />

@@ -150,7 +150,11 @@ const UserForm = ({ userInfo }) => {
               User
             </option>
           </select>
-          <button className={styles.submit_btn} onClick={handleSubmit}>
+          <button
+            className={styles.submit_btn}
+            onClick={handleSubmit}
+            disabled={pending}
+          >
             {pending ? <Loader /> : "submit"}
           </button>
         </div>

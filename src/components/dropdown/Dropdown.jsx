@@ -17,8 +17,15 @@ const Dropdown = () => {
     setIsOpen(false);
   };
 
+  const handleCart = () => {
+    router.push("/user/cart");
+    setSelectedOption("Option 2");
+    setIsOpen(false);
+  };
+
   const handleAdminClick = () => {
     router.push("/user/admin");
+    setSelectedOption("Option 3");
     setIsOpen(false);
   };
 
@@ -43,6 +50,7 @@ const Dropdown = () => {
         </span>
       ),
       onClick: () => setSelectedOption("Option 2"),
+      onAdd: handleCart,
     },
     {
       label: "Option 4",
