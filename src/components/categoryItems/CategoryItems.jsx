@@ -79,7 +79,7 @@ const CategoryItems = ({ productData }) => {
               </div>
               <div className={styles.pricing}>
                 <p className={styles.productName}>{item.name}</p>
-                <p className={styles.originalPrice}>${item.price}</p>
+                <p className={styles.originalPrice}>NGN {item.price}</p>
               </div>
             </div>
           );
