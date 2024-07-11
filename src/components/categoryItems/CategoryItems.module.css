@@ -34,6 +34,12 @@
   background-color: #f5f5f5;
   cursor: pointer;
 }
+
+.pagination_container:disabled {
+  background-color: rgba(220, 20, 60, 0.473);
+  cursor: not-allowed;
+}
+
 .card_grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -128,4 +134,24 @@
   color: #ff4d4f;
   font-size: 16px;
   font-weight: 400;
+}
+.btn_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.btn_container button {
+  background-color: var(--tertiaryColor);
+  color: #fff;
+  border-radius: 4px;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+.btn_container button:hover {
+  transition: 0.3s ease-in;
+  background-color: var(--tertiaryColorHover);
 }

@@ -25,6 +25,7 @@ const CategoryItems = ({ productData }) => {
   const handleNextPage = () => {
     setCurrentPage(currentPage + 1);
   };
+
   return (
     <div className={styles.container}>
       <div className={styles.upper}>
@@ -47,44 +48,53 @@ const CategoryItems = ({ productData }) => {
           </span>
         </div>
       </div>
-      <div className={styles.card_grid}>
-        {currentData.map((item) => {
-          return (
-            <div key={item._id} className={styles.productCard}>
-              <div className={styles.img_container}>
-                <Image
-                  alt={item?.alt}
-                  src={item.image}
-                  fill
-                  style={{ objectFit: "contain" }}
-                />
-                <div className={styles.actionButtons}>
-                  <span className={styles.actionButtonContainer}>
-                    <button className={styles.actionButton}>
-                      <CiHeart />
+      {productData.length === 0 ? (
+        <p>products currently not available, please check back later...😃</p>
+      ) : (
+        <>
+          <div className={styles.card_grid}>
+            {currentData.map((item) => {
+              return (
+                <div key={item._id} className={styles.productCard}>
+                  <div className={styles.img_container}>
+                    <Image
+                      alt={item?.alt}
+                      src={item.image}
+                      fill
+                      style={{ objectFit: "contain" }}
+                    />
+                    <div className={styles.actionButtons}>
+                      <span className={styles.actionButtonContainer}>
+                        <button className={styles.actionButton}>
+                          <CiHeart />
+                        </button>
+                      </span>
+                      <span className={styles.actionButtonContainer}>
+                        <button className={styles.actionButton}>
+                          <IoEyeOutline />
+                        </button>
+                      </span>
+                    </div>
+                    <button className={styles.addToCart}>
+                      <span>
+                        <FaCartPlus />
+                      </span>
+                      <span>Add To Cart</span>
                     </button>
-                  </span>
-                  <span className={styles.actionButtonContainer}>
-                    <button className={styles.actionButton}>
-                      <IoEyeOutline />
-                    </button>
-                  </span>
+                  </div>
+                  <div className={styles.pricing}>
+                    <p className={styles.productName}>{item.name}</p>
+                    <p className={styles.originalPrice}>NGN {item.price}</p>
+                  </div>
                 </div>
-                <button className={styles.addToCart}>
-                  <span>
-                    <FaCartPlus />
-                  </span>
-                  <span>Add To Cart</span>
-                </button>
-              </div>
-              <div className={styles.pricing}>
-                <p className={styles.productName}>{item.name}</p>
-                <p className={styles.originalPrice}>NGN {item.price}</p>
-              </div>
-            </div>
-          );
-        })}
-      </div>
+              );
+            })}
+          </div>
+          <div className={styles.btn_container}>
+            <button>View All Products</button>
+          </div>
+        </>
+      )}
     </div>
   );
 };

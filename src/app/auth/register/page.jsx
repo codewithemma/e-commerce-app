@@ -35,11 +35,12 @@ const Login = () => {
         body: JSON.stringify(formData),
       });
       if (res.ok) {
+        const resData = await res.json();
         setPending(false);
         setToggle(!toggle);
         Swal.fire({
           title: "Success!",
-          text: "User Registered Successfully",
+          text: `${resData.message}`,
           icon: "success",
         });
         setFormData({
@@ -98,94 +99,97 @@ const Login = () => {
         />
       </div>
       {toggle ? (
-        <div className={styles.form}>
-          <div className={styles.content}>
-            <p>Create an account</p>
-            <p>Enter your details below</p>
-          </div>
-          <div className={styles.input_group}>
-            <input
-              type="text"
-              placeholder="Full name"
-              name="fullName"
-              value={formData.fullName}
-              required
-              onChange={handleChange}
-            />
-            <input
-              type="text"
-              placeholder="Email"
-              name="email"
-              value={formData.email}
-              required
-              onChange={handleChange}
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              value={formData.password}
-              name="password"
-              required
-              onChange={handleChange}
-            />
-          </div>
-          <div className={styles.button_group1}>
-            <button onClick={handleCreateAccount} className={styles.link}>
-              {pending ? <Loader /> : "Create an Account"}
-            </button>
-          </div>
-          <div className={styles.end}>
-            <p>Already have an account?</p>
-            <p onClick={handleClick} disabled={pending}>
-              Login
-            </p>
+        <div className={styles.container}>
+          <div className={styles.form}>
+            <div className={styles.content}>
+              <p>Create an account</p>
+              <p>Enter your details below</p>
+            </div>
+            <div className={styles.input_group}>
+              <input
+                type="text"
+                placeholder="Full name"
+                name="fullName"
+                value={formData.fullName}
+                onChange={handleChange}
+              />
+              <input
+                type="text"
+                placeholder="Email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+              />
+              <input
+                type="password"
+                placeholder="Password"
+                value={formData.password}
+                name="password"
+                onChange={handleChange}
+              />
+            </div>
+            <div className={styles.button_group1}>
+              <button onClick={handleCreateAccount} className={styles.link}>
+                {pending ? <Loader /> : "Create an Account"}
+              </button>
+            </div>
+            <div className={styles.end}>
+              <p>Already have an account?</p>
+              <p onClick={handleClick} disabled={pending}>
+                Login
+              </p>
+            </div>
           </div>
         </div>
       ) : (
-        <div className={styles.form}>
-          <div className={styles.content}>
-            <p>Log in to Exclusive</p>
-            <p>Enter your details below</p>
-          </div>
-          <div className={styles.input_group}>
-            <input
-              type="text"
-              name="email"
-              placeholder="Email"
-              onChange={handleChange}
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              name="password"
-              onChange={handleChange}
-            />
-          </div>
-          <div className={styles.button_group}>
-            <button onClick={handleLogin} disabled={pending}>
-              {pending ? <Loader /> : "Log in"}
-            </button>
-            <button
-              onClick={() => signIn("google")}
-              className={`${styles.link} ${styles.google_flex} `}
-            >
-              <span>
-                <Image
-                  src="/assets/google.svg"
-                  alt="google icon"
-                  width={20}
-                  height={20}
-                  priority
-                />
-              </span>
-              <span>Sign in with Google</span>
-            </button>
-          </div>
-          <div className={styles.end}>
-            <p>{"Don't"} have an account?</p>
-            <p onClick={handleClick} style={{ cursor: "pointer" }}>
-              Register
-            </p>
+        <div className={styles.container}>
+          <div className={styles.form}>
+            <div className={styles.content}>
+              <p>Log in to Exclusive</p>
+              <p>Enter your details below</p>
+            </div>
+            <div className={styles.input_group}>
+              <input
+                type="text"
+                name="email"
+                placeholder="Email"
+                value={formData.email}
+                onChange={handleChange}
+              />
+              <input
+                type="password"
+                placeholder="Password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+              />
+            </div>
+            <div className={styles.button_group}>
+              <button onClick={handleLogin} disabled={pending}>
+                {pending ? <Loader /> : "Log in"}
+              </button>
+              <button
+                onClick={() => signIn("google")}
+                className={`${styles.link} ${styles.google_flex} `}
+              >
+                <span>
+                  <Image
+                    src="/assets/google.svg"
+                    alt="google icon"
+                    width={20}
+                    height={20}
+                    priority
+                  />
+                </span>
+                <span>Sign in with Google</span>
+              </button>
+            </div>
+            <div className={styles.end}>
+              <p>{"Don't"} have an account?</p>
+              <p onClick={handleClick} style={{ cursor: "pointer" }}>
+                Register
+              </p>
+            </div>
           </div>
         </div>
       )}

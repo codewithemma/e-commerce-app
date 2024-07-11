@@ -15,7 +15,7 @@
   border: none;
   background-color: transparent;
   cursor: pointer;
-  color: rgba(211, 85, 85, 0.943);
+  color: var(--tertiaryColor);
 }
 
 .container {
@@ -63,4 +63,8 @@
   padding: 10px;
   border-radius: 6px;
   cursor: pointer;
+}
+.submit_btn:hover {
+  transition: 0.3s ease-in;
+  background-color: var(--tertiaryColorHover);
 }

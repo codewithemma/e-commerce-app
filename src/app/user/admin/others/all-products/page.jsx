@@ -1,7 +1,8 @@
 import AdminLinks from "@/components/adminLinks/AdminLinks";
 import OtherLinks from "@/components/otherLinks/OtherLinks";
 import { url } from "@/utils/api";
-// import styles from "./page";
+import Table from "./DataGrid";
+import styles from "./AllProducts.module.css";
 
 const getData = async () => {
   try {
@@ -16,11 +17,12 @@ const getData = async () => {
 };
 const AllProducts = async () => {
   const products = await getData();
-  console.log(products);
+
   return (
-    <div>
+    <div className={styles.container}>
       <AdminLinks />
       <OtherLinks />
+      <Table productData={products} />
       {products?.map((product) => {
         return (
           <div key={product._id}>

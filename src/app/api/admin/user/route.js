@@ -18,11 +18,9 @@ export const GET = async (req, res) => {
   try {
     //SESSION VALIDATION
     const session = await getServerSession(authOptions);
-    console.log("uuuuuu", session);
 
     await connectDB();
     const users = await User.find({});
-    console.log("this ran");
     return new NextResponse(JSON.stringify(users, { status: StatusCodes.OK }));
   } catch (error) {
     return new NextResponse(
@@ -38,8 +36,6 @@ export const GET = async (req, res) => {
 export async function POST(req, res) {
   //SESSION VALIDATION
   const session = await getServerSession(authOptions);
-
-  console.log("tessst", session);
   if (session?.user?.role !== "superadmin" && session?.user?.role !== "admin") {
     return new NextResponse(
       JSON.stringify(

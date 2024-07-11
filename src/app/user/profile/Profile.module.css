@@ -32,6 +32,11 @@
   color: var(--tertiaryColor);
 }
 
+.profile_nav div:nth-of-type(2) span:nth-of-type(2):hover {
+  transition: 0.3s ease-in;
+  background-color: var(--tertiaryColorHover);
+}
+
 .profile_grid {
   display: grid;
   grid-template-columns: 1fr 3fr;
@@ -135,4 +140,9 @@
   font-size: 16px;
   font-weight: 400;
   cursor: pointer;
+}
+
+.relative_btn button:nth-of-type(2):hover {
+  transition: 0.3s ease-in;
+  background-color: var(--tertiaryColorHover);
 }

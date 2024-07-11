@@ -34,8 +34,6 @@ const CreateItem = () => {
         headers: { "content-type": "application/json" },
         body: JSON.stringify(formData),
       });
-      const errorMessage = await res.json();
-      console.log(errorMessage);
       if (res.ok) {
         setPending(false);
         setFormData({
@@ -48,8 +46,9 @@ const CreateItem = () => {
         });
         toast.success("New Product created successfully");
       } else {
+        const error = await res.json();
         setPending(false);
-        toast.error(errorMessage.message);
+        toast.error(error.message);
       }
     } catch (error) {
       setPending(false);
