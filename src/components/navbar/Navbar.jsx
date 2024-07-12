@@ -41,7 +41,7 @@ const Navbar = () => {
                 </Link>
               ) : (
                 <Link className={styles.nav_link} href="/auth/register">
-                  Sign Up
+                  Login
                 </Link>
               )}
             </li>

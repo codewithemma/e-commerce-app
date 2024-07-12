@@ -8,10 +8,10 @@ const AdminLinks = () => {
         Home
       </Link>
       <Link href="/user/admin/create-item" className={styles.link}>
-        Create an item
+        Products
       </Link>
-      <Link href="/user/admin/others" className={styles.link}>
-        Others
+      <Link href="/user/admin/create-user" className={styles.link}>
+        Users
       </Link>
     </div>
   );

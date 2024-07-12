@@ -1,5 +1,4 @@
 import AdminLinks from "@/components/adminLinks/AdminLinks";
-import OtherLinks from "@/components/otherLinks/OtherLinks";
 import UserForm from "./userForm/UserForm";
 
 import User from "@/models/User";
@@ -23,7 +22,6 @@ const CreateUser = async () => {
   return (
     <div>
       <AdminLinks />
-      <OtherLinks />
       <UserForm userInfo={JSON.parse(JSON.stringify(users))} />
     </div>
   );

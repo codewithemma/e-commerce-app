@@ -4,7 +4,7 @@ import styles from "./UserForm.module.css";
 import { toast } from "react-toastify";
 import { DataGrid } from "@mui/x-data-grid";
 import Loader from "@/components/loader/Loader";
-import { FaEdit, FaTrash } from "react-icons/fa";
+import { FaEdit, FaTrashAlt } from "react-icons/fa";
 const UserForm = ({ userInfo }) => {
   const [pageSize, setPageSize] = useState(5);
   const [formData, setFormData] = useState({
@@ -81,25 +81,11 @@ const UserForm = ({ userInfo }) => {
             <FaEdit size={20} onClick={() => handleUpdate(params.row.id)} />
           </button>
           <button>
-            <FaTrash size={20} onClick={() => handleDelete(params.row.id)} />
+            <FaTrashAlt size={20} onClick={() => handleDelete(params.row.id)} />
           </button>
         </div>
       ),
     },
-
-    // {
-    //   field: "actions",
-    //   headerName: "Delete",
-    //   width: 150,
-    //   renderCell: (params) => (
-    //     <button
-    //       className={styles.action_btn}
-    //       onClick={() => handleDelete(params.row.id)}
-    //     >
-    //       Delete
-    //     </button>
-    //   ),
-    // },
   ];
 
   return (

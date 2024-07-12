@@ -1,12 +1,12 @@
 import styles from "./AuthLinks.module.css";
-import { PiShoppingCartSimpleLight } from "react-icons/pi";
 import Dropdown from "../dropdown/Dropdown";
 import ThemeToggle from "../themeToggle/ThemeToggle";
+import { CiHeart } from "react-icons/ci";
 const AuthLinks = () => {
   return (
     <div className={styles.auth_icons}>
       <ThemeToggle />
-      <PiShoppingCartSimpleLight size={"20px"} />
+      <CiHeart size={"20px"} />
       <Dropdown />
     </div>
   );

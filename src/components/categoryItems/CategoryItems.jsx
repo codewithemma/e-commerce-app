@@ -5,13 +5,15 @@ import { IoEyeOutline } from "react-icons/io5";
 import { CiHeart } from "react-icons/ci";
 import { FaArrowLeft, FaArrowRight, FaCartPlus } from "react-icons/fa";
 import { CldImage } from "next-cloudinary";
+import Link from "next/link";
 
-let ItemsPerPage = 4;
 const CategoryItems = ({ productData }) => {
+  const ItemsPerPage = 4;
+
   const [currentPage, setCurrentPage] = useState(1);
 
-  const totalItems = productData.length;
-  const totalPages = Math.ceil(totalItems / ItemsPerPage);
+  // const totalItems = productData.length;
+  // const totalPages = Math.ceil(totalItems / ItemsPerPage);
 
   const lastIndex = currentPage * ItemsPerPage;
   const firstIndex = lastIndex - ItemsPerPage;
@@ -35,16 +37,17 @@ const CategoryItems = ({ productData }) => {
         </div>
         <div className={styles.upper1}>
           <span className={styles.pagination_container}>
-            <FaArrowLeft
-              onClick={handlePrevPage}
-              disabled={currentPage === 1}
-            />
+            <button onClick={handlePrevPage} disabled={currentPage === 1}>
+              <FaArrowLeft />
+            </button>
           </span>
           <span className={styles.pagination_container}>
-            <FaArrowRight
+            <button
               onClick={handleNextPage}
               disabled={currentData.length < ItemsPerPage}
-            />
+            >
+              <FaArrowRight />
+            </button>
           </span>
         </div>
       </div>
@@ -71,9 +74,9 @@ const CategoryItems = ({ productData }) => {
                         </button>
                       </span>
                       <span className={styles.actionButtonContainer}>
-                        <button className={styles.actionButton}>
+                        <Link href="/wishlist" className={styles.actionButton}>
                           <IoEyeOutline />
-                        </button>
+                        </Link>
                       </span>
                     </div>
                     <button className={styles.addToCart}>
