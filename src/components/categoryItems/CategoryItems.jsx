@@ -1,10 +1,10 @@
 "use client";
 import { useState } from "react";
 import styles from "./CategoryItems.module.css";
-import Image from "next/image";
 import { IoEyeOutline } from "react-icons/io5";
 import { CiHeart } from "react-icons/ci";
 import { FaArrowLeft, FaArrowRight, FaCartPlus } from "react-icons/fa";
+import { CldImage } from "next-cloudinary";
 
 let ItemsPerPage = 4;
 const CategoryItems = ({ productData }) => {
@@ -57,11 +57,12 @@ const CategoryItems = ({ productData }) => {
               return (
                 <div key={item._id} className={styles.productCard}>
                   <div className={styles.img_container}>
-                    <Image
+                    <CldImage
                       alt={item?.alt}
                       src={item.image}
                       fill
                       style={{ objectFit: "contain" }}
+                      sizes="(max-width: 600px) 100vw, (max-width: 960px) 50vw, 33vw"
                     />
                     <div className={styles.actionButtons}>
                       <span className={styles.actionButtonContainer}>
@@ -84,7 +85,7 @@ const CategoryItems = ({ productData }) => {
                   </div>
                   <div className={styles.pricing}>
                     <p className={styles.productName}>{item.name}</p>
-                    <p className={styles.originalPrice}>NGN {item.price}</p>
+                    <p className={styles.originalPrice}>&#36;{item.price}</p>
                   </div>
                 </div>
               );

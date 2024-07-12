@@ -26,6 +26,17 @@ const CreateItem = () => {
     setFormData({ ...formData, image: file.base64 });
   };
 
+  const handleClearFormData = () => {
+    setFormData({
+      name: "",
+      description: "",
+      price: "",
+      image: "",
+      stock: "",
+      category: "",
+    });
+  };
+
   const handleSubmit = async () => {
     try {
       setPending(true);
@@ -36,14 +47,7 @@ const CreateItem = () => {
       });
       if (res.ok) {
         setPending(false);
-        setFormData({
-          name: "",
-          description: "",
-          price: "",
-          image: "",
-          stock: "",
-          category: "",
-        });
+        handleClearFormData();
         toast.success("New Product created successfully");
       } else {
         const error = await res.json();
@@ -69,6 +73,7 @@ const CreateItem = () => {
               value={formData.name}
               placeholder="Enter name of product"
               onChange={handleChange}
+              disabled={pending}
             />
           </div>
           <div className={styles.input_group}>
@@ -79,6 +84,7 @@ const CreateItem = () => {
               value={formData.description}
               placeholder="Enter product's description"
               onChange={handleChange}
+              disabled={pending}
             />
           </div>
           <div className={styles.input_group}>
@@ -89,6 +95,7 @@ const CreateItem = () => {
               value={formData.price}
               placeholder="Enter product's price"
               onChange={handleChange}
+              disabled={pending}
             />
           </div>
           <div className={styles.input_group}>
@@ -99,6 +106,7 @@ const CreateItem = () => {
               value={formData.stock}
               placeholder="stock"
               onChange={handleChange}
+              disabled={pending}
             />
           </div>
           <div className={styles.input_group}>
@@ -108,6 +116,8 @@ const CreateItem = () => {
               id="Category"
               className={styles.select}
               onChange={handleChange}
+              value={formData.category}
+              disabled={pending}
             >
               <option value="">Select a Category</option>
               <option value="electronics" name="category">
@@ -131,6 +141,7 @@ const CreateItem = () => {
               id="image"
               multiple={false}
               onDone={handleFileDone}
+              value={formData.image}
             />
           </div>
           <button

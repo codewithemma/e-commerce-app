@@ -112,6 +112,7 @@ const Login = () => {
                 name="fullName"
                 value={formData.fullName}
                 onChange={handleChange}
+                disabled={pending}
               />
               <input
                 type="text"
@@ -119,6 +120,7 @@ const Login = () => {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
+                disabled={pending}
               />
               <input
                 type="password"
@@ -126,10 +128,15 @@ const Login = () => {
                 value={formData.password}
                 name="password"
                 onChange={handleChange}
+                disabled={pending}
               />
             </div>
             <div className={styles.button_group1}>
-              <button onClick={handleCreateAccount} className={styles.link}>
+              <button
+                onClick={handleCreateAccount}
+                className={styles.link}
+                disabled={pending}
+              >
                 {pending ? <Loader /> : "Create an Account"}
               </button>
             </div>
@@ -155,6 +162,7 @@ const Login = () => {
                 placeholder="Email"
                 value={formData.email}
                 onChange={handleChange}
+                disabled={pending}
               />
               <input
                 type="password"
@@ -162,6 +170,7 @@ const Login = () => {
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
+                disabled={pending}
               />
             </div>
             <div className={styles.button_group}>
@@ -171,6 +180,7 @@ const Login = () => {
               <button
                 onClick={() => signIn("google")}
                 className={`${styles.link} ${styles.google_flex} `}
+                disabled={pending}
               >
                 <span>
                   <Image
@@ -186,7 +196,11 @@ const Login = () => {
             </div>
             <div className={styles.end}>
               <p>{"Don't"} have an account?</p>
-              <p onClick={handleClick} style={{ cursor: "pointer" }}>
+              <p
+                disabled={pending}
+                onClick={handleClick}
+                style={{ cursor: "pointer" }}
+              >
                 Register
               </p>
             </div>

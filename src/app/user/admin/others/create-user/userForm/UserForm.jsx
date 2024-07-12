@@ -114,6 +114,7 @@ const UserForm = ({ userInfo }) => {
               value={formData.fullName}
               placeholder="Enter name"
               onChange={handleChange}
+              disabled={pending}
             />
           </div>
           <div className={styles.input_group}>
@@ -124,6 +125,7 @@ const UserForm = ({ userInfo }) => {
               value={formData.email}
               placeholder="Enter email"
               onChange={handleChange}
+              disabled={pending}
             />
           </div>
           <div className={styles.input_group}>
@@ -134,6 +136,7 @@ const UserForm = ({ userInfo }) => {
               value={formData.password}
               placeholder="Enter Password"
               onChange={handleChange}
+              disabled={pending}
             />
           </div>
           <select
@@ -141,6 +144,7 @@ const UserForm = ({ userInfo }) => {
             id="role"
             className={styles.select}
             onChange={handleChange}
+            disabled={pending}
           >
             <option value="#">Select a Role</option>
             <option value="admin" name="role">

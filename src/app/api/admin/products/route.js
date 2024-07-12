@@ -8,8 +8,8 @@ import { v2 as cloudinary } from "cloudinary";
 
 export const POST = async (req) => {
   cloudinary.config({
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
+    cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_API_SECRET,
   });
 
@@ -33,7 +33,9 @@ export const POST = async (req) => {
     const uploadResponse = await cloudinary.uploader.upload(image, {
       upload_preset: process.env.NEXT_PUBLIC_CLOUDINARY_PRESET_NAME,
     });
-    console.log("hello", uploadResponse);
+
+    // console.log("hello", uploadResponse);
+
     const requiredFields = [name, description, price, image, category, stock];
     if (requiredFields.some((field) => field.length === 0)) {
       return new NextResponse(

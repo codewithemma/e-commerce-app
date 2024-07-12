@@ -57,3 +57,7 @@
   transition: 0.3s ease-in;
   background-color: var(--tertiaryColorHover);
 }
+
+.submit_btn:disabled {
+  cursor: not-allowed;
+}
