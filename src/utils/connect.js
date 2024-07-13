@@ -9,7 +9,11 @@ export async function connectDB() {
     return;
   }
   try {
-    await mongoose.connect(url);
+    await mongoose.connect(url, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      serverSelectionTimeoutMS: 5000, // Adjust the timeout as needed
+    });
     isConnected = true;
     console.log("MongoDB Connected");
   } catch (error) {
