@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { DataGrid } from "@mui/x-data-grid";
 import Loader from "@/components/loader/Loader";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
+import { useRouter } from "next/navigation";
 const UserForm = ({ userInfo }) => {
   const [pageSize, setPageSize] = useState(5);
   const [formData, setFormData] = useState({
@@ -14,8 +15,8 @@ const UserForm = ({ userInfo }) => {
     role: "",
   });
   const [pending, setPending] = useState(false);
-
   const [rows, setRows] = useState([]);
+  const [selectedUser, setSelectedUser] = useState(null);
 
   useEffect(() => {
     const processedData = userInfo.map((user, index) => ({
@@ -32,9 +33,15 @@ const UserForm = ({ userInfo }) => {
   const handleSubmit = async () => {
     try {
       setPending(true);
-      const res = await fetch("/api/admin/user", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
+      const method = selectedUser ? "PUT" : "POST";
+      const url = selectedUser
+        ? `/api/admin/user/${selectedUser._id}`
+        : "/api/admin/user";
+      const res = await fetch(url, {
+        method,
+        headers: {
+          "content-type": "application/json",
+        },
         body: JSON.stringify(formData),
       });
       const errorMessage = await res.json();
@@ -46,7 +53,11 @@ const UserForm = ({ userInfo }) => {
           password: "",
           role: "",
         });
-        toast.success("Persona created successfully");
+        setSelectedUser(null);
+        toast.success(
+          `User ${selectedUser ? "updated" : "created"} successfully`
+        );
+        window.location.reload();
       } else {
         setPending(false);
         toast.error(errorMessage.message);
@@ -58,13 +69,38 @@ const UserForm = ({ userInfo }) => {
   };
 
   const handleUpdate = (id) => {
-    // Implement update functionality for the row with id
-    toast.info(`Update row with ID ${id}`);
+    const user = rows.find((user) => user.id === id);
+    setFormData({
+      fullName: user.fullName,
+      email: user.email,
+      password: "",
+      role: user.role,
+    });
+    setSelectedUser(user);
   };
 
-  const handleDelete = (id) => {
-    // Implement delete functionality for the row with id
-    toast.warn(`Delete row with ID ${id}`);
+  const handleDelete = async (id) => {
+    const user = rows.find((user) => user.id === id);
+    if (window.confirm("Are you sure you want to delete this user...?")) {
+      try {
+        const res = await fetch(`/api/admin/user/${user._id}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({}),
+        });
+        const data = await res.json();
+        if (res.ok) {
+          toast.success(data.message);
+        }
+        window.location.reload();
+      } catch (error) {
+        toast.error(error.message || "Something went wrong");
+      }
+    }
+    // // Implement delete functionality for the row with id
+    // toast.warn(`Delete row with ID ${id}`);
   };
 
   const columns = [
@@ -145,7 +181,8 @@ const UserForm = ({ userInfo }) => {
             onClick={handleSubmit}
             disabled={pending}
           >
-            {pending ? <Loader /> : "submit"}
+            {pending ? <Loader /> : selectedUser ? "Update" : "Submit"}
+            {/* {pending ? <Loader /> : "submit"} */}
           </button>
         </div>
         <DataGrid

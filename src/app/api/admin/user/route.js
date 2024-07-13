@@ -25,7 +25,7 @@ export const GET = async (req, res) => {
   } catch (error) {
     return new NextResponse(
       JSON.stringify(
-        { message: error },
+        { message: "Internal server error" },
         { status: StatusCodes.INTERNAL_SERVER_ERROR }
       )
     );
