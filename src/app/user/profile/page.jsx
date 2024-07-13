@@ -1,13 +1,15 @@
 import { authOptions } from "@/utils/auth";
 import { getServerSession } from "next-auth";
-import Image from "next/image";
+// import Image from "next/image";
 import styles from "./Profile.module.css";
 import Wrapper from "@/components/wrapper/Wrapper";
 import Link from "next/link";
 import Form from "./Form";
+import Image from "next/image";
 
 const UserProfile = async () => {
   const session = await getServerSession(authOptions);
+  console.log(session);
 
   return (
     <Wrapper>
@@ -20,6 +22,13 @@ const UserProfile = async () => {
           <div>
             <span>Welcome!</span>
             <span> {session?.user?.email}</span>
+            <Image
+              src={session?.user?.image}
+              alt="profile image"
+              width={50}
+              height={50}
+              priority
+            />
           </div>
         </div>
         <div className={styles.profile_grid}>
@@ -53,7 +62,10 @@ const UserProfile = async () => {
               <p>My Wishlist</p>
             </div>
           </div>
-          <Form />
+          <>
+            <Form session={session.user} />
+            <p>You might need to logout an login again to see changes</p>
+          </>
         </div>
       </div>
     </Wrapper>
