@@ -1,6 +1,5 @@
 import { authOptions } from "@/utils/auth";
 import { getServerSession } from "next-auth";
-// import Image from "next/image";
 import styles from "./Profile.module.css";
 import Wrapper from "@/components/wrapper/Wrapper";
 import Link from "next/link";
@@ -9,6 +8,8 @@ import Image from "next/image";
 
 const UserProfile = async () => {
   const session = await getServerSession(authOptions);
+
+  console.log(session.user.image.length);
 
   return (
     <Wrapper>
@@ -22,6 +23,7 @@ const UserProfile = async () => {
             <span>Welcome!</span>
             <span> {session?.user?.email}</span>
             <Image
+              style={{ objectFit: "contain" }}
               src={session?.user?.image}
               alt="profile image"
               width={40}

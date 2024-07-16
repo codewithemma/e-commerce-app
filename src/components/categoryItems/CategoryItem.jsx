@@ -6,9 +6,7 @@ const getData = async () => {
     const res = await fetch(`${url}/api/user/products`, {
       cache: "no-store",
     });
-    if (!res.ok) {
-      throw new Error(`HTTP error! status: ${res.status}`);
-    }
+
     const data = await res.json();
     return data;
   } catch (error) {

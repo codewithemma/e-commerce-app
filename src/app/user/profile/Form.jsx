@@ -28,6 +28,8 @@ const Form = ({ session }) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
+  console.log(session.image);
+
   const handleFileDone = (file) => {
     if (file.type.includes("image")) {
       setFormData({ ...formData, image: file.base64 });
@@ -40,6 +42,25 @@ const Form = ({ session }) => {
     event.preventDefault();
     try {
       setPending(true);
+      // if (session.image && session.image.length > 0) {
+      //   const deleteProfile = await fetch(
+      //     `/api/user/register/${session.image}`,
+      //     {
+      //       method: "DELETE",
+      //       headers: {
+      //         "content-type": "application/json",
+      //       },
+      //       body: JSON.stringify({ image: session.image }),
+      //     }
+      //   );
+      //   if (!deleteProfile.ok) {
+      //     const deleteError = await deleteProfile.json();
+      //     console.log(deleteError);
+
+      //     toast.error(deleteError.message);
+      //     return;
+      //   }
+      // }
       const res = await fetch(`/api/user/register/${session._id}`, {
         method: "PUT",
         headers: {
@@ -57,7 +78,7 @@ const Form = ({ session }) => {
       }
     } catch (error) {
       setPending(false);
-      toast.error("An unexpected error occurred");
+      toast.error(error.message);
     }
   };
 
