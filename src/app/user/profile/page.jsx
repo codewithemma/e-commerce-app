@@ -9,7 +9,6 @@ import Image from "next/image";
 
 const UserProfile = async () => {
   const session = await getServerSession(authOptions);
-  console.log(session);
 
   return (
     <Wrapper>
@@ -19,15 +18,16 @@ const UserProfile = async () => {
             <Link href="/">Home</Link> /
             <Link href="/user/profile"> My Account</Link>
           </div>
-          <div>
+          <div className={styles.profile}>
             <span>Welcome!</span>
             <span> {session?.user?.email}</span>
             <Image
               src={session?.user?.image}
               alt="profile image"
-              width={50}
-              height={50}
+              width={40}
+              height={40}
               priority
+              className={styles.profile_img}
             />
           </div>
         </div>

@@ -18,6 +18,7 @@ const getData = async () => {
 };
 const CategoryItem = async () => {
   const productData = await getData();
+
   return <CategoryItems productData={productData} />;
 };
 

@@ -3,6 +3,7 @@ import FileBase from "react-file-base64";
 import styles from "./Profile.module.css";
 import { useState, useEffect } from "react";
 import Loader from "@/components/loader/Loader";
+import { toast } from "react-toastify";
 
 const Form = ({ session }) => {
   const [formData, setFormData] = useState({
@@ -28,31 +29,35 @@ const Form = ({ session }) => {
   };
 
   const handleFileDone = (file) => {
-    setFormData({ ...formData, image: file.base64 });
+    if (file.type.includes("image")) {
+      setFormData({ ...formData, image: file.base64 });
+    } else {
+      toast.error("Please select an image file.");
+    }
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       setPending(true);
-      const res = fetch(`/api/user/register/${session._id}`, {
+      const res = await fetch(`/api/user/register/${session._id}`, {
         method: "PUT",
         headers: {
           "content-type": "application/json",
         },
         body: JSON.stringify(formData),
       });
-      const errorMessage = await res.json();
-      console.log(errorMessage);
+
       if (res.ok) {
         setPending(false);
         toast.success(`User updated successfully`);
       } else {
         setPending(false);
-        toast.error(errorMessage.message);
+        toast.error("User update failed");
       }
     } catch (error) {
-      toast.error(error);
+      setPending(false);
+      toast.error("An unexpected error occurred");
     }
   };
 

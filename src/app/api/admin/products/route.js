@@ -4,15 +4,9 @@ import { connectDB } from "@/utils/connect";
 import { StatusCodes } from "http-status-codes";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
-import { v2 as cloudinary } from "cloudinary";
+import { cloudinary } from "@/utils/cloudinary";
 
 export const POST = async (req) => {
-  cloudinary.config({
-    cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
-    api_key: process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET,
-  });
-
   //SESSION VALIDATION
   const session = await getServerSession(authOptions);
   if (
@@ -30,11 +24,6 @@ export const POST = async (req) => {
     await connectDB();
     const { name, description, price, category, stock, image } =
       await req.json();
-    const uploadResponse = await cloudinary.uploader.upload(image, {
-      upload_preset: process.env.NEXT_PUBLIC_CLOUDINARY_PRESET_NAME,
-    });
-
-    // console.log("hello", uploadResponse);
 
     const requiredFields = [name, description, price, image, category, stock];
     if (requiredFields.some((field) => field.length === 0)) {
@@ -43,6 +32,9 @@ export const POST = async (req) => {
         { status: StatusCodes.BAD_REQUEST }
       );
     }
+    const uploadResponse = await cloudinary.uploader.upload(image, {
+      upload_preset: process.env.NEXT_PUBLIC_CLOUDINARY_PRESET_NAME,
+    });
 
     const products = new Product({
       name,
@@ -51,9 +43,8 @@ export const POST = async (req) => {
       category,
       stock,
       image: uploadResponse.secure_url,
+      // image: [uploadResponse.secure_url, uploadResponse.public_id],
     });
-
-    console.log(products);
 
     await products.save();
     return new NextResponse(

@@ -36,6 +36,16 @@
   transition: 0.3s ease-in;
   background-color: var(--tertiaryColorHover);
 }
+.profile {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 5px;
+}
+
+.profile_img {
+  border-radius: 100%;
+}
 
 .profile_grid {
   display: grid;
