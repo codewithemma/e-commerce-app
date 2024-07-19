@@ -3,7 +3,7 @@ import FileBase from "react-file-base64";
 import styles from "./Profile.module.css";
 import { useState, useEffect } from "react";
 import Loader from "@/components/loader/Loader";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 
 const Form = ({ session }) => {
   const [formData, setFormData] = useState({
@@ -102,7 +102,7 @@ const Form = ({ session }) => {
       <div className={styles.relative_btn}>
         <div>
           <button>Cancel</button>
-          <button onClick={handleSubmit}>
+          <button onClick={handleSubmit} disabled={pending}>
             {pending ? (
               <span>
                 Save Changes <Loader />

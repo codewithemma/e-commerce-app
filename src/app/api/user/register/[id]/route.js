@@ -30,6 +30,8 @@ export const PUT = async (req, { params }) => {
     const { id } = params;
     const { fullName, address, image } = await req.json();
 
+    console.log(address);
+
     if (image && image.trim() !== "") {
       const handleRes = await handleDelete(id);
       const uploadResponse = await cloudinary.uploader.upload(image, {
@@ -48,6 +50,7 @@ export const PUT = async (req, { params }) => {
         { new: true }
       );
     }
+
     return new NextResponse(
       JSON.stringify(updatedUser, { status: StatusCodes.OK })
     );

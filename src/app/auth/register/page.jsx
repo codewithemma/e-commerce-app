@@ -4,7 +4,7 @@ import styles from "./Login.module.css";
 import { useState } from "react";
 import { signIn, useSession } from "next-auth/react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import Loader from "@/components/loader/Loader";
 import Swal from "sweetalert2";
 const Login = () => {
@@ -38,11 +38,7 @@ const Login = () => {
         const resData = await res.json();
         setPending(false);
         setToggle(!toggle);
-        Swal.fire({
-          title: "Success!",
-          text: `${resData.message}`,
-          icon: "success",
-        });
+        toast.success(`${resData.message}`);
         setFormData({
           fullName: "",
           email: "",

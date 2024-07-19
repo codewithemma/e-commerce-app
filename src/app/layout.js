@@ -5,8 +5,8 @@ import Footer from "@/components/footer/Footer";
 import { ThemeContextProvider } from "@/context/ThemeContext";
 import ThemeProvider from "@/providers/ThemeProvider";
 import AuthProvider from "@/providers/AuthProvider";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { Toaster } from "sonner";
+
 import NextTopLoader from "nextjs-toploader";
 const poppins = Poppins({
   subsets: ["latin"],
@@ -78,15 +78,7 @@ export default function RootLayout({ children }) {
               <div className="container">
                 <Navbar />
                 {children}
-                <ToastContainer
-                  position="bottom-center"
-                  autoClose={5000}
-                  hideProgressBar={true}
-                  newestOnTop={false}
-                  closeOnClick
-                  rtl={false}
-                  draggable
-                />
+                <Toaster richColors position="bottom-center" />
                 <Footer />
               </div>
             </ThemeProvider>

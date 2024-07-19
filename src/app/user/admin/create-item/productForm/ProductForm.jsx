@@ -4,7 +4,7 @@ import Wrapper from "@/components/wrapper/Wrapper";
 import styles from "./ProductForm.module.css";
 import { useState, useEffect } from "react";
 import FileBase from "react-file-base64";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import Loader from "@/components/loader/Loader";
 import { DataGrid } from "@mui/x-data-grid";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";

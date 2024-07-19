@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import styles from "./UserForm.module.css";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import { DataGrid } from "@mui/x-data-grid";
 import Loader from "@/components/loader/Loader";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
