@@ -19,8 +19,10 @@
 }
 
 .container {
-  max-width: 500px;
-  margin: 40px auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-bottom: 50px;
 }
 .input {
   padding: 20px;

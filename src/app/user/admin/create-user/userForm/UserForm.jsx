@@ -6,6 +6,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import Loader from "@/components/loader/Loader";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { useRouter } from "next/navigation";
+import Wrapper from "@/components/wrapper/Wrapper";
 const UserForm = ({ userInfo }) => {
   const [pageSize, setPageSize] = useState(5);
   const [formData, setFormData] = useState({
@@ -99,8 +100,6 @@ const UserForm = ({ userInfo }) => {
         toast.error(error.message || "Something went wrong");
       }
     }
-    // // Implement delete functionality for the row with id
-    // toast.warn(`Delete row with ID ${id}`);
   };
 
   const columns = [
@@ -125,7 +124,7 @@ const UserForm = ({ userInfo }) => {
   ];
 
   return (
-    <>
+    <Wrapper>
       <div className={styles.container}>
         <div className={styles.input}>
           <div className={styles.input_group}>
@@ -195,7 +194,7 @@ const UserForm = ({ userInfo }) => {
           disableRowSelectionOnClick
         />
       </div>
-    </>
+    </Wrapper>
   );
 };
 

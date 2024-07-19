@@ -9,8 +9,6 @@ import Image from "next/image";
 const UserProfile = async () => {
   const session = await getServerSession(authOptions);
 
-  console.log(session.user.image.length);
-
   return (
     <Wrapper>
       <div className={styles.container}>
