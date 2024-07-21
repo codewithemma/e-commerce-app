@@ -5,6 +5,7 @@ import Wrapper from "@/components/wrapper/Wrapper";
 import Link from "next/link";
 import Form from "./Form";
 import Image from "next/image";
+import { Avatar } from "@mui/material";
 
 const UserProfile = async () => {
   const session = await getServerSession(authOptions);
@@ -20,15 +21,7 @@ const UserProfile = async () => {
           <div className={styles.profile}>
             <span>Welcome!</span>
             <span> {session?.user?.email}</span>
-            <Image
-              style={{ objectFit: "contain" }}
-              src={session?.user?.image}
-              alt="profile image"
-              width={40}
-              height={40}
-              priority
-              className={styles.profile_img}
-            />
+            <Avatar alt={session?.user?.name} src={session?.user?.image} />
           </div>
         </div>
         <div className={styles.profile_grid}>

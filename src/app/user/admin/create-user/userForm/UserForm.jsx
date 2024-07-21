@@ -69,8 +69,16 @@ const UserForm = ({ userInfo }) => {
     }
   };
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   const handleUpdate = (id) => {
     const user = rows.find((user) => user.id === id);
+    scrollToTop();
     setFormData({
       fullName: user.fullName,
       email: user.email,
@@ -181,7 +189,6 @@ const UserForm = ({ userInfo }) => {
             disabled={pending}
           >
             {pending ? <Loader /> : selectedUser ? "Update" : "Submit"}
-            {/* {pending ? <Loader /> : "submit"} */}
           </button>
         </div>
         <DataGrid

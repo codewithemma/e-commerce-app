@@ -1,11 +1,13 @@
 "use client";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import styles from "./CategoryItems.module.css";
 import { IoEyeOutline } from "react-icons/io5";
-import { CiHeart } from "react-icons/ci";
+import { CiHeart, CiSquareMinus, CiSquarePlus } from "react-icons/ci";
 import { FaArrowLeft, FaArrowRight, FaCartPlus } from "react-icons/fa";
 import { CldImage } from "next-cloudinary";
 import Link from "next/link";
+import { url } from "@/utils/api";
+import { CartProvider } from "@/context/CartContext";
 
 const CategoryItems = ({ productData }) => {
   const ItemsPerPage = 4;
@@ -74,7 +76,10 @@ const CategoryItems = ({ productData }) => {
                         </button>
                       </span>
                       <span className={styles.actionButtonContainer}>
-                        <Link href="/wishlist" className={styles.actionButton}>
+                        <Link
+                          href={`/${url}/products/${productData._id}`}
+                          className={styles.actionButton}
+                        >
                           <IoEyeOutline />
                         </Link>
                       </span>
@@ -88,7 +93,18 @@ const CategoryItems = ({ productData }) => {
                   </div>
                   <div className={styles.pricing}>
                     <p className={styles.productName}>{item.name}</p>
-                    <p className={styles.originalPrice}>&#36;{item.price}</p>
+                    <div className={styles.btn_flex}>
+                      <p className={styles.originalPrice}>&#36;{item.price}</p>
+                      <div className={styles.counter_container}>
+                        <button>
+                          <CiSquareMinus size="25px" />
+                        </button>
+                        <input type="text" readOnly />
+                        <button>
+                          <CiSquarePlus size="25px" />
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               );

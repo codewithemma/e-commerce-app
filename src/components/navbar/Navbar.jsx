@@ -7,6 +7,9 @@ import { useSession } from "next-auth/react";
 import { HiMagnifyingGlass } from "react-icons/hi2";
 import AuthLinks from "../authLinks/AuthLinks";
 import Image from "next/image";
+import ThemeToggle from "../themeToggle/ThemeToggle";
+import Badge from "@mui/material/Badge";
+import { IoCartOutline } from "react-icons/io5";
 const Navbar = () => {
   const { status } = useSession();
   const [open, setOpen] = useState(false);
@@ -65,10 +68,15 @@ const Navbar = () => {
               </span>
             </div>
           </div>
-          {/* <div>
+          <div className={styles.auth_icons}>
             <ThemeToggle />
-          </div> */}
-          <div>{status === "authenticated" && <AuthLinks />}</div>
+            <Link href="/user/cart">
+              <Badge badgeContent={4} color="error">
+                <IoCartOutline size="20px" />
+              </Badge>
+            </Link>
+            {status === "authenticated" && <AuthLinks />}
+          </div>
         </div>{" "}
         <div>
           <div className={styles.burger} onClick={() => setOpen(!open)}>

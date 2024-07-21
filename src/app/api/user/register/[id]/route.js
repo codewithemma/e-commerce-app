@@ -14,7 +14,7 @@ const handleDelete = async (id) => {
     const publicId = publicIdWithExtension.split(".")[0];
 
     const result = await cloudinary.uploader.destroy(publicId);
-    if (result === "ok") {
+    if (result.result === "ok") {
       return "success";
     } else {
       return "failure";
@@ -29,8 +29,6 @@ export const PUT = async (req, { params }) => {
     let imageUrl = null;
     const { id } = params;
     const { fullName, address, image } = await req.json();
-
-    console.log(address);
 
     if (image && image.trim() !== "") {
       const handleRes = await handleDelete(id);
@@ -50,7 +48,6 @@ export const PUT = async (req, { params }) => {
         { new: true }
       );
     }
-
     return new NextResponse(
       JSON.stringify(updatedUser, { status: StatusCodes.OK })
     );

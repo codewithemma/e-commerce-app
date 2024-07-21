@@ -14,10 +14,11 @@ const validateEmail = (email) => {
 };
 
 //GET ALL USERS
-export const GET = async (req, res) => {
+export async function GET(req, res) {
   try {
     //SESSION VALIDATION
     const session = await getServerSession(authOptions);
+    console.log(session);
 
     await connectDB();
     const users = await User.find({});
@@ -30,7 +31,7 @@ export const GET = async (req, res) => {
       )
     );
   }
-};
+}
 
 //POST A USER TO DB
 export async function POST(req, res) {
