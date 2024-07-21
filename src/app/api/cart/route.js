@@ -1,4 +1,4 @@
-import CartModel from "@/models/cart";
+import CartModel from "@/models/Cart";
 import { authOptions } from "@/utils/auth";
 import { StatusCodes } from "http-status-codes";
 import { getServerSession } from "next-auth";
