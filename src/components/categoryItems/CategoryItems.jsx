@@ -7,7 +7,6 @@ import { FaArrowLeft, FaArrowRight, FaCartPlus } from "react-icons/fa";
 import { CldImage } from "next-cloudinary";
 import Link from "next/link";
 import { url } from "@/utils/api";
-import { CartProvider } from "@/context/CartContext";
 
 const CategoryItems = ({ productData }) => {
   const ItemsPerPage = 4;

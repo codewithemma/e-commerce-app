@@ -27,7 +27,7 @@ export const POST = async (req, res) => {
       cart.items = items;
       await cart.save();
     } else {
-      cart = new CartModel({ userId, items });
+      new CartModel({ userId, items });
       await cart.save();
     }
     return new NextResponse(
