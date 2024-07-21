@@ -65,13 +65,14 @@ const Login = () => {
         password: formData.password,
         callbackUrl,
       });
+      const data = await res.json();
       if (res.ok) {
         setPending(false);
         router.push(callbackUrl);
         toast.success("Login Successful 🎉");
       } else {
         setPending(false);
-        toast.error(res.error);
+        toast.error(data.error);
       }
     } catch (error) {
       setPending(false);
