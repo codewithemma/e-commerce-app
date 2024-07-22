@@ -2,16 +2,21 @@
 import { useContext, useState } from "react";
 import styles from "./CategoryItems.module.css";
 import { IoEyeOutline } from "react-icons/io5";
-import { CiHeart, CiSquareMinus, CiSquarePlus } from "react-icons/ci";
+import { CiHeart } from "react-icons/ci";
 import { FaArrowLeft, FaArrowRight, FaCartPlus } from "react-icons/fa";
 import { CldImage } from "next-cloudinary";
 import Link from "next/link";
 import { url } from "@/utils/api";
+import { CartContext } from "@/context/CartContext";
+import { toast } from "sonner";
+import { useSession } from "next-auth/react";
 
 const CategoryItems = ({ productData }) => {
   const ItemsPerPage = 4;
 
   const [currentPage, setCurrentPage] = useState(1);
+
+  const { data: session } = useSession();
 
   // const totalItems = productData.length;
   // const totalPages = Math.ceil(totalItems / ItemsPerPage);
@@ -27,6 +32,35 @@ const CategoryItems = ({ productData }) => {
 
   const handleNextPage = () => {
     setCurrentPage(currentPage + 1);
+  };
+
+  const { addItemToCart } = useContext(CartContext);
+
+  const addToCartDB = async (userId, items) => {
+    await fetch("/api/cart", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userId, items }),
+    });
+  };
+
+  const handleAddToCart = async (product) => {
+    const item = {
+      product: product._id,
+      quantity: 1,
+    };
+
+    if (session && session.user) {
+      // Authenticated user
+      await addToCartDB(session.user._id, [item]);
+    } else {
+      // Unauthenticated user
+      addItemToCart(item);
+    }
+
+    toast.success("product added successfully to cart");
   };
 
   return (
@@ -76,14 +110,17 @@ const CategoryItems = ({ productData }) => {
                       </span>
                       <span className={styles.actionButtonContainer}>
                         <Link
-                          href={`/${url}/products/${productData._id}`}
+                          href={`${url}/products/${item._id}`}
                           className={styles.actionButton}
                         >
                           <IoEyeOutline />
                         </Link>
                       </span>
                     </div>
-                    <button className={styles.addToCart}>
+                    <button
+                      className={styles.addToCart}
+                      onClick={() => handleAddToCart(item)}
+                    >
                       <span>
                         <FaCartPlus />
                       </span>
@@ -94,7 +131,7 @@ const CategoryItems = ({ productData }) => {
                     <p className={styles.productName}>{item.name}</p>
                     <div className={styles.btn_flex}>
                       <p className={styles.originalPrice}>&#36;{item.price}</p>
-                      <div className={styles.counter_container}>
+                      {/* <div className={styles.counter_container}>
                         <button>
                           <CiSquareMinus size="25px" />
                         </button>
@@ -102,7 +139,7 @@ const CategoryItems = ({ productData }) => {
                         <button>
                           <CiSquarePlus size="25px" />
                         </button>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </div>

@@ -2,17 +2,22 @@
 import Wrapper from "../wrapper/Wrapper";
 import styles from "./Navbar.module.css";
 import Link from "next/link";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useSession } from "next-auth/react";
 import { HiMagnifyingGlass } from "react-icons/hi2";
 import AuthLinks from "../authLinks/AuthLinks";
 import Image from "next/image";
 import ThemeToggle from "../themeToggle/ThemeToggle";
 import Badge from "@mui/material/Badge";
-import { IoCartOutline } from "react-icons/io5";
+import { CartContext } from "@/context/CartContext";
+import { CiShoppingCart } from "react-icons/ci";
 const Navbar = () => {
   const { status } = useSession();
+
   const [open, setOpen] = useState(false);
+  const { cart } = useContext(CartContext);
+  console.log(cart);
+
   return (
     <>
       <Wrapper>
@@ -71,8 +76,8 @@ const Navbar = () => {
           <div className={styles.auth_icons}>
             <ThemeToggle />
             <Link href="/user/cart">
-              <Badge badgeContent={4} color="error">
-                <IoCartOutline size="20px" />
+              <Badge badgeContent={cart.length || 0} color="error">
+                <CiShoppingCart size="20px" />
               </Badge>
             </Link>
             {status === "authenticated" && <AuthLinks />}
@@ -101,8 +106,8 @@ const Navbar = () => {
                 </Link>
               ) : (
                 <>
-                  <Link className={styles.responsive_link} href="/write">
-                    Cart
+                  <Link className={styles.responsive_link} href="/wishlist">
+                    Wishlist
                   </Link>
                   <span className={styles.link}>Logout</span>
                 </>

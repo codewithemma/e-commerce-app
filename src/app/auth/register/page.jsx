@@ -6,7 +6,6 @@ import { signIn, useSession } from "next-auth/react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { toast } from "sonner";
 import Loader from "@/components/loader/Loader";
-import Swal from "sweetalert2";
 const Login = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -65,18 +64,18 @@ const Login = () => {
         password: formData.password,
         callbackUrl,
       });
-      const data = await res.json();
+
       if (res.ok) {
         setPending(false);
         router.push(callbackUrl);
         toast.success("Login Successful 🎉");
       } else {
         setPending(false);
-        toast.error(data.error);
+        toast.error("Something went wrong");
       }
     } catch (error) {
       setPending(false);
-      toast.error("Something went wrong on our end");
+      toast.error(error.message);
     }
   };
 

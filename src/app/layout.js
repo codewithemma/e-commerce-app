@@ -8,10 +8,12 @@ import AuthProvider from "@/providers/AuthProvider";
 import { Toaster } from "sonner";
 
 import NextTopLoader from "nextjs-toploader";
+import { CartContextProvider } from "@/providers/CartProvider";
 const poppins = Poppins({
   subsets: ["latin"],
   weight: ["200", "400", "500", "700"],
 });
+
 export const metadata = {
   title: "Exclusive - Your One-Stop Shop for Over 1 Million Products",
   description:
@@ -75,12 +77,14 @@ export default function RootLayout({ children }) {
         <AuthProvider>
           <ThemeContextProvider>
             <ThemeProvider>
-              <div className="container">
-                <Navbar />
-                {children}
-                <Toaster richColors position="bottom-center" />
-                <Footer />
-              </div>
+              <CartContextProvider>
+                <div className="container">
+                  <Navbar />
+                  {children}
+                  <Toaster richColors position="bottom-center" />
+                  <Footer />
+                </div>
+              </CartContextProvider>
             </ThemeProvider>
           </ThemeContextProvider>
         </AuthProvider>
