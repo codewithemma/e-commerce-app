@@ -16,7 +16,6 @@ const Navbar = () => {
 
   const [open, setOpen] = useState(false);
   const { cart } = useContext(CartContext);
-  console.log(cart);
 
   return (
     <>
@@ -75,7 +74,7 @@ const Navbar = () => {
           </div>
           <div className={styles.auth_icons}>
             <ThemeToggle />
-            <Link href="/user/cart">
+            <Link href="/cart">
               <Badge badgeContent={cart.length || 0} color="error">
                 <CiShoppingCart size="20px" />
               </Badge>

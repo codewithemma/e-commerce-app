@@ -131,15 +131,6 @@ const CategoryItems = ({ productData }) => {
                     <p className={styles.productName}>{item.name}</p>
                     <div className={styles.btn_flex}>
                       <p className={styles.originalPrice}>&#36;{item.price}</p>
-                      {/* <div className={styles.counter_container}>
-                        <button>
-                          <CiSquareMinus size="25px" />
-                        </button>
-                        <input type="text" readOnly />
-                        <button>
-                          <CiSquarePlus size="25px" />
-                        </button>
-                      </div> */}
                     </div>
                   </div>
                 </div>

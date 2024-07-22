@@ -40,6 +40,7 @@ const fetchCartFromDB = async (userId) => {
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
   const { data: session } = useSession();
+  console.log(session);
 
   const loadCartFromLocalStorage = () => {
     const storedCart = localStorage.getItem("cart");

@@ -1,0 +1,131 @@
+.cart_nav {
+  margin-top: 30px;
+  margin-bottom: 50px;
+}
+
+.cart_nav div:nth-of-type(1) a:nth-of-type(1) {
+  font-size: 14px;
+  color: #808080;
+  font-weight: 400;
+}
+
+.cart_nav div:nth-of-type(1) a:nth-of-type(2) {
+  font-size: 14px;
+  font-weight: 700;
+}
+.cart_item {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  margin: 50px 80px;
+  gap: 30px;
+  box-shadow: 13px 8px 12px -6px #f8f8f8;
+}
+.cart_item p {
+  font-size: 16px;
+  font-weight: 500;
+}
+.input {
+  width: 25px;
+  height: 25px;
+  outline: none;
+  border: 1px solid #808080;
+  text-align: center;
+}
+
+.product_flex {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn_container {
+  margin-top: 20px;
+  margin-bottom: 50px;
+  margin-left: 80px;
+  margin-right: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+}
+
+.btn_container button {
+  border: 2px solid #808080;
+  background: none;
+  cursor: pointer;
+  width: 200px;
+  height: 50px;
+  border-radius: 4px;
+}
+
+.btn_container a {
+  border: 2px solid #808080;
+  background: none;
+  cursor: pointer;
+  width: 200px;
+  height: 50px;
+  border-radius: 4px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.coupon_container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 50px;
+}
+
+.coupon_container p {
+  margin-bottom: 10px;
+  font-size: 13px;
+}
+
+.coupon_container .coupon {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.coupon_container .coupon input {
+  height: 25px;
+  height: 50px;
+  outline: none;
+  border: 1px solid #808080;
+  text-align: center;
+}
+
+.coupon_container .coupon button {
+  width: 200px;
+  height: 50px;
+  border: none;
+  background-color: var(--tertiaryColor);
+  color: #fff;
+}
+
+.coupon_container .checkout_container {
+  border: 1px solid black;
+  padding: 10px 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.checkout {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 10px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid grey;
+  font-size: 14px;
+}
+
+.checkout_container button {
+  background-color: var(--tertiaryColor);
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+}
