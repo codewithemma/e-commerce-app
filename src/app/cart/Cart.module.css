@@ -94,7 +94,7 @@
   height: 50px;
   outline: none;
   border: 1px solid #808080;
-  text-align: center;
+  padding: 5px;
 }
 
 .coupon_container .coupon button {
