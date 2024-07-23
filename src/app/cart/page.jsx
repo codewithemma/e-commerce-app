@@ -8,7 +8,6 @@ import Image from "next/image";
 
 const Cart = () => {
   const { cart } = useContext(CartContext);
-  console.log(cart);
 
   return (
     <Wrapper>
