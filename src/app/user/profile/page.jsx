@@ -15,7 +15,7 @@ const UserProfile = async () => {
       <div className={styles.container}>
         <div className={styles.profile_nav}>
           <div>
-            <Link href="/">Home</Link> /
+            <Link href="/">Home</Link> {">"}
             <Link href="/user/profile"> My Account</Link>
           </div>
           <div className={styles.profile}>

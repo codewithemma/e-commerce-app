@@ -13,7 +13,8 @@ const Cart = () => {
   return (
     <Wrapper>
       <div className={styles.cart_nav}>
-        <Link href="/">Home</Link> /<Link href="/cart"> Cart</Link>
+        <Link href="/">Home</Link> {">"}
+        <Link href="/cart"> Cart</Link>
       </div>
       <div className={styles.cart_item}>
         <p>Product</p>

@@ -172,20 +172,3 @@
   gap: 100px;
   align-items: center;
 }
-.counter_container {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-}
-.counter_container button {
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-.counter_container input {
-  width: 25px;
-  height: 25px;
-  outline: none;
-  text-align: center;
-}
