@@ -50,11 +50,11 @@ const ProductDescription = ({ productData }) => {
           <div className={styles.counter_container}>
             <div className={styles.counter}>
               <button>
-                <FaPlus />
+                <FaMinus />
               </button>
               <input type="text" defaultValue="1" />
               <button>
-                <FaMinus />
+                <FaPlus />
               </button>
             </div>
             <button
