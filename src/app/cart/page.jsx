@@ -54,7 +54,7 @@ const Cart = () => {
           <p style={{ fontWeight: "bold" }}>Cart Total</p>
           <div className={styles.checkout}>
             <p>Subtotal:</p>
-            <p>money</p>
+            <p>&#36;money</p>
           </div>
           <div className={styles.checkout}>
             <p>Shipping:</p>
