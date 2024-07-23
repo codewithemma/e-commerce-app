@@ -1,4 +1,5 @@
 import Product from "@/models/Product";
+import { connectDB } from "@/utils/connect";
 import { StatusCodes } from "http-status-codes";
 import { NextResponse } from "next/server";
 
@@ -6,6 +7,7 @@ export const GET = async (req, { params }) => {
   const { slug } = params;
 
   try {
+    await connectDB();
     const product = await Product.findById({ _id: slug });
     if (!product) {
       return new NextResponse(

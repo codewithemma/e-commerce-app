@@ -1,3 +1,4 @@
+"use client";
 import { CldImage } from "next-cloudinary";
 import styles from "./RelatedProducts.module.css";
 import { CiHeart } from "react-icons/ci";
@@ -5,8 +6,29 @@ import { IoEyeOutline } from "react-icons/io5";
 import { FaCartPlus } from "react-icons/fa";
 import Link from "next/link";
 import { url } from "@/utils/api";
+import { useEffect, useState } from "react";
 
-const RelatedProducts = ({ productData }) => {
+const RelatedProducts = () => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const res = await fetch(`${url}/api/user/products`, {
+          cache: "no-store",
+        });
+        if (!res.ok) {
+          throw new Error("failed");
+        }
+        const resData = await res.json();
+        setData(resData);
+      } catch (error) {
+        console.error("something went wrong");
+      }
+    };
+    getData();
+  }, []);
+
   return (
     <div className={styles.container}>
       <div className={styles.upper}>
@@ -15,12 +37,12 @@ const RelatedProducts = ({ productData }) => {
           <p className={styles.p}>Related Products</p>
         </div>
       </div>
-      {productData.length === 0 ? (
+      {data.length === 0 ? (
         <p>products currently not available, please check back later...😃</p>
       ) : (
         <>
           <div className={styles.card_grid}>
-            {productData
+            {data
               .sort(() => 0.5 - Math.random())
               .slice(0, 4)
               .map((item) => {
@@ -49,10 +71,7 @@ const RelatedProducts = ({ productData }) => {
                           </Link>
                         </span>
                       </div>
-                      <button
-                        className={styles.addToCart}
-                        onClick={() => handleAddToCart(item)}
-                      >
+                      <button className={styles.addToCart}>
                         <span>
                           <FaCartPlus />
                         </span>

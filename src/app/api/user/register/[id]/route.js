@@ -26,6 +26,7 @@ const handleDelete = async (id) => {
 
 export const PUT = async (req, { params }) => {
   try {
+    await connectDB();
     let imageUrl = null;
     const { id } = params;
     const { fullName, address, image } = await req.json();

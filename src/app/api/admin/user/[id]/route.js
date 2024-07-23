@@ -1,10 +1,12 @@
 import User from "@/models/User";
+import { connectDB } from "@/utils/connect";
 import { StatusCodes } from "http-status-codes";
 import { NextResponse } from "next/server";
 
 export const PUT = async (req, { params }) => {
   const { id } = params;
   const { fullName, email, role } = await req.json();
+  await connectDB();
   try {
     const updatedUser = await User.findByIdAndUpdate(
       id,
@@ -30,6 +32,7 @@ export const PUT = async (req, { params }) => {
 
 export const DELETE = async (req, { params }) => {
   const { id } = params;
+  await connectDB();
   try {
     const deletedUser = await User.findByIdAndDelete(id);
     return new NextResponse(

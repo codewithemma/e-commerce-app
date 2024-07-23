@@ -8,7 +8,7 @@ import Image from "next/image";
 import Border from "@/components/border/Border";
 import { FaMinus, FaPlus, FaRegHeart, FaTruck } from "react-icons/fa";
 import { FaArrowsRotate } from "react-icons/fa6";
-import RelatedProduct from "@/components/relatedProducts/RelatedProduct";
+import RelatedProducts from "@/components/relatedProducts/RelatedProducts";
 
 const ProductDescription = ({ productData }) => {
   const { addItemToCart } = useContext(CartContext);
@@ -92,7 +92,7 @@ const ProductDescription = ({ productData }) => {
           </div>
         </div>
       </div>
-      <RelatedProduct />
+      <RelatedProducts />
     </Wrapper>
   );
 };

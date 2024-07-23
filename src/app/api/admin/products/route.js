@@ -43,7 +43,6 @@ export const POST = async (req) => {
       category,
       stock,
       image: uploadResponse.secure_url,
-      // image: [uploadResponse.secure_url, uploadResponse.public_id],
     });
 
     await products.save();
