@@ -34,21 +34,22 @@ const CategoryItems = ({ productData }) => {
     setCurrentPage(currentPage + 1);
   };
 
-  const { addItemToCart } = useContext(CartContext);
+  const { addItemToCart, addToCartDB } = useContext(CartContext);
 
-  const addToCartDB = async (userId, items) => {
-    await fetch("/api/cart", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ userId, items }),
-    });
-  };
+  const inStock = productData?.stock >= 1;
 
   const handleAddToCart = async (product) => {
     const item = {
       product: product._id,
+      quantity: 1,
+    };
+
+    const localCart = {
+      name: product.name,
+      price: product.price,
+      stock: product.stock,
+      image: product.image,
+      category: product.category,
       quantity: 1,
     };
 
@@ -57,7 +58,7 @@ const CategoryItems = ({ productData }) => {
       await addToCartDB(session.user._id, [item]);
     } else {
       // Unauthenticated user
-      addItemToCart(item);
+      addItemToCart(localCart);
     }
 
     toast.success("product added successfully to cart");

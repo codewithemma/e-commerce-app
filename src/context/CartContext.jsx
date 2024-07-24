@@ -1,9 +1,18 @@
 "use client";
 import { useSession } from "next-auth/react";
 import { createContext, useEffect, useState } from "react";
-import { toast } from "sonner";
 
 export const CartContext = createContext();
+
+const addToCartDB = async (userId, updatedCartItems) => {
+  await fetch("/api/cart", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ userId, items: updatedCartItems }),
+  });
+};
 
 const syncCartToDB = async (userId, items) => {
   await fetch("/api/cart", {
@@ -39,14 +48,15 @@ const fetchCartFromDB = async (userId) => {
 
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
+
   const { data: session } = useSession();
-  console.log(session);
 
   const loadCartFromLocalStorage = () => {
     const storedCart = localStorage.getItem("cart");
+    console.log(storedCart);
 
     if (storedCart) {
-      setCart(JSON.parse(storedCart).cartItems);
+      setCart(JSON.parse(storedCart));
     } else {
       setCart([]);
     }
@@ -59,7 +69,7 @@ export const CartProvider = ({ children }) => {
 
       if (localCart.length > 0) {
         (async () => {
-          await syncCartToDB(session.user._id, localCart.cartItems);
+          await syncCartToDB(session.user._id, localCart.product);
           const updatedCart = await fetchCartFromDB(session.user._id);
           setCart(updatedCart);
           localStorage.removeItem("cart"); // Clear local storage after syncing
@@ -92,7 +102,7 @@ export const CartProvider = ({ children }) => {
     } else {
       newCartItems = [...cart, item];
     }
-    localStorage.setItem("cart", JSON.stringify({ cartItems: newCartItems }));
+    localStorage.setItem("cart", JSON.stringify({ product: newCartItems }));
     setCart(newCartItems);
 
     if (session && session.user) {
@@ -103,7 +113,7 @@ export const CartProvider = ({ children }) => {
   };
 
   return (
-    <CartContext.Provider value={{ cart, addItemToCart }}>
+    <CartContext.Provider value={{ cart, addItemToCart, addToCartDB }}>
       {children}
     </CartContext.Provider>
   );

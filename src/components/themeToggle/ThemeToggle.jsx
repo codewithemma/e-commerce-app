@@ -2,7 +2,7 @@
 import styles from "./ThemeToggle.module.css";
 import { ThemeContext } from "@/context/ThemeContext";
 import React, { useContext } from "react";
-import { CiDark, CiLight, CiSun } from "react-icons/ci";
+import { CiDark, CiLight } from "react-icons/ci";
 const ThemeToggle = () => {
   const { toggle, theme } = useContext(ThemeContext);
   return (
