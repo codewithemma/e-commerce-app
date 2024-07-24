@@ -64,8 +64,8 @@ const Cart = () => {
         {cart.product?.map((item) => {
           return (
             <div key={item._id} className={styles.cart_item}>
-              <button onClick={() => handleIncrement(item)}>increase</button>
-              <button onClick={() => handleDecrement(item)}>decrease</button>
+              {/* <button onClick={() => handleIncrement(item)}>increase</button>
+              <button onClick={() => handleDecrement(item)}>decrease</button> */}
               <div className={styles.product_flex}>
                 <Image src={item.image} alt="item" width={50} height={50} />
                 <p>{item.name}</p>
