@@ -64,14 +64,13 @@ const Login = () => {
         password: formData.password,
         callbackUrl,
       });
-
       if (res.ok) {
         setPending(false);
         router.push(callbackUrl);
         toast.success("Login Successful 🎉");
       } else {
         setPending(false);
-        toast.error("Something went wrong");
+        toast.error(res.error);
       }
     } catch (error) {
       setPending(false);

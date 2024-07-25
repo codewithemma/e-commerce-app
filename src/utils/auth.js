@@ -16,7 +16,7 @@ export const authOptions = {
       profile(profile) {
         return {
           id: profile.sub,
-          name: profile.fullName,
+          fullName: profile.fullName,
           email: profile.email,
           image: profile.picture,
           role: profile.role ?? "user",

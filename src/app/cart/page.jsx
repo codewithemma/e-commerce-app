@@ -8,45 +8,16 @@ import Image from "next/image";
 import { useSession } from "next-auth/react";
 
 const Cart = () => {
-  const { cart, addToCartDB, addItemToCart } = useContext(CartContext);
-  console.log(cart);
+  const {
+    cart,
+    handleDecrement,
+    handleIncrement,
+    deleteItemFromCart,
+    calculateTotalPrice,
+    totalPrice,
+  } = useContext(CartContext);
 
-  const { data: session } = useSession();
-
-  // const handleIncrement = async (cartItem) => {
-  //   const newQty = cartItem?.quantity + 1;
-  //   const updatedCartItems = cart.map((item) =>
-  //     item._id === cartItem._id ? { ...item, quantity: newQty } : item
-  //   );
-  //   if (newQty > cartItem?.stock) return;
-  //   if (session && session.user) {
-  //     await addToCartDB(session.user._id, [updatedCartItems]);
-  //   } else {
-  //     addItemToCart(updatedCartItems);
-  //   }
-  // };
-
-  const handleIncrement = async (cartItem) => {
-    const newQty = cartItem?.quantity + 1;
-    const item = { ...cartItem, quantity: newQty };
-    if (newQty > cartItem?.stock) return;
-    if (session && session.user) {
-      await addToCartDB(session.user._id, [item]);
-    } else {
-      addItemToCart(item);
-    }
-  };
-
-  const handleDecrement = async (cartItem) => {
-    const newQty = cartItem?.quantity - 1;
-    const item = { ...cartItem, quantity: newQty };
-    if (newQty <= 0) return;
-    if (session && session.user) {
-      await addToCartDB(session.user._id, [item]);
-    } else {
-      addItemToCart(item);
-    }
-  };
+  const { status } = useSession();
 
   return (
     <Wrapper>
@@ -57,33 +28,47 @@ const Cart = () => {
       <div className={styles.cart_item}>
         <p>Product</p>
         <p>Price</p>
-        <p>Quatity</p>
+        <p>Quantity</p>
         <p>Subtotal</p>
       </div>
+      <>{cart.length === 0 && <p className={styles.empty}>Cart is empty</p>}</>
       <>
-        {cart.product?.map((item) => {
+        {cart?.map((item) => {
           return (
             <div key={item._id} className={styles.cart_item}>
-              {/* <button onClick={() => handleIncrement(item)}>increase</button>
-              <button onClick={() => handleDecrement(item)}>decrease</button> */}
               <div className={styles.product_flex}>
                 <Image src={item.image} alt="item" width={50} height={50} />
                 <p>{item.name}</p>
               </div>
               <p>&#36;{item.price}</p>
-              <input
-                type="number"
-                value={item.quantity}
-                className={styles.input}
-              />
-              <p>&#36;{item.price * item.quantity.toFixed(2)}</p>
+              <div className={styles.control}>
+                <button onClick={() => handleDecrement(item.productId)}>
+                  -
+                </button>
+                <input
+                  type="number"
+                  value={item.quantity}
+                  className={styles.input}
+                  readOnly
+                />
+                <button onClick={() => handleIncrement(item.productId)}>
+                  +
+                </button>
+              </div>
+              <p>&#36;{(item.price * item.quantity).toFixed(2)}</p>
+              <button
+                className={styles.delete}
+                onClick={() => deleteItemFromCart(item.productId)}
+              >
+                Remove
+              </button>
             </div>
           );
         })}
       </>
       <div className={styles.btn_container}>
         <Link href="/">Return To Shop</Link>
-        <button>Update Cart</button>
+        <button onClick={calculateTotalPrice}>Update Cart</button>
       </div>
       <div className={styles.coupon_container}>
         <div className={styles.coupon}>
@@ -94,7 +79,7 @@ const Cart = () => {
           <p style={{ fontWeight: "bold" }}>Cart Total</p>
           <div className={styles.checkout}>
             <p>Subtotal:</p>
-            <p>&#36;money</p>
+            <p>&#36;{totalPrice.toFixed(2)}</p>
           </div>
           <div className={styles.checkout}>
             <p>Shipping:</p>
@@ -102,9 +87,15 @@ const Cart = () => {
           </div>
           <div className={styles.checkout}>
             <p>Total:</p>
-            <p>money</p>
+            <p>&#36;{totalPrice.toFixed(2)}</p>
           </div>
-          <button>Proceed to checkout</button>
+          {status === "unauthenticated" ? (
+            <Link href="/auth/login" className={styles.login}>
+              Login to proceed
+            </Link>
+          ) : (
+            <button>Proceed to checkout</button>
+          )}
         </div>
       </div>
     </Wrapper>

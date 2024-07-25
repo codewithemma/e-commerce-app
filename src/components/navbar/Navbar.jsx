@@ -75,7 +75,7 @@ const Navbar = () => {
           <div className={styles.auth_icons}>
             <ThemeToggle />
             <Link href="/cart">
-              <Badge badgeContent={cart.length || 0} color="error">
+              <Badge badgeContent={cart?.length || 0} color="error">
                 <CiShoppingCart size="20px" />
               </Badge>
             </Link>

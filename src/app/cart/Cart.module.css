@@ -1,3 +1,9 @@
+.empty {
+  font-weight: 700;
+  font-size: 20px;
+  font-family: monospace;
+  margin-bottom: 50px;
+}
 .cart_nav {
   margin-top: 30px;
   margin-bottom: 50px;
@@ -26,8 +32,9 @@
 }
 .cart_item {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  margin: 50px 80px;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+  margin: 50px 50px;
+  align-items: center;
   gap: 30px;
   box-shadow: 13px 8px 12px -6px #f8f8f8;
 }
@@ -36,7 +43,7 @@
   font-weight: 500;
 }
 .input {
-  width: 25px;
+  width: 35px;
   height: 25px;
   outline: none;
   border: 1px solid #808080;
@@ -47,6 +54,33 @@
   display: flex;
   align-items: center;
   gap: 10px;
+}
+
+.control button {
+  background-color: #808080;
+  color: white;
+  border: none;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+}
+
+.control button:nth-of-type(1) {
+  border-radius: 3px 0 0 3px;
+}
+
+.control button:nth-of-type(2) {
+  border-radius: 0 3px 3px 0;
+}
+
+.delete {
+  background: none;
+  border: 1px solid #808080;
+  color: var(--tertiaryColor);
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 10px;
+  font-weight: 700;
 }
 
 .btn_container {
@@ -139,4 +173,13 @@
   border: none;
   padding: 10px;
   border-radius: 4px;
+}
+.login {
+  background-color: var(--tertiaryColor);
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 14px;
 }

@@ -1,119 +1,138 @@
 "use client";
-import { useSession } from "next-auth/react";
+import Link from "next/link";
 import { createContext, useEffect, useState } from "react";
+import { toast } from "sonner";
 
 export const CartContext = createContext();
 
-const addToCartDB = async (userId, updatedCartItems) => {
-  await fetch("/api/cart", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ userId, items: updatedCartItems }),
-  });
-};
-
-const syncCartToDB = async (userId, items) => {
-  await fetch("/api/cart", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ userId, items }),
-  });
-};
-
-const fetchCartFromDB = async (userId) => {
-  try {
-    const response = await fetch(`/api/cart?userId=${userId}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error("Failed to fetch cart from database");
-    }
-
-    const cart = await response.json();
-
-    return cart.items;
-  } catch (error) {
-    console.error("Error fetching cart from database:", error);
-    return [];
-  }
-};
-
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
-
-  const { data: session } = useSession();
+  const [totalPrice, setTotalPrice] = useState(0);
 
   const loadCartFromLocalStorage = () => {
-    const storedCart = localStorage.getItem("cart");
-    console.log(storedCart);
-
-    if (storedCart) {
-      setCart(JSON.parse(storedCart));
-    } else {
-      setCart([]);
-    }
+    setCart(
+      localStorage.getItem("cart")
+        ? JSON.parse(localStorage.getItem("cart"))
+        : []
+    );
   };
-
-  useEffect(() => {
-    if (session && session.user) {
-      // Sync local storage items to DB
-      const localCart = JSON.parse(localStorage.getItem("cart")) || [];
-
-      if (localCart.length > 0) {
-        (async () => {
-          await syncCartToDB(session.user._id, localCart.product);
-          const updatedCart = await fetchCartFromDB(session.user._id);
-          setCart(updatedCart);
-          localStorage.removeItem("cart"); // Clear local storage after syncing
-          console.log("Local storage cleared after syncing");
-        })();
-      } else {
-        (async () => {
-          const updatedCart = await fetchCartFromDB(session.user._id);
-          setCart(updatedCart);
-        })();
-      }
-    }
-  }, [session]);
 
   useEffect(() => {
     loadCartFromLocalStorage();
   }, []);
 
   const addItemToCart = async (item) => {
-    const isItemExist = cart.find((i) => i.product === item.product);
+    console.log("item", item);
 
-    let newCartItems;
+    setCart((prevCart) => {
+      const isItemExist = prevCart.find((i) => i.productId === item.productId);
+      console.log("isExist", isItemExist);
 
-    if (isItemExist) {
-      newCartItems = cart.map((i) =>
-        i.product === isItemExist.product
-          ? { ...i, quantity: i.quantity + item.quantity }
-          : i
-      );
-    } else {
-      newCartItems = [...cart, item];
-    }
-    localStorage.setItem("cart", JSON.stringify({ product: newCartItems }));
-    setCart(newCartItems);
+      let newCartItems;
+      if (isItemExist) {
+        if (isItemExist.quantity + item.quantity > item.stock) {
+          toast.error("Not enough stock available");
+          return prevCart; // Return the previous state without changes
+        }
+        newCartItems = prevCart.map((i) =>
+          i.productId === isItemExist.productId
+            ? { ...i, quantity: i.quantity + item.quantity }
+            : i
+        );
+      } else {
+        if (item.quantity > item.stock) {
+          toast.error("Not enough stock available");
+          return prevCart; // Return the previous state without changes
+        }
 
-    if (session && session.user) {
-      await syncCartToDB(session.user._id, newCartItems);
-      const updatedCart = await fetchCartFromDB(session.user._id);
-      setCart(updatedCart);
+        newCartItems = [...prevCart, item];
+      }
+
+      console.log("Updated CartItems", newCartItems);
+
+      // Save the new cart to localStorage
+      localStorage.setItem("cart", JSON.stringify(newCartItems));
+      toast.success("Product successfully added to cart", {
+        action: <Link href="/cart">View Cart</Link>,
+      });
+
+      return newCartItems;
+    });
+  };
+
+  const handleIncrement = (productId) => {
+    setCart((prevCart) => {
+      const newCartItems = prevCart.map((item) => {
+        if (item.productId === productId) {
+          if (item.quantity + 1 > item.stock) {
+            toast.error("Not enough stock available");
+            return item;
+          }
+          return { ...item, quantity: item.quantity + 1 };
+        }
+        return item;
+      });
+      localStorage.setItem("cart", JSON.stringify(newCartItems));
+      return newCartItems;
+    });
+  };
+
+  const handleDecrement = (productId) => {
+    setCart((prevCart) => {
+      const newCartItems = prevCart.map((item) => {
+        if (item.productId === productId) {
+          if (item.quantity - 1 < 1) {
+            toast.error("Quantity cannot be less than 1");
+            return item;
+          }
+          return { ...item, quantity: item.quantity - 1 };
+        }
+        return item;
+      });
+      localStorage.setItem("cart", JSON.stringify(newCartItems));
+      return newCartItems;
+    });
+  };
+
+  const deleteItemFromCart = (productId) => {
+    if (
+      window.confirm("Are you sure you want to remove this item from the cart?")
+    ) {
+      setCart((prevCart) => {
+        const newCartItems = prevCart.filter(
+          (item) => item.productId !== productId
+        );
+        localStorage.setItem("cart", JSON.stringify(newCartItems));
+        toast.success("Product removed from cart");
+        return newCartItems;
+      });
     }
   };
 
+  const calculateTotalPrice = () => {
+    const total = cart.reduce(
+      (total, product) => total + product.price * product.quantity,
+      0
+    );
+    window.scrollTo({
+      top: document.documentElement.scrollHeight,
+      behavior: "smooth",
+    });
+    setTotalPrice(total);
+  };
+
   return (
-    <CartContext.Provider value={{ cart, addItemToCart, addToCartDB }}>
+    <CartContext.Provider
+      value={{
+        cart,
+        addItemToCart,
+        handleIncrement,
+        handleDecrement,
+        deleteItemFromCart,
+        calculateTotalPrice,
+        totalPrice,
+      }}
+    >
       {children}
     </CartContext.Provider>
   );

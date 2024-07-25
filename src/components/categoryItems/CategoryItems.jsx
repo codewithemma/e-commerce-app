@@ -34,17 +34,11 @@ const CategoryItems = ({ productData }) => {
     setCurrentPage(currentPage + 1);
   };
 
-  const { addItemToCart, addToCartDB } = useContext(CartContext);
-
-  const inStock = productData?.stock >= 1;
+  const { addItemToCart } = useContext(CartContext);
 
   const handleAddToCart = async (product) => {
-    const item = {
-      product: product._id,
-      quantity: 1,
-    };
-
     const localCart = {
+      productId: product._id,
       name: product.name,
       price: product.price,
       stock: product.stock,
@@ -53,15 +47,7 @@ const CategoryItems = ({ productData }) => {
       quantity: 1,
     };
 
-    if (session && session.user) {
-      // Authenticated user
-      await addToCartDB(session.user._id, [item]);
-    } else {
-      // Unauthenticated user
-      addItemToCart(localCart);
-    }
-
-    toast.success("product added successfully to cart");
+    addItemToCart(localCart);
   };
 
   return (
@@ -93,6 +79,7 @@ const CategoryItems = ({ productData }) => {
         <>
           <div className={styles.card_grid}>
             {currentData.map((item) => {
+              // console.log("item2", item);
               return (
                 <div key={item._id} className={styles.productCard}>
                   <div className={styles.img_container}>

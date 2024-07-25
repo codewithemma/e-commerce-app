@@ -3,26 +3,41 @@ import Wrapper from "@/components/wrapper/Wrapper";
 import styles from "./ProductDescription.module.css";
 import { CartContext } from "@/context/CartContext";
 import Link from "next/link";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import Image from "next/image";
 import Border from "@/components/border/Border";
 import { FaMinus, FaPlus, FaRegHeart, FaTruck } from "react-icons/fa";
 import { FaArrowsRotate } from "react-icons/fa6";
 import RelatedProducts from "@/components/relatedProducts/RelatedProducts";
+import { toast } from "sonner";
 
 const ProductDescription = ({ productData }) => {
-  const { addItemToCart } = useContext(CartContext);
-  const handleAddToCart = (product) => {
-    const item = {
-      product: product._id,
-      name: product.name,
-      description: product.description,
-      image: product.image,
-      price: product.price,
-      category: product.category,
-    };
-    addItemToCart(item);
+  const [quantity, setQuantity] = useState(1);
+
+  const handleIncrement = () => {
+    setQuantity((prevQuantity) => prevQuantity + 1);
   };
+
+  const handleDecrement = () => {
+    setQuantity((prevQuantity) => (prevQuantity > 1 ? prevQuantity - 1 : 1));
+  };
+  const { addItemToCart } = useContext(CartContext);
+
+  const handleAddToCart = async (product) => {
+    const localCart = {
+      productId: product._id,
+      name: product.name,
+      price: product.price,
+      stock: product.stock,
+      image: product.image,
+      category: product.category,
+      quantity,
+    };
+
+    addItemToCart(localCart);
+    setQuantity(1);
+  };
+
   return (
     <Wrapper>
       <div className={styles.desc_nav}>
@@ -50,11 +65,11 @@ const ProductDescription = ({ productData }) => {
           <Border />
           <div className={styles.counter_container}>
             <div className={styles.counter}>
-              <button>
+              <button onClick={handleDecrement}>
                 <FaMinus />
               </button>
-              <input type="text" defaultValue="1" />
-              <button>
+              <input type="text" readOnly value={quantity} />
+              <button onClick={handleIncrement}>
                 <FaPlus />
               </button>
             </div>

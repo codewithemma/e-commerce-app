@@ -2,6 +2,7 @@ import Product from "@/models/Product";
 import { connectDB } from "@/utils/connect";
 import React from "react";
 import ProductDescription from "./ProductDescription";
+export const revalidate = 0;
 
 const page = async ({ params }) => {
   const { id } = params;
