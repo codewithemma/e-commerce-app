@@ -10,6 +10,14 @@ import { DataGrid } from "@mui/x-data-grid";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 
 const CreateItem = ({ productData }) => {
+  useEffect(() => {
+    const processedData = productData.map((user, index) => ({
+      ...user,
+      id: index + 1,
+    }));
+    setRows(processedData);
+  }, [productData]);
+
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -21,6 +29,9 @@ const CreateItem = ({ productData }) => {
   const [pageSize, setPageSize] = useState(5);
   const [pending, setPending] = useState(false);
   const [rows, setRows] = useState([]);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+
+  console.log(selectedProduct);
 
   const handleChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
@@ -44,19 +55,31 @@ const CreateItem = ({ productData }) => {
   const handleSubmit = async () => {
     try {
       setPending(true);
-      const res = await fetch("/api/admin/products", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
+      const method = selectedProduct ? "PUT" : "POST";
+      const url = selectedProduct
+        ? `/api/admin/products/${selectedProduct._id}`
+        : "/api/admin/products";
+      const res = await fetch(url, {
+        method,
+        headers: {
+          "content-type": "application/json",
+        },
         body: JSON.stringify(formData),
       });
+      const errorMessage = await res.json();
+      console.log(errorMessage);
+
       if (res.ok) {
         setPending(false);
         handleClearFormData();
-        toast.success("New Product created successfully");
+        setSelectedProduct(null);
+        toast.success(
+          `Product ${selectedProduct ? "updated" : "created"} successfully`
+        );
+        window.location.reload();
       } else {
-        const error = await res.json();
         setPending(false);
-        toast.error(error.message);
+        toast.error(errorMessage.message);
       }
     } catch (error) {
       setPending(false);
@@ -64,14 +87,47 @@ const CreateItem = ({ productData }) => {
     }
   };
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   const handleUpdate = (id) => {
-    // Implement update functionality for the row with id
+    const product = rows.find((product) => product.id === id);
+    scrollToTop();
+    setFormData({
+      name: product.name,
+      description: product.description,
+      price: product.price,
+      stock: product.stock,
+      category: product.category,
+    });
+    setSelectedProduct(product);
     toast.info(`Update row with ID ${id}`);
   };
 
-  const handleDelete = (id) => {
-    // Implement delete functionality for the row with id
-    toast.warn(`Delete row with ID ${id}`);
+  const handleDelete = async (id) => {
+    const product = rows.find((item) => item.id === id);
+    if (window.confirm("Are you sure you want to delete this user...?")) {
+      try {
+        const res = await fetch(`/api/admin/products/${product._id}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({}),
+        });
+        const data = await res.json();
+        if (res.ok) {
+          toast.success(data.message);
+        }
+        window.location.reload();
+      } catch (error) {
+        toast.error(error.message || "Something went wrong");
+      }
+    }
   };
 
   const columns = [
@@ -96,13 +152,6 @@ const CreateItem = ({ productData }) => {
       ),
     },
   ];
-  useEffect(() => {
-    const processedData = productData.map((user, index) => ({
-      ...user,
-      id: index + 1,
-    }));
-    setRows(processedData);
-  }, [productData]);
 
   return (
     <Wrapper>

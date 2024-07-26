@@ -77,7 +77,7 @@ const UserForm = ({ userInfo }) => {
   };
 
   const handleUpdate = (id) => {
-    const user = rows.find((user) => user.id === id);
+    const user = rows.find((data) => data.id === id);
     scrollToTop();
     setFormData({
       fullName: user.fullName,
