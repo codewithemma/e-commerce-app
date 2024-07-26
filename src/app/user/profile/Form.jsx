@@ -18,7 +18,7 @@ const Form = ({ session }) => {
     if (session) {
       setFormData({
         fullName: session.fullName || "",
-        image: session?.image || "",
+        image: "",
         address: session?.address || "",
       });
     }
@@ -47,7 +47,6 @@ const Form = ({ session }) => {
         },
         body: JSON.stringify(formData),
       });
-
       if (res.ok) {
         setPending(false);
         toast.success(`User updated successfully`);

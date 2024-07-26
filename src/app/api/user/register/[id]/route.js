@@ -27,30 +27,42 @@ const handleDelete = async (id) => {
 export const PUT = async (req, { params }) => {
   try {
     await connectDB();
-    let imageUrl = null;
     const { id } = params;
     const { fullName, address, image } = await req.json();
-
     if (image && image.trim() !== "") {
       const handleRes = await handleDelete(id);
       const uploadResponse = await cloudinary.uploader.upload(image, {
         upload_preset: process.env.NEXT_PUBLIC_CLOUDINARY_PRESET_NAME,
       });
-      imageUrl = uploadResponse.secure_url;
-      const updateFields = {
-        ...(fullName && { fullName }),
-        ...(address && { address }),
-        ...(imageUrl && { image: imageUrl }),
-        updatedAt: new Date(),
-      };
-      const updatedUser = await User.findByIdAndUpdate(
-        id,
-        { $set: updateFields },
+      const imageUrl = uploadResponse.secure_url;
+      const updatedUser = await User.findOneAndUpdate(
+        { _id: id },
+        {
+          $set: {
+            fullName,
+            address,
+            image: imageUrl,
+            updatedAt: new Date(),
+          },
+        },
         { new: true }
       );
+    } else {
+      const updatedUser = await User.findOneAndUpdate(
+        { _id: id },
+        {
+          $set: {
+            fullName,
+            address,
+            updatedAt: new Date(),
+          },
+        },
+        { new: true }
+      );
+      console.log("hieejdkkdk", updatedUser);
     }
     return new NextResponse(
-      JSON.stringify(updatedUser, { status: StatusCodes.OK })
+      JSON.stringify({ message: "success" }, { status: StatusCodes.OK })
     );
   } catch (error) {
     return new NextResponse(
@@ -61,3 +73,41 @@ export const PUT = async (req, { params }) => {
     );
   }
 };
+
+// export const PUT = async (req, { params }) => {
+//   try {
+//     await connectDB();
+//     let imageUrl = null;
+//     const { id } = params;
+//     const { fullName, address, image } = await req.json();
+
+//     if (image && image.trim() !== "") {
+//       const handleRes = await handleDelete(id);
+//       const uploadResponse = await cloudinary.uploader.upload(image, {
+//         upload_preset: process.env.NEXT_PUBLIC_CLOUDINARY_PRESET_NAME,
+//       });
+//       const imageUrl = uploadResponse.secure_url;
+//       const updateFields = {
+//         ...(fullName && { fullName }),
+//         ...(address && { address }),
+//         ...(imageUrl && { image: imageUrl }),
+//         updatedAt: new Date(),
+//       };
+//       const updatedUser = await User.findByIdAndUpdate(
+//         id,
+//         { $set: updateFields },
+//         { new: true }
+//       );
+//     }
+//     return new NextResponse(
+//       JSON.stringify(updatedUser, { status: StatusCodes.OK })
+//     );
+//   } catch (error) {
+//     return new NextResponse(
+//       JSON.stringify(
+//         { message: "internal server error" },
+//         { status: StatusCodes.INTERNAL_SERVER_ERROR }
+//       )
+//     );
+//   }
+// };

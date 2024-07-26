@@ -21,7 +21,7 @@ const UserProfile = async () => {
             <span>Welcome!</span>
             <span> {session?.user?.email}</span>
             <Avatar
-              alt={session?.user?.name}
+              alt={session?.user?.fullName}
               src={session?.user?.image}
               className={styles.avatar}
             />
