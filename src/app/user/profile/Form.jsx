@@ -17,7 +17,7 @@ const Form = ({ session }) => {
   useEffect(() => {
     if (session) {
       setFormData({
-        fullName: session.name || "",
+        fullName: session.fullName || "",
         image: session?.image || "",
         address: session?.address || "",
       });

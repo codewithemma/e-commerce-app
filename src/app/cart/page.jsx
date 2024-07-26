@@ -35,10 +35,10 @@ const Cart = () => {
       <>
         {cart?.map((item) => {
           return (
-            <div key={item._id} className={styles.cart_item}>
+            <div key={item.productId} className={styles.cart_item}>
               <div className={styles.product_flex}>
                 <Image src={item.image} alt="item" width={50} height={50} />
-                <p>{item.name}</p>
+                <Link href={`/products/${item.productId}`}>{item.name}</Link>
               </div>
               <p>&#36;{item.price}</p>
               <div className={styles.control}>

@@ -101,3 +101,17 @@
 .gaming_1:hover .gaming {
   background-color: #37be5f;
 }
+
+@media screen and (max-width: 768px) {
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-bottom: 50px;
+  }
+}
+@media screen and (max-width: 470px) {
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+}

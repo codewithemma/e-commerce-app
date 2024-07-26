@@ -16,7 +16,7 @@ export const authOptions = {
       profile(profile) {
         return {
           id: profile.sub,
-          fullName: profile.fullName,
+          fullName: profile.name,
           email: profile.email,
           image: profile.picture,
           role: profile.role ?? "user",
@@ -41,7 +41,7 @@ export const authOptions = {
         }
         return {
           _id: user._id,
-          name: user.fullName,
+          fullName: user.fullName,
           email: user.email,
           image: user.image,
           role: user.role,
@@ -58,6 +58,7 @@ export const authOptions = {
     async jwt({ token, user }) {
       if (user) {
         token.id = user._id;
+        token.fullName = user.fullName;
         token.email = user.email;
         token.role = user.role;
         token.image = user.image;
@@ -68,6 +69,7 @@ export const authOptions = {
     async session({ session, token }) {
       if (session.user) {
         session.user._id = token.id;
+        session.user.fullName = token.fullName;
         session.user.email = token.email;
         session.user.role = token.role;
         session.user.image = token.picture;

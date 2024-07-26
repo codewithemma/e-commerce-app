@@ -21,7 +21,7 @@
   font-weight: 700;
 }
 
-.profile_nav div:nth-of-type(2) span:nth-of-type(1) {
+.profile_nav div:nth-of-type(1) span:nth-of-type(1) {
   font-size: 14px;
   font-weight: 400;
 }
@@ -35,6 +35,7 @@
 .profile_nav div:nth-of-type(2) span:nth-of-type(2):hover {
   transition: 0.3s ease-in;
   background-color: var(--tertiaryColorHover);
+  color: #fff;
 }
 .profile {
   display: flex;
@@ -155,4 +156,57 @@
 .relative_btn button:nth-of-type(2):hover {
   transition: 0.3s ease-in;
   background-color: var(--tertiaryColorHover);
+}
+
+@media screen and (max-width: 470px) {
+  .profile_nav {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-bottom: 30px;
+  }
+
+  .profile_nav div:nth-of-type(1) span:nth-of-type(1) {
+    font-size: 12px;
+    font-weight: 400;
+  }
+
+  .profile_nav div:nth-of-type(2) span:nth-of-type(2) {
+    font-size: 12px;
+    font-weight: 400;
+  }
+
+  .profile {
+    position: relative;
+  }
+
+  .avatar {
+    position: absolute;
+    bottom: 33px;
+    right: 10px;
+  }
+
+  .profile_grid {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  .profile_grid .none {
+    display: none;
+  }
+
+  .form {
+    padding: 10px;
+  }
+
+  .form_grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .mobile {
+    padding-top: 120px;
+    font-size: 15px;
+    font-weight: 700px;
+  }
 }

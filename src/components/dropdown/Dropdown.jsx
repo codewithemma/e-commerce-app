@@ -99,7 +99,10 @@ const Dropdown = () => {
     <div className={styles.dropdown} ref={dropdownRef}>
       <div onClick={toggleDropdown}>
         <span style={{ display: "none" }}>{selectedOption}</span>
-        <CiUser size={"20px"} />
+        <div style={{ marginTop: "7px" }}>
+          {" "}
+          <CiUser size={"20px"} />
+        </div>
       </div>
       {isOpen && (
         <ul className={styles.dropdown_menu}>

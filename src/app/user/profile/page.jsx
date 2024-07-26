@@ -4,7 +4,6 @@ import styles from "./Profile.module.css";
 import Wrapper from "@/components/wrapper/Wrapper";
 import Link from "next/link";
 import Form from "./Form";
-import Image from "next/image";
 import { Avatar } from "@mui/material";
 
 const UserProfile = async () => {
@@ -21,11 +20,15 @@ const UserProfile = async () => {
           <div className={styles.profile}>
             <span>Welcome!</span>
             <span> {session?.user?.email}</span>
-            <Avatar alt={session?.user?.name} src={session?.user?.image} />
+            <Avatar
+              alt={session?.user?.name}
+              src={session?.user?.image}
+              className={styles.avatar}
+            />
           </div>
         </div>
         <div className={styles.profile_grid}>
-          <div>
+          <div className={styles.none}>
             <div className={styles.profile_links}>
               <p>Manage my account</p>
               <ul>
@@ -57,7 +60,9 @@ const UserProfile = async () => {
           </div>
           <>
             <Form session={session.user} />
-            <p>You might need to logout an login again to see changes</p>
+            <p className={styles.mobile}>
+              You might need to logout an login again to see changes
+            </p>
           </>
         </div>
       </div>

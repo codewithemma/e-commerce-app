@@ -6,11 +6,7 @@ import Autoplay from "embla-carousel-autoplay";
 const EmblaCarousel = () => {
   const [emblaRef] = useEmblaCarousel({ loop: false }, [Autoplay()]);
   return (
-    <div
-      style={{ textAlign: "center" }}
-      className={styles.embla}
-      ref={emblaRef}
-    >
+    <div className={styles.embla} ref={emblaRef}>
       <div className={styles.embla__container}>
         <div className={`${styles.embla__slide} ${styles.img_container}`}>
           <Image

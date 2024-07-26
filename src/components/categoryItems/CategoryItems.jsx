@@ -79,7 +79,6 @@ const CategoryItems = ({ productData }) => {
         <>
           <div className={styles.card_grid}>
             {currentData.map((item) => {
-              // console.log("item2", item);
               return (
                 <div key={item._id} className={styles.productCard}>
                   <div className={styles.img_container}>
@@ -117,9 +116,7 @@ const CategoryItems = ({ productData }) => {
                   </div>
                   <div className={styles.pricing}>
                     <p className={styles.productName}>{item.name}</p>
-                    <div className={styles.btn_flex}>
-                      <p className={styles.originalPrice}>&#36;{item.price}</p>
-                    </div>
+                    <p className={styles.originalPrice}>&#36;{item.price}</p>
                   </div>
                 </div>
               );
