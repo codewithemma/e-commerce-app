@@ -83,3 +83,14 @@
 .submit_btn:disabled {
   cursor: not-allowed;
 }
+
+.grid {
+  overflow-y: scroll;
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+}

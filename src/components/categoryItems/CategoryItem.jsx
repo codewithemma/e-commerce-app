@@ -1,5 +1,6 @@
 import { url } from "@/utils/api";
 import CategoryItems from "./CategoryItems";
+import ErrorPage from "../ErrorPage/ErrorPage";
 
 const getData = async () => {
   try {
@@ -7,15 +8,20 @@ const getData = async () => {
       cache: "no-store",
     });
 
-    const data = await res.json();
-    return data;
+    if (!res.ok) {
+      return null;
+    }
+    return res.json();
   } catch (error) {
-    console.error("Error fetching data:", error);
     return null;
   }
 };
 const CategoryItem = async () => {
   const productData = await getData();
+
+  if (productData === null) {
+    return <ErrorPage />;
+  }
 
   return <CategoryItems productData={productData} />;
 };

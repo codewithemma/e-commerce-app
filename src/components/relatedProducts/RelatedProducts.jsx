@@ -17,17 +17,22 @@ const RelatedProducts = () => {
         const res = await fetch(`${url}/api/user/products`, {
           cache: "no-store",
         });
+
         if (!res.ok) {
-          throw new Error("failed");
+          return null;
         }
         const resData = await res.json();
         setData(resData);
       } catch (error) {
-        console.error("something went wrong");
+        return null;
       }
     };
     getData();
   }, []);
+
+  if (data === null) {
+    return <ErrorPage />;
+  }
 
   return (
     <div className={styles.container}>

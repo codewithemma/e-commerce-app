@@ -8,15 +8,11 @@ import { CldImage } from "next-cloudinary";
 import Link from "next/link";
 import { url } from "@/utils/api";
 import { CartContext } from "@/context/CartContext";
-import { toast } from "sonner";
-import { useSession } from "next-auth/react";
 
 const CategoryItems = ({ productData }) => {
   const ItemsPerPage = 4;
 
   const [currentPage, setCurrentPage] = useState(1);
-
-  const { data: session } = useSession();
 
   // const totalItems = productData.length;
   // const totalPages = Math.ceil(totalItems / ItemsPerPage);
@@ -123,7 +119,7 @@ const CategoryItems = ({ productData }) => {
             })}
           </div>
           <div className={styles.btn_container}>
-            <button>View All Products</button>
+            <Link href="/products">View All Products</Link>
           </div>
         </>
       )}

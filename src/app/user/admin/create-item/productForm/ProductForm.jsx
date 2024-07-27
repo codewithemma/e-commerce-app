@@ -245,15 +245,17 @@ const CreateItem = ({ productData }) => {
             {pending ? <Loader /> : "submit"}
           </button>
         </div>
-        <DataGrid
-          rows={rows}
-          columns={columns}
-          pageSize={pageSize}
-          onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-          rowsPerPageOptions={[5, 10, 25]}
-          pagination
-          disableRowSelectionOnClick
-        />
+        <div className={styles.grid}>
+          <DataGrid
+            rows={rows}
+            columns={columns}
+            pageSize={pageSize}
+            onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+            rowsPerPageOptions={[5, 10, 25]}
+            pagination
+            disableRowSelectionOnClick
+          />
+        </div>
       </div>
     </Wrapper>
   );

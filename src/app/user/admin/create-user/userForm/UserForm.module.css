@@ -70,3 +70,14 @@
   transition: 0.3s ease-in;
   background-color: var(--tertiaryColorHover);
 }
+
+.grid {
+  overflow-y: scroll;
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+}

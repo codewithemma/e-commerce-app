@@ -25,7 +25,7 @@ const Cart = () => {
         <Link href="/">Home</Link> {">"}
         <Link href="/cart"> Cart</Link>
       </div>
-      <div className={styles.cart_item}>
+      <div className={`${styles.cart_item} ${styles.none}`}>
         <p>Product</p>
         <p>Price</p>
         <p>Quantity</p>
