@@ -43,7 +43,7 @@ const ProductDescription = ({ productData }) => {
       <div className={styles.desc_nav}>
         <Link href="/">Home</Link> {">"} <Link href="/products">Products</Link>{" "}
         {">"}
-        <Link href="/cart"> {productData.name}</Link>
+        <Link href={`${productData._id}`}> {productData.name}</Link>
       </div>
       <div className={styles.product_main}>
         <div>

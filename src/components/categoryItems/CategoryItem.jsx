@@ -1,6 +1,6 @@
 import { url } from "@/utils/api";
 import CategoryItems from "./CategoryItems";
-import ErrorPage from "../ErrorPage/ErrorPage";
+import ErrorPage from "../errorPage/ErrorPage";
 
 const getData = async () => {
   try {

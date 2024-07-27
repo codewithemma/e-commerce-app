@@ -17,7 +17,6 @@
 
 .form {
   width: 100%;
-  /* margin-right: 100px; */
 }
 .content p:nth-of-type(1) {
   font-size: 36px;
@@ -154,35 +153,14 @@
   font-weight: 200;
   cursor: pointer;
 }
-@media screen and (max-width: 1280px) {
-  .form h2 {
-    font-size: 27px;
-    margin-bottom: 0;
-  }
-  .form p {
-    font-size: 13px;
-    font-weight: 400;
-    margin-bottom: 10px;
-  }
-}
-@media screen and (max-width: 1024px) {
-  .form h2 {
-    font-size: 21px;
-    margin-bottom: 0;
-  }
-  /* .google_button {
-    width: 100%;
-    padding: 5px 15px;
-    font-size: 10px;
-  } */
-  .end {
-    display: flex;
-    flex-direction: column;
-  }
-}
+
 @media screen and (max-width: 768px) {
-  .hero_child {
-    height: 500px;
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  .img_container {
+    display: none;
   }
   .form h2 {
     font-size: 18px;
@@ -198,17 +176,10 @@
     text-align: center;
   }
 }
-@media screen and (max-width: 640px) {
-  .button_group .link:nth-of-type(1) {
-    font-size: 10px;
-  }
-  .button_group .link:nth-of-type(2) {
-    font-size: 10px;
-  }
-  .hero {
-    width: 100vw;
-  }
-  .hero_child {
-    display: none;
+@media screen and (max-width: 470px) {
+  .content p:nth-of-type(1) {
+    font-size: 25px;
+    font-weight: 500;
+    margin-bottom: 5px;
   }
 }

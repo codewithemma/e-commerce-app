@@ -14,6 +14,10 @@ const ProductContainer = ({ productData }) => {
   const { handleAddToCart } = useContext(CartContext);
   return (
     <Wrapper>
+      <div className={styles.cart_nav}>
+        <Link href="/">Home</Link> {">"}
+        <Link href="/products"> Products</Link>
+      </div>
       <div className={styles.card_grid}>
         {productData.map((item) => {
           return (

@@ -9,7 +9,7 @@ const About = () => {
     <>
       <div className={styles.cart_nav}>
         <Link href="/">Home</Link> {">"}
-        <Link href="/cart"> About</Link>
+        <Link href="/about"> About</Link>
       </div>
       <div className={styles.header_container}>
         <div>
