@@ -2,7 +2,7 @@
 import Image from "next/image";
 import styles from "./Login.module.css";
 import { useState } from "react";
-import { signIn, useSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { toast } from "sonner";
 import Loader from "@/components/loader/Loader";

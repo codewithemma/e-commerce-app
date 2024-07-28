@@ -9,53 +9,42 @@ import Wrapper from "@/components/wrapper/Wrapper";
 import { url } from "@/utils/api";
 import { useContext, useEffect, useState } from "react";
 import { CartContext } from "@/context/CartContext";
-// import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import ErrorPage from "@/components/errorPage/ErrorPage";
 
 const ProductContainer = () => {
   const { handleAddToCart } = useContext(CartContext);
   const [productData, setProductData] = useState([]);
-  // const router = useRouter();
-  // const { category } = router.query;
+  const searchParams = useSearchParams();
 
   useEffect(() => {
     const getData = async () => {
-      // const query = category ? `?category=${category}` : "";
+      const category = searchParams.get("category");
+      const query = category ? `category=${category}` : "";
+
       try {
-        const res = await fetch(`/api/user/products`, {
+        const res = await fetch(`/api/user/products?${query}`, {
           cache: "no-store",
         });
         const resData = await res.json();
-        console.log(resData);
 
         if (!res.ok) {
-          console.log(resData.message);
+          return null;
+        } else {
+          setProductData(resData);
         }
-        setProductData(resData);
       } catch (error) {
-        return null;
+        console.error("Failed to fetch products:", error);
       }
     };
-    getData();
-  }, []);
 
-  // useEffect(() => {
-  //   async function getProducts() {
-  //     try {
-  //       const res = await fetch(
-  //         `/api/user/products${category ? `?category=${category}` : ""}`
-  //       );
-  //       if (!res.ok) {
-  //         return null;
-  //       }
-  //       const data = await res.json();
-  //       console.log(data);
-  //       setCategory(data);
-  //     } catch (error) {
-  //       return null;
-  //     }
-  //   }
-  //   getProducts();
-  // }, [category]);
+    getData();
+  }, [searchParams]);
+
+  if (productData === null) {
+    return <ErrorPage />;
+  }
+
   return (
     <Wrapper>
       <div className={styles.cart_nav}>
