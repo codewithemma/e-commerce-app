@@ -1,0 +1,12 @@
+.container {
+  margin-top: 20px;
+  margin-bottom: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+}
+.link {
+  color: rgb(0, 94, 255);
+  text-decoration: underline;
+}

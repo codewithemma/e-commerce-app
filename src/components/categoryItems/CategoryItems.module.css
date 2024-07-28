@@ -1,0 +1,186 @@
+.container {
+  margin-top: 50px;
+  margin-bottom: 70px;
+}
+.upper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 50px;
+}
+.upper1 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+.box {
+  width: 20px;
+  height: 40px;
+  border-radius: 3px;
+  background-color: var(--tertiaryColor);
+}
+.p {
+  font-weight: 500;
+  color: var(--tertiaryColor);
+}
+.pagination_container button {
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f5f5f5;
+  cursor: pointer;
+  border: none;
+}
+
+.pagination_container button:hover {
+  background-color: var(--tertiaryColorHover);
+}
+
+.pagination_container button:disabled {
+  background: none;
+  cursor: not-allowed;
+}
+
+.card_grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 20px;
+}
+.productCard {
+  width: 100%;
+  border-radius: 8px;
+  background-color: #fffafaba;
+  margin-bottom: 40px;
+}
+.img_container {
+  position: relative;
+  background-color: #f5f5f5;
+  width: 100%;
+  height: 180px;
+}
+
+.addToCart {
+  position: absolute;
+  bottom: 0;
+  background-color: black;
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+  border: none;
+  width: 100%;
+  font-size: 16px;
+  font-weight: 400;
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  justify-content: center;
+}
+.productCard:hover .addToCart {
+  opacity: 1;
+  transition: 0.5s all ease;
+}
+
+.productName {
+  font-size: 16px;
+  font-weight: 500;
+  margin-top: 20px;
+}
+
+.discountBadge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: #ff4d4f;
+  color: white;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.actionButtonContainer {
+  width: 25px;
+  height: 25px;
+  border-radius: 100%;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.actionButtons {
+  position: absolute;
+  right: 0;
+  top: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 5px 10px;
+  gap: 10px;
+}
+
+.actionButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.pricing {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 5px;
+}
+
+.originalPrice {
+  color: #ff4d4f;
+  font-size: 16px;
+  font-weight: 400;
+}
+.btn_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.btn_container a {
+  background-color: var(--tertiaryColor);
+  color: #fff;
+  border-radius: 4px;
+  border: none;
+  padding: 15px 25px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn_container button:hover {
+  transition: 0.3s ease-in;
+  background-color: var(--tertiaryColorHover);
+}
+
+.btn_flex {
+  position: absolute;
+  margin-top: 8px;
+  display: flex;
+  gap: 100px;
+  align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+  .card_grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media screen and (max-width: 470px) {
+  .card_grid {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+}
