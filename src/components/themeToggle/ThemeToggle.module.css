@@ -1,7 +1,0 @@
-.switch {
-  cursor: pointer;
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-start;
-  border-bottom: 1px solid black;
-}
