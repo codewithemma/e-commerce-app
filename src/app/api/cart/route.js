@@ -4,7 +4,7 @@ import { StatusCodes } from "http-status-codes";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 
-const GET = async (req) => {
+export const GET = async (req) => {
   const { searchParams } = new URL(req.url);
   const userId = searchParams.get("userId");
 

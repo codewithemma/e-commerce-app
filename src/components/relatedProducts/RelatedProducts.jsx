@@ -7,6 +7,7 @@ import { FaCartPlus } from "react-icons/fa";
 import Link from "next/link";
 import { url } from "@/utils/api";
 import { useEffect, useState } from "react";
+import ErrorPage from "../errorPage/ErrorPage";
 
 const RelatedProducts = () => {
   const [data, setData] = useState([]);
