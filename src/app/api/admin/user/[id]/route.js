@@ -1,9 +1,23 @@
 import User from "@/models/User";
+import { authOptions } from "@/utils/auth";
 import { connectDB } from "@/utils/connect";
 import { StatusCodes } from "http-status-codes";
+import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 
 export const PUT = async (req, { params }) => {
+  //SESSION VALIDATION
+  const session = await getServerSession(authOptions);
+  if (
+    !(session?.user?.role === "superadmin" || session?.user?.role === "admin")
+  ) {
+    return new NextResponse(
+      JSON.stringify(
+        { message: "You are forbidden to make such request" },
+        { status: StatusCodes.FORBIDDEN }
+      )
+    );
+  }
   const { id } = params;
   const { fullName, email, role } = await req.json();
   await connectDB();

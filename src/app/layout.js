@@ -6,9 +6,9 @@ import { ThemeContextProvider } from "@/context/ThemeContext";
 import ThemeProvider from "@/providers/ThemeProvider";
 import AuthProvider from "@/providers/AuthProvider";
 import { Toaster } from "sonner";
-
 import NextTopLoader from "nextjs-toploader";
 import { CartContextProvider } from "@/providers/CartProvider";
+import { SearchContextProvider } from "@/providers/SearchProvider";
 const poppins = Poppins({
   subsets: ["latin"],
   weight: ["200", "400", "500", "700"],
@@ -77,14 +77,16 @@ export default function RootLayout({ children }) {
         <AuthProvider>
           <ThemeContextProvider>
             <ThemeProvider>
-              <CartContextProvider>
-                <div className="container">
-                  <Navbar />
-                  {children}
-                  <Toaster richColors position="bottom-center" />
-                  <Footer />
-                </div>
-              </CartContextProvider>
+              <SearchContextProvider>
+                <CartContextProvider>
+                  <div className="container">
+                    <Navbar />
+                    {children}
+                    <Toaster richColors position="bottom-center" />
+                    <Footer />
+                  </div>
+                </CartContextProvider>
+              </SearchContextProvider>
             </ThemeProvider>
           </ThemeContextProvider>
         </AuthProvider>

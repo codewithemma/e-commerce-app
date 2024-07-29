@@ -26,10 +26,10 @@ const Footer = () => {
             </Link>
           </div>
           <div>
-            <Link className={styles.footer_link} href="#">
+            <Link className={styles.footer_link} href="/user/profile">
               My Account
             </Link>
-            <Link className={styles.footer_link} href="/register">
+            <Link className={styles.footer_link} href="/auth/register">
               Login / Register
             </Link>
             <Link className={styles.footer_link} href="/cart">
@@ -49,7 +49,7 @@ const Footer = () => {
             <Link className={styles.footer_link} href="/">
               FAQ
             </Link>
-            <Link className={styles.footer_link} href="/">
+            <Link className={styles.footer_link} href="/contact">
               Contact
             </Link>
           </div>

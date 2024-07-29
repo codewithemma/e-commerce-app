@@ -8,11 +8,17 @@ export const GET = async (req) => {
 
   const category = searchParams.get("category");
 
+  const search = searchParams.get("search");
+
   try {
     await connectDB();
     let products;
+
     if (category) {
       products = await Product.find({ category });
+    } else if (search) {
+      const regex = new RegExp(search, "i");
+      products = await Product.find({ name: regex });
     } else {
       products = await Product.find().sort({
         _id: -1,

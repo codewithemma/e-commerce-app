@@ -1,7 +1,9 @@
 import Product from "@/models/Product";
+import { authOptions } from "@/utils/auth";
 import { cloudinary } from "@/utils/cloudinary";
 import { connectDB } from "@/utils/connect";
 import { StatusCodes } from "http-status-codes";
+import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 const handleDelete = async (id) => {
   await connectDB();
@@ -23,6 +25,18 @@ const handleDelete = async (id) => {
 };
 
 export const PUT = async (req, { params }) => {
+  //SESSION VALIDATION
+  const session = await getServerSession(authOptions);
+  if (
+    !(session?.user?.role === "superadmin" || session?.user?.role === "admin")
+  ) {
+    return new NextResponse(
+      JSON.stringify(
+        { message: "You are forbidden to make such request" },
+        { status: StatusCodes.FORBIDDEN }
+      )
+    );
+  }
   const { id } = params;
   await connectDB();
   try {

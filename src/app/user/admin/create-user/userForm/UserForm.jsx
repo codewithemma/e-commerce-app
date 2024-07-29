@@ -172,6 +172,7 @@ const UserForm = ({ userInfo }) => {
             name="role"
             id="role"
             className={styles.select}
+            value={formData.role}
             onChange={handleChange}
             disabled={pending}
           >

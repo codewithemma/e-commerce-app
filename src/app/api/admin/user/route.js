@@ -17,8 +17,18 @@ const validateEmail = (email) => {
 export async function GET(req, res) {
   try {
     //SESSION VALIDATION
+    //SESSION VALIDATION
     const session = await getServerSession(authOptions);
-    console.log(session);
+    if (
+      !(session?.user?.role === "superadmin" || session?.user?.role === "admin")
+    ) {
+      return new NextResponse(
+        JSON.stringify(
+          { message: "You are forbidden to make such request" },
+          { status: StatusCodes.FORBIDDEN }
+        )
+      );
+    }
 
     await connectDB();
     const users = await User.find({});

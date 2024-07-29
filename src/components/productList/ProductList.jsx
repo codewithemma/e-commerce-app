@@ -6,18 +6,22 @@ const ProductList = () => {
     {
       id: 1,
       name: "Electronics",
+      category: "electronics",
     },
     {
       id: 2,
       name: "Fashion",
+      category: "fashion",
     },
     {
       id: 3,
       name: "Entertainment",
+      category: "entertainment",
     },
     {
       id: 4,
       name: "Gaming",
+      category: "gaming",
     },
   ];
   return (
@@ -27,7 +31,10 @@ const ProductList = () => {
         {product?.map((item) => {
           return (
             <ul className={styles.container_child} key={item.id}>
-              <Link href="/slug" className={styles.product}>
+              <Link
+                href={`/products?category=${item.category}`}
+                className={styles.product}
+              >
                 {item.name}
               </Link>
             </ul>

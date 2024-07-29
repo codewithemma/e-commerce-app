@@ -11,6 +11,7 @@ import ThemeToggle from "../themeToggle/ThemeToggle";
 import Badge from "@mui/material/Badge";
 import { CartContext } from "@/context/CartContext";
 import { CiShoppingCart } from "react-icons/ci";
+import SearchContainer from "../searchContainer/SearchContainer";
 const Navbar = () => {
   const { status } = useSession();
 
@@ -63,23 +64,7 @@ const Navbar = () => {
             )}
           </ul>
           <div className={styles.none}>
-            <div className={styles.input_group}>
-              <input
-                className={styles.input}
-                type="text"
-                placeholder="what are you looking for....?"
-              />
-              <span>
-                <HiMagnifyingGlass
-                  size={"18px"}
-                  style={{
-                    position: "absolute",
-                    top: 12,
-                    right: 10,
-                  }}
-                />
-              </span>
-            </div>
+            <SearchContainer />
           </div>
           <div className={styles.auth_icons}>
             <ThemeToggle />

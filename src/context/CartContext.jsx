@@ -22,12 +22,8 @@ export const CartProvider = ({ children }) => {
   }, []);
 
   const addItemToCart = async (item) => {
-    console.log("item", item);
-
     setCart((prevCart) => {
       const isItemExist = prevCart.find((i) => i.productId === item.productId);
-      console.log("isExist", isItemExist);
-
       let newCartItems;
       if (isItemExist) {
         if (isItemExist.quantity + item.quantity > item.stock) {
@@ -47,15 +43,11 @@ export const CartProvider = ({ children }) => {
 
         newCartItems = [...prevCart, item];
       }
-
-      console.log("Updated CartItems", newCartItems);
-
       // Save the new cart to localStorage
       localStorage.setItem("cart", JSON.stringify(newCartItems));
       toast.success("Product successfully added to cart", {
         action: <Link href="/cart">View Cart</Link>,
       });
-
       return newCartItems;
     });
   };

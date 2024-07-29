@@ -90,7 +90,7 @@ const Cart = () => {
             <p>&#36;{totalPrice.toFixed(2)}</p>
           </div>
           {status === "unauthenticated" ? (
-            <Link href="/auth/login" className={styles.login}>
+            <Link href="/auth/register" className={styles.login}>
               Login to proceed
             </Link>
           ) : (
