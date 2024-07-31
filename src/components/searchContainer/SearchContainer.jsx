@@ -1,15 +1,19 @@
 "use client";
 import { HiMagnifyingGlass } from "react-icons/hi2";
 import styles from "./SearchContainer.module.css";
+import { useState } from "react";
 
-const SearchContainer = ({ onChange }) => {
+const SearchContainer = ({ onChange, onKeyDown }) => {
+  const [searchQuery, setSearchQuery] = useState("");
+
   return (
     <div className={styles.input_group}>
       <input
         className={styles.input}
         type="text"
-        placeholder="what are you looking for....?"
         onChange={onChange}
+        placeholder="Search products..."
+        onKeyDown={onKeyDown}
       />
       <span>
         <HiMagnifyingGlass

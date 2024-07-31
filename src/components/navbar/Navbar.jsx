@@ -4,7 +4,6 @@ import styles from "./Navbar.module.css";
 import Link from "next/link";
 import { useContext, useState } from "react";
 import { signOut, useSession } from "next-auth/react";
-import { HiMagnifyingGlass } from "react-icons/hi2";
 import AuthLinks from "../authLinks/AuthLinks";
 import Image from "next/image";
 import ThemeToggle from "../themeToggle/ThemeToggle";
@@ -12,12 +11,15 @@ import Badge from "@mui/material/Badge";
 import { CartContext } from "@/context/CartContext";
 import { CiShoppingCart } from "react-icons/ci";
 import SearchContainer from "../searchContainer/SearchContainer";
+import { SearchContext } from "@/context/SearchContext";
 const Navbar = () => {
   const { status } = useSession();
 
   const [open, setOpen] = useState(false);
 
   const { cart } = useContext(CartContext);
+
+  const { handleChange, handleSearch } = useContext(SearchContext);
 
   return (
     <>
@@ -64,7 +66,7 @@ const Navbar = () => {
             )}
           </ul>
           <div className={styles.none}>
-            <SearchContainer />
+            <SearchContainer onChange={handleChange} onKeyDown={handleSearch} />
           </div>
           <div className={styles.auth_icons}>
             <ThemeToggle />

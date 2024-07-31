@@ -20,9 +20,7 @@ export const GET = async (req) => {
       const regex = new RegExp(search, "i");
       products = await Product.find({ name: regex });
     } else {
-      products = await Product.find().sort({
-        _id: -1,
-      });
+      products = await Product.find().sort("-createdAt");
     }
     return new NextResponse(
       JSON.stringify(products, { status: StatusCodes.OK })

@@ -23,10 +23,14 @@ const ProductContainer = () => {
   useEffect(() => {
     const getData = async () => {
       const category = searchParams.get("category");
-      const query = category ? `category=${category}` : "";
+      const search = searchParams.get("search");
+
+      const query = [];
+      if (category) query.push(`category=${category}`);
+      if (search) query.push(`search=${search}`);
 
       try {
-        const res = await fetch(`/api/user/products?${query}`, {
+        const res = await fetch(`/api/user/products?${query.join("&")}`, {
           cache: "no-store",
         });
         const resData = await res.json();
