@@ -14,12 +14,14 @@ export const authOptions = {
       clientId: process.env.GOOGLE_ID,
       clientSecret: process.env.GOOGLE_SECRET,
       profile(profile) {
+        console.log(profile);
         return {
           id: profile.sub,
           fullName: profile.name,
           email: profile.email,
           image: profile.picture,
-          role: profile.role ?? "user",
+          role: "user",
+          address: profile.address,
         };
       },
     }),
@@ -80,6 +82,7 @@ export const authOptions = {
   },
   pages: {
     signIn: "/auth/register",
+    newUser: "/",
   },
   debug: true,
 };

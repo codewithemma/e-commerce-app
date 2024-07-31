@@ -29,6 +29,8 @@ export const PUT = async (req, { params }) => {
     await connectDB();
     const { id } = params;
     const { fullName, address, image } = await req.json();
+    console.log(address);
+
     if (image && image.trim() !== "") {
       const handleRes = await handleDelete(id);
       const uploadResponse = await cloudinary.uploader.upload(image, {

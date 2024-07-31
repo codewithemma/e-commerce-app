@@ -173,7 +173,7 @@ const Login = () => {
                 {pending ? <Loader /> : "Log in"}
               </button>
               <button
-                onClick={() => signIn("google")}
+                onClick={() => signIn("google", { callbackUrl })}
                 className={`${styles.link} ${styles.google_flex} `}
                 disabled={pending}
               >

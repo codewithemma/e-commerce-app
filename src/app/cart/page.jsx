@@ -17,7 +17,8 @@ const Cart = () => {
     totalPrice,
   } = useContext(CartContext);
 
-  const { status } = useSession();
+  const { status, data: session } = useSession();
+  console.log(session);
 
   return (
     <Wrapper>

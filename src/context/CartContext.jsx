@@ -6,7 +6,15 @@ import { toast } from "sonner";
 export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(() => {
+    const savedCart = localStorage.getItem("cart");
+    try {
+      return savedCart ? JSON.parse(savedCart) : [];
+    } catch (e) {
+      console.error("Error parsing saved cart data", e);
+      return [];
+    }
+  });
   const [totalPrice, setTotalPrice] = useState(0);
 
   const loadCartFromLocalStorage = () => {
@@ -23,6 +31,9 @@ export const CartProvider = ({ children }) => {
 
   const addItemToCart = async (item) => {
     setCart((prevCart) => {
+      if (!Array.isArray(prevCart)) {
+        prevCart = [];
+      }
       const isItemExist = prevCart.find((i) => i.productId === item.productId);
       let newCartItems;
       if (isItemExist) {
