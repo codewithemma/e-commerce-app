@@ -46,7 +46,6 @@
 }
 
 .card_grid {
-  position: relative;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 20px;
@@ -164,11 +163,15 @@
 }
 
 .btn_flex {
-  position: absolute;
-  bottom: 0;
   margin-top: 8px;
   display: flex;
-  /* justify-content: space-between; */
   gap: 100px;
   align-items: center;
+}
+@media screen and (max-width: 470px) {
+  .card_grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
 }
