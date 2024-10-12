@@ -16,6 +16,7 @@ const Login = () => {
     email: "",
     password: "",
   });
+
   let callbackUrl = searchParams.get("callbackUrl") || "/";
 
   const handleChange = (event) => {

@@ -3,7 +3,8 @@ import { connectDB } from "@/utils/connect";
 import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 import { StatusCodes } from "http-status-codes";
-
+import crypto from "crypto";
+import nodemailer from "nodemailer";
 // CHECK FOR VALID EMAIL
 const validateEmail = (email) => {
   const re =
