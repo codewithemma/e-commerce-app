@@ -1,32 +1,54 @@
 # Exclusive E-commerce App
 
-Welcome to the Exclusive E-commerce App! This project is a comprehensive e-commerce platform built with Next.js, React, and MongoDB. It offers a seamless shopping experience with a wide range of products across various categories.
+Welcome to the Exclusive E-commerce App repository! This project is a comprehensive e-commerce platform built with Next.js, React, and MongoDB. It offers a wide range of features including user authentication, product management, cart functionality, and more.
 
 ## Table of Contents
 
 - [Features](#features)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Folder Structure](#folder-structure)
+- [Technologies Used](#technologies-used)
+- [Getting Started](#getting-started)
+- [Project Structure](#project-structure)
+- [Environment Variables](#environment-variables)
+- [Scripts](#scripts)
 - [Contributing](#contributing)
 - [License](#license)
 
 ## Features
 
-- User authentication with NextAuth.js
-- Product listing and detailed product pages
-- Shopping cart functionality
-- Admin panel for managing products and users
-- Responsive design
-- Integration with Cloudinary for image uploads
-- Toast notifications for user feedback
+- User Authentication (Google and Credentials)
+- Product Management (CRUD operations)
+- Cart Management
+- Responsive Design
+- Dark Mode Support
+- Admin Dashboard
+- User Profile Management
+- Order Management
 
-## Installation
+## Technologies Used
+
+- Next.js
+- React
+- MongoDB
+- Mongoose
+- NextAuth.js
+- Cloudinary
+- Tailwind CSS
+- Sonner (for notifications)
+- FontAwesome (for icons)
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (v14 or higher)
+- MongoDB
+
+### Installation
 
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/e-commerce-app.git
+   git clone https://github.com/your-username/e-commerce-app.git
    cd e-commerce-app
    ```
 
@@ -37,11 +59,10 @@ Welcome to the Exclusive E-commerce App! This project is a comprehensive e-comme
    ```
 
 3. Set up environment variables:
-
-   Create a `.env` file in the root directory and add the following variables:
+   Create a `.env.local` file in the root directory and add the following variables:
 
    ```env
-   MONGODB_URI=your_mongodb_connection_string
+   MONGO_URI=your_mongo_uri
    NEXTAUTH_SECRET=your_nextauth_secret
    GOOGLE_ID=your_google_client_id
    GOOGLE_SECRET=your_google_client_secret
@@ -54,52 +75,91 @@ Welcome to the Exclusive E-commerce App! This project is a comprehensive e-comme
    npm run dev
    ```
 
-   Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+5. Open your browser and navigate to `http://localhost:3000`.
 
-## Usage
+## Project Structure
 
-- Register or log in to your account.
-- Browse products by category or search for specific items.
-- Add products to your cart and proceed to checkout.
-- Admin users can manage products and users through the admin panel.
-
-## Folder Structure
-
+```plaintext
+.
+├── src
+│   ├── app
+│   │   ├── api
+│   │   ├── auth
+│   │   ├── user
+│   │   ├── products
+│   │   ├── contact
+│   │   ├── about
+│   │   ├── layout.js
+│   │   ├── page.js
+│   │   ├── globals.css
+│   ├── components
+│   │   ├── navbar
+│   │   ├── footer
+│   │   ├── relatedProducts
+│   │   ├── category
+│   │   ├── productList
+│   │   ├── loader
+│   │   ├── border
+│   ├── context
+│   │   ├── ThemeContext.jsx
+│   │   ├── CartContext.jsx
+│   ├── models
+│   │   ├── User.js
+│   │   ├── Product.js
+│   │   ├── Cart.js
+│   ├── providers
+│   │   ├── ThemeProvider.jsx
+│   │   ├── CartProvider.jsx
+│   ├── utils
+│   │   ├── auth.js
+│   │   ├── connect.js
+│   │   ├── db.js
+│   │   ├── api.js
+│   ├── pages
+│   │   ├── index.js
+│   │   ├── _app.js
+│   │   ├── _document.js
+│   ├── public
+│   │   ├── assets
+│   ├── styles
+│   │   ├── globals.css
+│   │   ├── Home.module.css
+│   ├── .env.local.example
+│   ├── .eslintrc.json
+│   ├── jsconfig.json
+│   ├── next.config.mjs
+│   ├── package.json
+│   ├── README.md
 ```
-/src
-  ├── /app
-  │   ├── /api
-  │   ├── /auth
-  │   ├── /user
-  │   ├── /products
-  │   ├── /about
-  │   ├── /contact
-  │   ├── /layout.js
-  │   ├── /page.js
-  │   ├── /globals.css
-  ├── /components
-  │   ├── /adminLinks
-  │   ├── /border
-  │   ├── /category
-  │   ├── /categoryItems
-  │   ├── /footer
-  │   ├── /loader
-  │   ├── /navbar
-  │   ├── /productList
-  │   ├── /relatedProducts
-  │   ├── /searchContainer
-  │   ├── /servicesComponents
-  │   ├── /wrapper
-  ├── /context
-  ├── /models
-  ├── /providers
-  ├── /utils
-```
+
+## Environment Variables
+
+The following environment variables need to be set in your `.env.local` file:
+
+- `MONGO_URI`: MongoDB connection string
+- `NEXTAUTH_SECRET`: Secret key for NextAuth.js
+- `GOOGLE_ID`: Google OAuth Client ID
+- `GOOGLE_SECRET`: Google OAuth Client Secret
+- `NEXT_PUBLIC_CLOUDINARY_PRESET_NAME`: Cloudinary preset name for image uploads
+
+## Scripts
+
+- `npm run dev`: Runs the development server.
+- `npm run build`: Builds the application for production.
+- `npm run start`: Starts the production server.
+- `npm run lint`: Runs ESLint to check for linting errors.
 
 ## Contributing
 
-Contributions are welcome! Please fork the repository and create a pull request with your changes. Ensure your code follows the project's coding standards and includes appropriate tests.
+Contributions are welcome! Please follow these steps to contribute:
+
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature-branch`).
+3. Make your changes.
+4. Commit your changes (`git commit -m 'Add some feature'`).
+5. Push to the branch (`git push origin feature-branch`).
+6. Open a pull request.
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
